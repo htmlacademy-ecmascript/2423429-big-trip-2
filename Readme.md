@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
 * Студент: [Кирилл Астрамович](https://up.htmlacademy.ru/ecmascript-individual/2/user/2423429).
-* Наставник: `Неизвестно`.
+* Наставник: [Глеб Клецков](https://htmlacademy.ru/profile/id1487865).
 
 ---
 
