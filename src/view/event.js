@@ -1,7 +1,7 @@
 import { createElement } from '../render.js';
 
 function createNewEvent(){
-    return `
+  return `
     <section class="trip-events">
           <h2 class="visually-hidden"><ya-tr-span data-index="10-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Trip events" data-translation="События поездки" data-ch="0" data-type="trSpan" style="visibility: initial !important;">События поездки</ya-tr-span></h2>
 
@@ -40,22 +40,22 @@ function createNewEvent(){
               </div>
             </li>
           </ul>
-        </section>`
+        </section>`;
 }
 
 export default class PointView {
-    getTemplate(){
-        return createNewEvent();
-    }
+  getTemplate(){
+    return createNewEvent();
+  }
 
-    getElement(){
-        if (!this.element){
-            this.element = createElement(this.getTemplate());
-        }
-        return this.element;
+  getElement(){
+    if (!this.element){
+      this.element = createElement(this.getTemplate());
     }
+    return this.element;
+  }
 
-    removeElement(){
-        this.element = null;
-    }
+  removeElement(){
+    this.element = null;
+  }
 }

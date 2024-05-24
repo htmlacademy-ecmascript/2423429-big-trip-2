@@ -10,9 +10,9 @@ const siteSortElement = document.querySelector('.trip-events');
 render(new SortView(), siteSortElement);
 
 const siteEventEdit = siteSortElement;
-for(let i=0; i < 3; i++){
-    render(new PointView(), siteEventEdit);
-};
+for(let i = 0; i < 3; i++){
+  render(new PointView(), siteEventEdit);
+}
 
 // const sitePointElement = document.querySelector('.trip-events__list');
 // render(new PointView(), sitePointElement);
