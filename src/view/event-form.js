@@ -165,7 +165,7 @@ export default class FormView {
 
   getElement(){
     if (!this.element){
-      this.element = createElement();
+      this.element = createElement(this.getTemplate());
     }
     return this.element;
   }
