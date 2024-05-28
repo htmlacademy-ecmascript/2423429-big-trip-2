@@ -1,8 +1,7 @@
-import FilterView from './view/filter.js';
-import SortView from './view/sort.js';
-import PointView from './view/event.js';
-import FormView from './view/event-form.js';
+
 import { render } from './render.js';
+
+import boardPresenter from './presenter/board-presenter.js';
 
 const siteFilterElement = document.querySelector('.trip-controls__filters');
 render(new FilterView(), siteFilterElement);
@@ -17,3 +16,5 @@ const siteEventEdit = siteSortElement;
 for(let i = 0; i < 3; i++){
   render(new PointView(), siteEventEdit);
 }
+
+boardPresenter.init();
