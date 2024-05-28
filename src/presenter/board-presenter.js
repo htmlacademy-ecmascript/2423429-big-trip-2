@@ -1,7 +1,7 @@
-import FilterView from './view/filter.js';
-import SortView from './view/sort.js';
-import PointView from './view/event.js';
-import FormView from './view/event-form.js';
+import FilterView from '../view/filter.js';
+import SortView from '../view/sort.js';
+import PointView from '../view//event.js';
+import FormView from '../view//event-form.js';
 
 import {render} from '../render.js';
 
