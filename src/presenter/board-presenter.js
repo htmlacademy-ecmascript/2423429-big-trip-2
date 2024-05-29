@@ -2,33 +2,21 @@ import FilterView from '../view/filter.js';
 import SortView from '../view/sort.js';
 import PointView from '../view//event.js';
 import FormView from '../view//event-form.js';
-
 import {render} from '../render.js';
 
-export default class boardPresenter {
-  boardComponent = new FilterView();
+export default class BoardPresenter {
+  filterComponent = new FilterView();
   sortComponent = new SortView();
-  pointComponent = new PointView();
   formComponent = new FormView();
+  pointComponent = new PointView();
 
-  constructor({boardContainer}){
-    this.boardComponent = boardContainer;
+  constructor({container}){
+    this.container = container;
   }
 
   init() {
-    render(this.boardComponent, this.boardContainer);
-    render(new FilterView(), this.boardComponent.getElement());
-
-    render(this.sortComponent, this.boardComponent.getElement());
-    render(new SortView(), this.boardComponent.getElement());
-
-    render(this.formComponent, this.boardComponent.getElement());
-    render(new FormView(), this.boardComponent.getElement());
-
-    for (let i = 0; i < 3; i++) {
-      render(this.pointComponent, this.boardComponent.getElement());
-      render(new PointView(), this.boardComponent.getElement());
-    }
+    render(this.filterComponent, this.container);
+    render(this.sortComponent, this.sortComponent);
 
   }
 
