@@ -17,11 +17,10 @@ export default class BoardPresenter {
   init() {
     //render(this.filterComponent, this.container);
     render(this.sortComponent, this.container);
-    for (let i = 0 ; i < 3; i++){
-      render(this.pointComponent, this.container);
-
-    }
     render(this.formComponent, this.container);
+    for (let i = 0 ; i < 3; i++){
+      render(new PointView(), this.container);
+    }
 
   }
 
