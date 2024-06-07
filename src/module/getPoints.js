@@ -8,7 +8,7 @@ const generatePoint = () => {
     base_price: 1100,
     date_from: '2019:03-18T10:30',
     date_to: '2019-03-18T11:00',
-    destination: getRandomArrayElement(CITIES),
+    destination: getRandomArrayElement(CITIES.name),
     is_favorite: false,
     offers: checkOffers() //сделать функцию на проверку выбранных дополниетльных опций
   };
