@@ -45,16 +45,38 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Ship'
+    type: 'Ship',
+    offers: [
+      {
+        id: 'dc6b51f7-0961-4aef-aa91-1e13708d5386', //присвоить ID
+        title: 'Upgrade to a business class',
+        price: 120
+      }
+    ]
   },
   {
-    type: 'Drive'
+    type: 'Drive',
+    offers: [
+      {
+        id: '01960644-7779-4c1a-810c-f493f06d92a2',
+        title: 'Uprgade to a business class',
+        price: 120
+      }
+    ]
   },
   {
-    type: 'Flight'
+    type: 'Flight',
+    offers: [
+      {
+        id: '34cb2f41-8ecf-4f32-8190-169aa9cef41b',
+        title: 'Uprgade to a business class',
+        price: 120
+      }
+    ]
   },
   {
-    type: 'Check-in'
+    type: 'Check-in',
+
   },
   {
     type: 'Sightseeing'

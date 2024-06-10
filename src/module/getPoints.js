@@ -1,5 +1,5 @@
-import { getRandomArrayElement, checkOffers } from '../utils.js';
-import { MAX_POINTS, DESCRIPTIONS, CITIES } from '../const.js';
+import { getRandomArrayElement, checkOffers, getRandomInteger } from '../utils.js';
+import {FISH_TEXT, CITIES } from '../const.js';
 
 const generatePoint = () => {
   const id = crypto.randomUUID();
@@ -10,9 +10,13 @@ const generatePoint = () => {
     date_to: '2019-03-18T11:00',
     destination: getRandomArrayElement(CITIES.name),
     is_favorite: false,
-    offers: checkOffers() //сделать функцию на проверку выбранных дополниетльных опций
+    offers: checkOffers(),
+    type: 'flight', //сделать функцию на проверку выбранных дополниетльных опций
+    pictures: [{
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      description: getRandomArrayElement(FISH_TEXT)
+    }]
   };
 };
-
 export {generatePoint} from '..//presenter/board-presenter.js';
 //crypto.randomUUID() генерируем уникальный ID
