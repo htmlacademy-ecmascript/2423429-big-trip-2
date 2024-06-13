@@ -1,20 +1,15 @@
 //добавляем дополнительные функции
-import { OFFERS } from "./const.js";
+import { OFFERS } from './const.js';
 
 function getRandomArrayElement(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-const getRandomInteger = (a, b) => {
+function getRandomInteger (a, b) {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-};
-
-function checkOffers(){
-
-};
-
+}
 
 export {getRandomArrayElement, getRandomInteger};

@@ -1,22 +1,22 @@
-import { getRandomArrayElement, checkOffers, getRandomInteger } from '../utils.js';
-import {FISH_TEXT, CITIES } from '../const.js';
+import { getRandomArrayElement, getRandomInteger } from '../utils.js';
+import {FISH_TEXT, CITIES, OFFERS } from '../const.js';
 
 const generatePoint = () => {
   const id = crypto.randomUUID();
+  const offer = getRandomArrayElement(OFFERS);
+  const CITY = getRandomArrayElement(CITIES);
+
   return {
     id,
-    base_price: 1100,
+    base_price: getRandomInteger(1, 1000),
     date_from: '2019:03-18T10:30',
     date_to: '2019-03-18T11:00',
-    destination: getRandomArrayElement(CITIES.name),
+    destination: CITY.id,
     is_favorite: false,
-    offers: checkOffers(),
-    type: 'flight', //сделать функцию на проверку выбранных дополниетльных опций
-    pictures: [{
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-      description: getRandomArrayElement(FISH_TEXT)
-    }]
+    offers: offer.offers,
+    type: offer.type,
+    pictures: CITY.pictures
   };
 };
-export {generatePoint} from './model.js';
-//crypto.randomUUID() генерируем уникальный ID
+export {generatePoint};
+

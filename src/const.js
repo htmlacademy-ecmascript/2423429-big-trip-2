@@ -1,3 +1,4 @@
+import { getRandomArrayElement, getRandomInteger } from './utils.js';
 const MAX_POINTS = 8;
 const FISH_TEXT = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -10,7 +11,11 @@ const FISH_TEXT = [
 const CITIES = [
   {
     name: 'Amsterdam',
-    id: crypto.randomUUID()
+    id: crypto.randomUUID(),
+    pictures: [{
+      description: getRandomArrayElement(FISH_TEXT),
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+    }]
   },
 ];
 const OFFERS = [
