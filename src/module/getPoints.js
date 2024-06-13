@@ -18,5 +18,5 @@ const generatePoint = () => {
     }]
   };
 };
-export {generatePoint} from '..//presenter/board-presenter.js';
+export {generatePoint} from './model.js';
 //crypto.randomUUID() генерируем уникальный ID

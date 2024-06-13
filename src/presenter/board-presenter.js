@@ -8,8 +8,9 @@ export default class BoardPresenter {
   formComponent = new FormView();
   pointComponent = new PointView(); //TODO: добавить аргументы
 
-  constructor({container}){
+  constructor({container, pointModel}){
     this.container = container;
+    this.pointModel = pointModel;
   }
 
   init() {
