@@ -17,6 +17,38 @@ const CITIES = [
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
     }]
   },
+  {
+    name: 'Kaliningrad',
+    id: crypto.randomUUID(),
+    pictures: [{
+      description: getRandomArrayElement(FISH_TEXT),
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+    }]
+  },
+  {
+    name: 'Vaduz',
+    id: crypto.randomUUID(),
+    pictures: [{
+      description: getRandomArrayElement(FISH_TEXT),
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+    }]
+  },
+  {
+    name: 'Rome',
+    id: crypto.randomUUID(),
+    pictures: [{
+      description: getRandomArrayElement(FISH_TEXT),
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+    }]
+  },
+  {
+    name: 'Jakarta',
+    id: crypto.randomUUID(),
+    pictures: [{
+      description: getRandomArrayElement(FISH_TEXT),
+      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+    }]
+  },
 ];
 const OFFERS = [
   {
@@ -81,13 +113,33 @@ const OFFERS = [
   },
   {
     type: 'Check-in',
-
+    offers: [
+      {
+        id: crypto.randomUUID(),
+        title: 'Uprgade to a business class',
+        price: 120
+      }
+    ]
   },
   {
-    type: 'Sightseeing'
+    type: 'Sightseeing',
+    offers: [
+      {
+        id: crypto.randomUUID(),
+        title: 'Uprgade to a business class',
+        price: 120
+      }
+    ]
   },
   {
-    type: 'Restaurant'
+    type: 'Restaurant',
+    offers: [
+      {
+        id: crypto.randomUUID(),
+        title: 'Uprgade to a business class',
+        price: 120
+      }
+    ]
   },
 ];
 

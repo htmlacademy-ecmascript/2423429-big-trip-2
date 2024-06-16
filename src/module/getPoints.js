@@ -1,5 +1,5 @@
 import { getRandomArrayElement, getRandomInteger } from '../utils.js';
-import {FISH_TEXT, CITIES, OFFERS } from '../const.js';
+import {CITIES, OFFERS } from '../const.js';
 
 const generatePoint = () => {
   const id = crypto.randomUUID();
@@ -9,8 +9,8 @@ const generatePoint = () => {
   return {
     id,
     base_price: getRandomInteger(1, 1000),
-    date_from: '2019:03-18T10:30',
-    date_to: '2019-03-18T11:00',
+    date_from: 'date from',
+    date_to: 'date to',
     destination: CITY.id,
     is_favorite: false,
     offers: offer.offers,
