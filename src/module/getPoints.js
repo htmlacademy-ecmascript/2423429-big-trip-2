@@ -8,11 +8,11 @@ const generatePoint = () => {
 
   return {
     id,
-    base_price: getRandomInteger(1, 1000),
-    date_from: 'date from',
-    date_to: 'date to',
+    'base_price': getRandomInteger(1, 1000),
+    'date_from': 'date from',
+    'date_to': 'date to',
     destination: CITY.id,
-    is_favorite: false,
+    'is_favorite': false,
     offers: offer.offers,
     type: offer.type,
     pictures: CITY.pictures
