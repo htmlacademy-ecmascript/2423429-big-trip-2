@@ -1,12 +1,7 @@
 import { createElement } from '../render.js';
 
-function createNewEvent(){
+function createNewEvent(point){
   return `
-    <section class="trip-events">
-          <h2 class="visually-hidden"><ya-tr-span data-index="10-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Trip events" data-translation="События поездки" data-ch="0" data-type="trSpan" style="visibility: initial !important;">События поездки</ya-tr-span></h2>
-
-          <ul class="trip-events__list">
-
             <li class="trip-events__item">
               <div class="event">
                 <time class="event__date" datetime="2019-03-18"><ya-tr-span data-index="41-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="MAR 18" data-translation="18 МАРТА" data-ch="1" data-type="trSpan" style="visibility: initial !important;">18 МАРТА</ya-tr-span></time>
@@ -16,11 +11,11 @@ function createNewEvent(){
                 <h3 class="event__title"><ya-tr-span data-index="42-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Check-in Chamonix" data-translation="Регистрация в Шамони" data-ch="0" data-type="trSpan" style="visibility: initial !important;">Регистрация в Шамони</ya-tr-span></h3>
                 <div class="event__schedule">
                   <p class="event__time">
-                    <time class="event__start-time" datetime="2019-03-18T12:25"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="16:20" data-translation="16:20" data-ch="0" data-type="trSpan" style="visibility: initial !important;">16:20</ya-tr-span></time><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" — " data-translation=" — " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  —  </ya-tr-span><time class="event__end-time" datetime="2019-03-18T13:35"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="17:00" data-translation="17:00" data-ch="0" data-type="trSpan" style="visibility: initial !important;">17:00</ya-tr-span></time>
+                    <time class="event__start-time" datetime="2019-03-18T12:25"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="16:20" data-translation="16:20" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.date_from}</ya-tr-span></time><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" — " data-translation=" — " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  —  </ya-tr-span><time class="event__end-time" datetime="2019-03-18T13:35"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="17:00" data-translation="17:00" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.date_to}</ya-tr-span></time>
                   </p>
                   <p class="event__duration"><ya-tr-span data-index="44-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="40M" data-translation="40 м" data-ch="0" data-type="trSpan" style="visibility: initial !important;">40 м</ya-tr-span></p>
                 </div>
-                <p class="event__price"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" € " data-translation=" € " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  € </ya-tr-span><span class="event__price-value"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="600" data-translation="600" data-ch="0" data-type="trSpan" style="visibility: initial !important;">600</ya-tr-span></span>
+                <p class="event__price"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" € " data-translation=" € " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  € </ya-tr-span><span class="event__price-value"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="600" data-translation="600" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.base_price}</ya-tr-span></span>
                 </p>
                 <h4 class="visually-hidden"><ya-tr-span data-index="46-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Offers:" data-translation="Предложения:" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Предложения:</ya-tr-span></h4>
                 <ul class="event__selected-offers">
@@ -39,14 +34,19 @@ function createNewEvent(){
                 </button>
               </div>
             </li>
-          </ul>
-        </section>`;
+          `;
 }
 
+
 export default class PointView {
-  getTemplate(){
-    return createNewEvent();
+
+  constructor({point}){
+    this.point = point;
+
   }
+
+
+  getTemplate = () => createNewEvent(this.point);
 
   getElement(){
     if (!this.element){
