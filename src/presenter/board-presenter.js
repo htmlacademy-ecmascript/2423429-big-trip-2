@@ -4,9 +4,9 @@ import SortView from '../view/sort.js';
 import {render} from '../framework/render.js';
 
 export default class BoardPresenter {
-  formComponent = new FormView();
-  sortComponent = new SortView();
-  boardPoints = [];
+  #formComponent = new FormView();
+  #sortComponent = new SortView();
+  #boardPoints = [];
 
   constructor({container, pointModel}){
     this.container = container;
@@ -14,11 +14,11 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.boardPoints = [...this.pointModel.element];
-    render(this.sortComponent, this.container);
-    render(this.formComponent, this.container);
-    for (let i = 0 ; i < this.boardPoints.length; i++){
-      render(new PointView({point:this.boardPoints[i]}), this.container.querySelector('.trip-events__list'));
+    this.#boardPoints = [...this.pointModel.element];
+    render(this.#sortComponent, this.container);
+    render(this.#formComponent, this.container);
+    for (let i = 0 ; i < this.#boardPoints.length; i++){
+      render(new PointView({point:this.#boardPoints[i]}), this.container.querySelector('.trip-events__list'));
     }
   }
 

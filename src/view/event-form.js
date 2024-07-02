@@ -163,7 +163,9 @@ function createEventForm(){
 }
 
 export default class FormView extends AbstractView {
+  #currentForm = createEventForm();
   get template(){
-    return createEventForm();
+    return this.#currentForm;
   }
+
 }
