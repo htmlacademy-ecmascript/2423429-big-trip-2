@@ -1,7 +1,7 @@
 import PointView from '../view//event.js';
 import FormView from '../view//event-form.js';
 import SortView from '../view/sort.js';
-import {render} from '../render.js';
+import {render} from '../framework/render.js';
 
 export default class BoardPresenter {
   formComponent = new FormView();
@@ -14,7 +14,7 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.boardPoints = [...this.pointModel.getPoints()];
+    this.boardPoints = [...this.pointModel.getElement()];
     render(this.sortComponent, this.container);
     render(this.formComponent, this.container);
     for (let i = 0 ; i < this.boardPoints.length; i++){
