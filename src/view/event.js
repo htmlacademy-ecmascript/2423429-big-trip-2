@@ -47,9 +47,12 @@ export default class PointView extends AbstractView{
 
   }
   get template (){
-if (!this.#element){
-  this.#element = createElement(this.template);
+  return createNewEvent(this.point);
 }
+  get element () {
+    if (!this.#element){
+      this.#element = createElement(this.template)
+    }
     return this.#element;
   }
 }
