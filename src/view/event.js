@@ -40,21 +40,14 @@ function createNewEvent(point){
 
 
 export default class PointView extends AbstractView{
-
+  
   constructor({point}){
+    super();
     this.point = point;
 
   }
-
-
   get template (){
-    return createNewEvent(this.point);
-  }
 
-  get element (){
-    if (!this.element){
-      this.element = createElement(this.template);
-    }
-    return this.element;
+    return createNewEvent({HTMLElement});
   }
 }
