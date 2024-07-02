@@ -1,3 +1,4 @@
+import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
 function createNewEvent(point){
@@ -38,7 +39,7 @@ function createNewEvent(point){
 }
 
 
-export default class PointView {
+export default class PointView extends AbstractView{
 
   constructor({point}){
     this.point = point;
@@ -46,16 +47,14 @@ export default class PointView {
   }
 
 
-  getTemplate = () => createNewEvent(this.point);
-
-  getElement(){
-    if (!this.element){
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
+  get template (){
+    return createNewEvent(this.point);
   }
 
-  removeElement(){
-    this.element = null;
+  get element (){
+    if (!this.element){
+      this.element = createElement(this.template);
+    }
+    return this.element;
   }
 }

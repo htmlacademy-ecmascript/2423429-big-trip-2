@@ -14,7 +14,7 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.boardPoints = [...this.pointModel.getElement()];
+    this.boardPoints = [...this.pointModel.element];
     render(this.sortComponent, this.container);
     render(this.formComponent, this.container);
     for (let i = 0 ; i < this.boardPoints.length; i++){
