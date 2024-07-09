@@ -1,5 +1,5 @@
 import PointView from '../view//event.js';
-import FormView from '../view/tripEventsList.js';
+//import FormView from '../view/tripEventsList.js';
 import SortView from '../view/sort.js';
 import {render} from '../framework/render.js';
 import listView from '../view/tripEventsList.js';
