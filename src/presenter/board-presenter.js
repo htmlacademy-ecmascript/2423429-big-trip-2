@@ -17,13 +17,23 @@ export default class BoardPresenter {
 
   init() {
 
+
     this.#boardPoints = [...this.pointModel.element];
     render(this.#sortComponent, this.container);
     render(this.#tripListComponent, this.container);
     for (let i = 0 ; i < this.#boardPoints.length; i++){
       render(new PointView({point:this.#boardPoints[i]}), this.container.querySelector('.trip-events__list'));
-      render(this.#editor, this.container.querySelector('.trip-events__item'));
+      render(this.#editor, this.container);
+      //this.#renderPoints({point:this.#boardPoints[i]});
     }
+
+    // #renderPoints(this.#boardPoints) {
+    //   const pointComponent = new PointView({point:this.#boardPoints[i]});
+
+    //   render(pointComponent, this.container.querySelector('.trip-events__list'));
+
+    // }
+
   }
 
 }
