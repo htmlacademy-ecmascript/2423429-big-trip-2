@@ -10,6 +10,13 @@ export default class BoardPresenter {
   #boardPoints = [];
   #editor = new EditorView();
 
+  #renderPoints(boardPoints) { //TODO: чего не хватает для модуля? как правильно передать элементы массива?
+    const pointComponent = new PointView({point:this.#boardPoints[i]});
+
+    render(pointComponent, this.container.querySelector('.trip-events__list'));
+
+  }
+
   constructor({container, pointModel}){
     this.container = container;
     this.pointModel = pointModel;
@@ -23,16 +30,10 @@ export default class BoardPresenter {
     render(this.#tripListComponent, this.container);
     for (let i = 0 ; i < this.#boardPoints.length; i++){
       render(new PointView({point:this.#boardPoints[i]}), this.container.querySelector('.trip-events__list'));
-      render(this.#editor, this.container);
       //this.#renderPoints({point:this.#boardPoints[i]});
     }
+    render(this.#editor, this.container);
 
-    // #renderPoints(this.#boardPoints) {
-    //   const pointComponent = new PointView({point:this.#boardPoints[i]});
-
-    //   render(pointComponent, this.container.querySelector('.trip-events__list'));
-
-    // }
 
   }
 
