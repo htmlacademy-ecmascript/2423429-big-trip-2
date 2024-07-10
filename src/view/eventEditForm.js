@@ -1,7 +1,8 @@
 import AbstractView from '../framework/view/abstract-view.js';
+import { createElement } from '../render.js';
 
 
-function createEditor() {
+function createEditor(point) {
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -160,8 +161,24 @@ function createEditor() {
 
 export default class EditorView extends AbstractView {
   #editor = createEditor();
+  #element = null;
+
+  constructor({point, onEditorClick}){
+    super();
+    this.point = point;
+    this.onEditorClick = onEditorClick;
+    this.element.querySelector('.event__rollup-btn')
+    .addEventListener('click', this.onEditorClick);
+  }
 
   get template() {
     return this.#editor;
+  }
+
+  get element () {
+    if (!this.#element){
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
   }
 }

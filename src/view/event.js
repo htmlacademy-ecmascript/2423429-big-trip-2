@@ -16,7 +16,7 @@ function createNewEvent(point){
                   </p>
                   <p class="event__duration"><ya-tr-span data-index="44-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="40M" data-translation="40 м" data-ch="0" data-type="trSpan" style="visibility: initial !important;">40 м</ya-tr-span></p>
                 </div>
-                <p class="event__price"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" € " data-translation=" € " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  € </ya-tr-span><span class="event__price-value"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="600" data-translation="600" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.base_price}</ya-tr-span></span>
+                <p class="event__price"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" € " data-translation=" € " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  € </ya-tr-span><span class="event__price-value"><ya-tr-span data-index="45-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.base_price}" data-translation="600" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.base_price}</ya-tr-span></span>
                 </p>
                 <h4 class="visually-hidden"><ya-tr-span data-index="46-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Offers:" data-translation="Предложения:" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Предложения:</ya-tr-span></h4>
                 <ul class="event__selected-offers">
@@ -41,10 +41,12 @@ function createNewEvent(point){
 
 export default class PointView extends AbstractView{
   #element = null;
-  constructor({point}){
+  constructor({point, onPointClick}){
     super();
     this.point = point;
-
+    this.onPointClick = onPointClick;
+    this.element.querySelector('.event__rollup-btn')
+    .addEventListener('click', this.onPointClick);
   }
 
   get template (){

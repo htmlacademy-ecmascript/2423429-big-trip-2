@@ -1,6 +1,6 @@
 import PointView from '../view//event.js';
 import SortView from '../view/sort.js';
-import {render} from '../framework/render.js';
+import {render, replace} from '../framework/render.js';
 import listView from '../view/tripEventsList.js';
 import EditorView from '../view/eventEditForm.js';
 
@@ -8,13 +8,41 @@ export default class BoardPresenter {
   #tripListComponent = new listView();
   #sortComponent = new SortView();
   #boardPoints = [];
-  #editor = new EditorView();
 
-  #renderPoints(boardPoints) { //TODO: чего не хватает для модуля? как правильно передать элементы массива?
-    const pointComponent = new PointView({point:this.#boardPoints[i]});
+  #renderPoint(point){
+    const pointComponent = new PointView({
+      point,
+      onPointClick: () => {
+        replacePointToEditor();
+      }
+    });
 
+    const editorComponent = new EditorView({
+      point,
+      onEditorClick: () => {
+        replaceEditorToPoint();
+      }
+    });
+
+    function replacePointToEditor (){
+      replace(editorComponent, pointComponent);
+    }
+
+    function replaceEditorToPoint (){
+      replace(pointComponent, editorComponent);
+    }
     render(pointComponent, this.container.querySelector('.trip-events__list'));
 
+  }
+
+  #renderPoints() {
+
+    // render(pointComponent, this.container.querySelector('.trip-events__list'));
+    // replace(pointComponent, this.#editor);
+
+    for (let i = 0 ; i < this.#boardPoints.length; i++){
+      this.#renderPoint(this.#boardPoints[i]);
+    }
   }
 
   constructor({container, pointModel}){
@@ -23,16 +51,11 @@ export default class BoardPresenter {
   }
 
   init() {
-
-
     this.#boardPoints = [...this.pointModel.element];
     render(this.#sortComponent, this.container);
     render(this.#tripListComponent, this.container);
-    for (let i = 0 ; i < this.#boardPoints.length; i++){
-      render(new PointView({point:this.#boardPoints[i]}), this.container.querySelector('.trip-events__list'));
-      //this.#renderPoints({point:this.#boardPoints[i]});
-    }
-    render(this.#editor, this.container);
+    this.#renderPoints();
+    // render(this.#editor, this.container);
 
 
   }
