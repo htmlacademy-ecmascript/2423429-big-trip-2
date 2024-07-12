@@ -168,7 +168,7 @@ export default class EditorView extends AbstractView {
     this.point = point;
     this.onEditorClick = onEditorClick;
     this.element.querySelector('.event__rollup-btn')
-    .addEventListener('click', this.onEditorClick);
+      .addEventListener('click', this.onEditorClick);
   }
 
   get template() {
