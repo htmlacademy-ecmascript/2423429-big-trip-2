@@ -31,15 +31,11 @@ export default class BoardPresenter {
     function replaceEditorToPoint (){
       replace(pointComponent, editorComponent);
     }
-    render(pointComponent, this.container.querySelector('.trip-events__list'));
 
+    render(pointComponent, this.container.querySelector('.trip-events__list'));
   }
 
   #renderPoints() {
-
-    // render(pointComponent, this.container.querySelector('.trip-events__list'));
-    // replace(pointComponent, this.#editor);
-
     for (let i = 0 ; i < this.#boardPoints.length; i++){
       this.#renderPoint(this.#boardPoints[i]);
     }
@@ -55,9 +51,6 @@ export default class BoardPresenter {
     render(this.#sortComponent, this.container);
     render(this.#tripListComponent, this.container);
     this.#renderPoints();
-    // render(this.#editor, this.container);
-
-
   }
 
 }
