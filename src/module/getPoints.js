@@ -1,4 +1,4 @@
-import { getRandomArrayElement, getRandomInteger } from '../utils.js';
+import { getRandomArrayElement, getRandomInteger, getRandomBoolean } from '../utils.js';
 import {CITIES, OFFERS } from '../const.js';
 
 const generatePoint = () => {
@@ -12,8 +12,8 @@ const generatePoint = () => {
     'date_from': 'date from',
     'date_to': 'date to',
     destination: CITY.id, // добавить в event,js
-    'is_favorite': false, // или true
-    type: offer.type,     // point.type добавить смену иконки типа маршрута
+    'is_favorite': getRandomBoolean(), // или true
+    type: offer.type, // point.type добавить смену иконки типа маршрута
     pictures: CITY.pictures
   };
 };

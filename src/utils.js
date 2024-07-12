@@ -9,4 +9,8 @@ function getRandomInteger (a, b) {
   return Math.floor(result);
 }
 
-export {getRandomArrayElement, getRandomInteger};
+function getRandomBoolean(){
+  return Math.random() < 0.5;
+}
+
+export {getRandomArrayElement, getRandomInteger, getRandomBoolean};
