@@ -13,4 +13,13 @@ function getRandomBoolean(){
   return Math.random() < 0.5;
 }
 
-export {getRandomArrayElement, getRandomInteger, getRandomBoolean};
+
+function checkFavorite() {
+  if (getRandomBoolean()){
+    return 'event__favorite-btn--active';
+  }
+  return 'event__favorite-btn';
+}
+
+
+export {getRandomArrayElement, getRandomInteger, checkFavorite};
