@@ -2,14 +2,14 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
 
-function createEditor(point) {
+function createEditor(point){
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
       <div class="event__type-wrapper">
         <label class="event__type  event__type-btn" for="event-type-toggle-1">
           <span class="visually-hidden">Choose event type</span>
-          <img class="event__type-icon" width="17" height="17" src="img/icons/${point.type}" alt="Event type icon">
+          <img class="event__type-icon" width="17" height="17" src="img/icons/${point.type}.png" alt="Event type icon">
         </label>
         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -160,7 +160,6 @@ function createEditor(point) {
 }
 
 export default class EditorView extends AbstractView {
-  #editor = createEditor();
   #element = null;
 
   constructor({point, onEditorClick}){
@@ -172,7 +171,7 @@ export default class EditorView extends AbstractView {
   }
 
   get template() {
-    return this.#editor;
+    return createEditor(this.point);
   }
 
   get element () {
