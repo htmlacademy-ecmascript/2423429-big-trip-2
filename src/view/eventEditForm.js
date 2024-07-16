@@ -1,7 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
-
 function createEditor(point){
   return `
     <form class="event event--edit" action="#" method="post">
