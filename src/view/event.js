@@ -1,6 +1,7 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
+
 function createNewEvent(point){
   return `
             <li class="trip-events__item">
