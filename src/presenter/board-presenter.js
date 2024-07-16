@@ -1,12 +1,45 @@
 import PointView from '../view//event.js';
-import FormView from '../view//event-form.js';
 import SortView from '../view/sort.js';
-import {render} from '../render.js';
+import {render, replace} from '../framework/render.js';
+import listView from '../view/tripEventsList.js';
+import EditorView from '../view/eventEditForm.js';
 
 export default class BoardPresenter {
-  formComponent = new FormView();
-  sortComponent = new SortView();
-  boardPoints = [];
+  #tripListComponent = new listView();
+  #sortComponent = new SortView();
+  #boardPoints = [];
+
+  #renderPoint(point){
+    const pointComponent = new PointView({
+      point,
+      onPointClick: () => {
+        replacePointToEditor();
+      }
+    });
+
+    const editorComponent = new EditorView({
+      point,
+      onEditorClick: () => {
+        replaceEditorToPoint();
+      }
+    });
+
+    function replacePointToEditor (){
+      replace(editorComponent, pointComponent);
+    }
+
+    function replaceEditorToPoint (){
+      replace(pointComponent, editorComponent);
+    }
+
+    render(pointComponent, this.container.querySelector('.trip-events__list'));
+  }
+
+  #renderPoints() {
+    for (let i = 0 ; i < this.#boardPoints.length; i++){
+      this.#renderPoint(this.#boardPoints[i]);
+    }
+  }
 
   constructor({container, pointModel}){
     this.container = container;
@@ -14,12 +47,10 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.boardPoints = [...this.pointModel.getPoints()];
-    render(this.sortComponent, this.container);
-    render(this.formComponent, this.container);
-    for (let i = 0 ; i < this.boardPoints.length; i++){
-      render(new PointView({point:this.boardPoints[i]}), this.container.querySelector('.trip-events__list'));
-    }
+    this.#boardPoints = [...this.pointModel.element];
+    render(this.#sortComponent, this.container);
+    render(this.#tripListComponent, this.container);
+    this.#renderPoints();
   }
 
 }

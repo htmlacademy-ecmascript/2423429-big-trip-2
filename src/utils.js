@@ -9,4 +9,17 @@ function getRandomInteger (a, b) {
   return Math.floor(result);
 }
 
-export {getRandomArrayElement, getRandomInteger};
+function getRandomBoolean(){
+  return Math.random() < 0.5;
+}
+
+
+function checkFavorite() {
+  if (getRandomBoolean()){
+    return 'event__favorite-btn--active';
+  }
+  return 'event__favorite-btn';
+}
+
+
+export {getRandomArrayElement, getRandomInteger, checkFavorite};

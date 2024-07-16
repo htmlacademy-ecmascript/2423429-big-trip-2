@@ -62,7 +62,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Bus',
+    type: 'bus',
     offers: [
       {
         id: 'c6c21a3c-50bb-4a4d-8924-0323bb0a4afe', //присвоить ID
@@ -72,7 +72,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Train',
+    type: 'train',
     offers: [
       {
         id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c', //присвоить ID
@@ -82,7 +82,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Ship',
+    type: 'ship',
     offers: [
       {
         id: 'dc6b51f7-0961-4aef-aa91-1e13708d5386', //присвоить ID
@@ -92,7 +92,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Drive',
+    type: 'drive',
     offers: [
       {
         id: '01960644-7779-4c1a-810c-f493f06d92a2',
@@ -102,7 +102,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Flight',
+    type: 'flight',
     offers: [
       {
         id: '34cb2f41-8ecf-4f32-8190-169aa9cef41b',
@@ -112,7 +112,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Check-in',
+    type: 'check-in',
     offers: [
       {
         id: crypto.randomUUID(),
@@ -122,7 +122,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Sightseeing',
+    type: 'sightseeing',
     offers: [
       {
         id: crypto.randomUUID(),
@@ -132,7 +132,7 @@ const OFFERS = [
     ]
   },
   {
-    type: 'Restaurant',
+    type: 'restaurant',
     offers: [
       {
         id: crypto.randomUUID(),
