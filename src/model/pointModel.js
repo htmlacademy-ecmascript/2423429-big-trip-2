@@ -1,4 +1,4 @@
-import { generatePoint } from './getPoints.js';
+import { generatePoint } from '../mock/getPoints.js';
 import { MAX_POINTS } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
 

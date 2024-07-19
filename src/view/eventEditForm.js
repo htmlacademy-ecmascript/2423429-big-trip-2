@@ -1,7 +1,7 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
-function createEditor(point){
+function createEditor(point, offers){
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -12,7 +12,7 @@ function createEditor(point){
         </label>
         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
-        <div class="event__type-list">
+        <div class="event__type-list">  //TODO: формировать список типов транспорта из данных
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Event type</legend>
 
@@ -99,7 +99,7 @@ function createEditor(point){
       </button>
     </header>
     <section class="event__details">
-      <section class="event__section  event__section--offers">
+      <section class="event__section  event__section--offers"> //TODO: формировать из данных
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
         <div class="event__available-offers">
@@ -162,7 +162,8 @@ function createEditor(point){
 export default class EditorView extends AbstractView {
   #element = null;
 
-  constructor({point, onEditorClick}){
+  constructor({point, onEditorClick, offers}){
+    console.log(offers);
     super();
     this.point = point;
     this.onEditorClick = onEditorClick;

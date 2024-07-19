@@ -57,7 +57,22 @@ const OFFERS = [
       {
         id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c', //присвоить ID
         title: 'Upgrade to a business class',
-        price: 120
+        price: 121
+      },
+      {
+        id: 'f4f9fdbd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        title: 'wait',
+        price: 122
+      },
+      {
+        id: 'f4f9fdbd-bbse-4s5a-wf7q-9ae5e8373b9c', //присвоить ID
+        title: 'shopping',
+        price: 123
+      },
+      {
+        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        title: 'walk',
+        price: 124
       }
     ]
   },

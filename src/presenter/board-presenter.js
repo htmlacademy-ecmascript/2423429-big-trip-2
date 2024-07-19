@@ -3,7 +3,6 @@ import SortView from '../view/sort.js';
 import {render, replace} from '../framework/render.js';
 import listView from '../view/tripEventsList.js';
 import EditorView from '../view/eventEditForm.js';
-
 export default class BoardPresenter {
   #tripListComponent = new listView();
   #sortComponent = new SortView();
@@ -21,7 +20,8 @@ export default class BoardPresenter {
       point,
       onEditorClick: () => {
         replaceEditorToPoint();
-      }
+      },
+      offers: this.offersModel.offers
     });
 
     function replacePointToEditor (){
@@ -41,9 +41,10 @@ export default class BoardPresenter {
     }
   }
 
-  constructor({container, pointModel}){
+  constructor({container, pointModel, offersModel}){
     this.container = container;
     this.pointModel = pointModel;
+    this.offersModel = offersModel;
   }
 
   init() {
