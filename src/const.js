@@ -55,27 +55,27 @@ const OFFERS = [
     type: 'taxi',
     offers: [
       {
-        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c', //присвоить ID
+        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c',
         title: 'Upgrade to a business class',
         price: 120
       },
       {
-        id: 'f4f9fdbd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        id: 'f4f9fdbd-bb2e-4s5a-8f72-9ae5e8373b9c',
         title: 'For a pet',
         price: 80
       },
       {
-        id: 'f4f9fdbd-bbse-4s5a-wf7q-9ae5e8373b9c', //присвоить ID
+        id: 'f4f9fdbd-bbse-4s5a-wf7q-9ae5e8373b9c',
         title: 'Stop for shopping',
         price: 20
       },
       {
-        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c',
         title: 'Luggage transfer services provided by the driver',
         price: 30
       },
       {
-        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c',
         title: 'Transportation of a large number of items',
         price: 130
       },
@@ -86,10 +86,25 @@ const OFFERS = [
     type: 'bus',
     offers: [
       {
-        id: 'c6c21a3c-50bb-4a4d-8924-0323bb0a4afe', //присвоить ID
+        id: 'c6c21a3c-50bb-4all-8924-0323bb0a4afe',
         title: 'Upgrade to a business class in Train',
         price: 120
-      }
+      },
+      {
+        id: 'c6c21a3c-50bb-4ahh-8924-0323bb0a4afe',
+        title: 'Individual multimedia devices',
+        price: 30
+      },
+      {
+        id: 'c6c21a3c-50bb-4ahh-8924-0323bb0ayyfe',
+        title: 'The ability to hold up to three pieces of luggage',
+        price: 60
+      },
+      {
+        id: 'c6c26a3c-60bb-4ahh-8924-0323bb0ayyfe',
+        title: 'Travel entertainment poster',
+        price: 50
+      },
     ]
   },
   {
