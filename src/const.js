@@ -147,22 +147,22 @@ const OFFERS = [
     type: 'ship',
     offers: [
       {
-        id: 'dc6b51f7-0961-4aef-aaa1-1e13708d5386', //присвоить ID
+        id: 'dc6b51f7-0961-4aef-aaa1-1e13708d5386',
         title: 'Upgrade to a business class',
         price: 120
       },
       {
-        id: 'dc6b51f7-0961-4aef-aaa1-1e13uu8d0086', //присвоить ID
+        id: 'dc6b51f7-0961-4aef-aaa1-1e13uu8d0086',
         title: 'Celebrations on the ship',
         price: 200
       },
       {
-        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086', //присвоить ID
+        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086',
         title: 'Photos during the cruise',
         price: 80
       },
       {
-        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086', //присвоить ID
+        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086',
         title: 'Internet nd telephone on the ship',
         price: 60
       }
@@ -200,7 +200,22 @@ const OFFERS = [
         id: '34cb2f41-8ecf-4f32-8190-169aa9cef41b',
         title: 'Uprgade to a business class',
         price: 120
-      }
+      },
+      {
+        id: 'e90654c5-0334-4540-acfb-c37944970630',
+        title: 'Special meals',
+        price: 40
+      },
+      {
+        id: '1c6390e3-c292-4a06-b41a-f94cdab1d7de',
+        title: 'flight of a passenger with disabilities',
+        price: 60
+      },
+      {
+        id: 'eb6b471e-b8cf-474e-ace7-9976d0f21adc',
+        title: 'Flight with pets',
+        price: 80
+      },
     ]
   },
   {
