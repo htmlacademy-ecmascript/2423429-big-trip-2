@@ -222,20 +222,41 @@ const OFFERS = [
     type: 'check-in',
     offers: [
       {
-        id: crypto.randomUUID(),
-        title: 'Uprgade to a business class',
+        id: 'f4611e74-145d-40f2-b6ec-a597ca0577f4',
+        title: 'Upgrade the room class',
         price: 120
-      }
+      },
+      {
+        id: '8496f818-5313-4ee7-8a69-e20d99a46ecb',
+        title: 'Dry cleaning',
+        price: 40
+      },
+      {
+        id: '48bf277e-c9b9-43e2-a8c9-69d1337befbc',
+        title: 'Late check-out',
+        price: 40
+      },
+      {
+        id: '0e1ade24-b397-49dc-ac23-1b04da949dec',
+        title: 'Access to the spa and gym',
+        price: 100
+      },
+
     ]
   },
   {
     type: 'sightseeing',
     offers: [
       {
-        id: crypto.randomUUID(),
-        title: 'Uprgade to a business class',
-        price: 120
-      }
+        id: '9b8082e7-4f0e-4c25-8249-27ce99a12d65',
+        title: 'Museum guide',
+        price: 80
+      },
+      {
+        id: '9b8082e7-4f0e-4c25-8249-27ce99a13u65',
+        title: 'Sightseeing guide',
+        price: 80
+      },
     ]
   },
   {
@@ -243,9 +264,24 @@ const OFFERS = [
     offers: [
       {
         id: crypto.randomUUID(),
-        title: 'Uprgade to a business class',
-        price: 120
-      }
+        title: 'Music service',
+        price: 30
+      },
+      {
+        id: crypto.randomUUID(),
+        title: 'Pre-booking of tables',
+        price: 20
+      },
+      {
+        id: crypto.randomUUID(),
+        title: 'Fire show and fireworks',
+        price: 50
+      },
+      {
+        id: crypto.randomUUID(),
+        title: 'Calling a taxi to the restaurant',
+        price: 10
+      },
     ]
   },
 ];
