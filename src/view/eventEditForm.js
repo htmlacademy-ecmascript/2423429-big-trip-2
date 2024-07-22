@@ -1,4 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
+import { generatePoint } from '../mock/getPoints.js';
 import { createElement } from '../render.js';
 
 function createEditor(point, offers){
@@ -111,7 +112,7 @@ function createEditor(point, offers){
             </label>
           </div>
         </div>
-        ${offerItemTemplate}
+        ${createOffersItemTemplate(offers)}
       </section>
 
       <section class="event__section  event__section--destination">
@@ -123,45 +124,48 @@ function createEditor(point, offers){
   </form> `;
 }
 
-function createOffersItemTemplate () {
-  return `
+function createOffersItemTemplate (offers) {
+  console.log(offers);
+  return offers.map((el) =>
+  el.offers.map((offer, i) => `
           <div class="event__offer-selector">
             <input
             class="event__offer-checkbox  visually-hidden"
-            id="event-offer-???-1"
-            type="checkbox" name="event-offer-???}"
+            id="event-offer-${el.type}-${i}"
+            type="checkbox" name="event-offer-${offer.title}}"
             // {isChecked ? 'checked' : ''}
             // {count === 0 ? 'disabled' : ''}
             />
-            <label class="event__offer-label" for="event-offer-????-1">
-              <span class="event__offer-title">Add ????</span>
+            <label class="event__offer-label" for="event-offer-${el.type}-${i}">
+              <span class="event__offer-title">Add ${offer.title}</span>
               +€&nbsp;
-              <span class="event__offer-price">50</span>
+              <span class="event__offer-price">${offer.price}</span>
             </label>
-          </div>`;
+          </div>`)
+  );
+
 }
 
-function createOfferTemplate(){
-  const offerItemTemplate = offerItems
-    .map((offers) => createOffersItemTemplate(offers))
-    .join('');
-}
+// function createOfferTemplate(){
+//   const offerItemTemplate = offerItems
+//     this.offers = offers.map((el) => el.offers);
+//     .join('');
+// }
 
 export default class EditorView extends AbstractView {
   #element = null;
-  #offers = this.offers;
+
   constructor({point, onEditorClick, offers}){
-    console.log(offers);
     super();
     this.point = point;
+    this.offers = offers;
     this.onEditorClick = onEditorClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onEditorClick);
   }
 
   get template() {
-    createOfferTemplate(this.#offers);
-    return createEditor(this.point,);
+    return createEditor(this.point, this.offers);
   }
 
   get element () {
