@@ -57,23 +57,29 @@ const OFFERS = [
       {
         id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c', //присвоить ID
         title: 'Upgrade to a business class',
-        price: 121
+        price: 120
       },
       {
         id: 'f4f9fdbd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
-        title: 'wait',
-        price: 122
+        title: 'For a pet',
+        price: 80
       },
       {
         id: 'f4f9fdbd-bbse-4s5a-wf7q-9ae5e8373b9c', //присвоить ID
-        title: 'shopping',
-        price: 123
+        title: 'Stop for shopping',
+        price: 20
       },
       {
         id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
-        title: 'walk',
-        price: 124
-      }
+        title: 'Luggage transfer services provided by the driver',
+        price: 30
+      },
+      {
+        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c', //присвоить ID
+        title: 'Transportation of a large number of items',
+        price: 130
+      },
+
     ]
   },
   {
