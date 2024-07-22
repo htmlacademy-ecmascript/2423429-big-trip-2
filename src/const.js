@@ -147,9 +147,24 @@ const OFFERS = [
     type: 'ship',
     offers: [
       {
-        id: 'dc6b51f7-0961-4aef-aa91-1e13708d5386', //присвоить ID
+        id: 'dc6b51f7-0961-4aef-aaa1-1e13708d5386', //присвоить ID
         title: 'Upgrade to a business class',
         price: 120
+      },
+      {
+        id: 'dc6b51f7-0961-4aef-aaa1-1e13uu8d0086', //присвоить ID
+        title: 'Celebrations on the ship',
+        price: 200
+      },
+      {
+        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086', //присвоить ID
+        title: 'Photos during the cruise',
+        price: 80
+      },
+      {
+        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086', //присвоить ID
+        title: 'Internet nd telephone on the ship',
+        price: 60
       }
     ]
   },
@@ -159,8 +174,23 @@ const OFFERS = [
       {
         id: '01960644-7779-4c1a-810c-f493f06d92a2',
         title: 'Uprgade to a business class',
+        price: 100
+      },
+      {
+        id: 'bf62f514-e57a-49fc-851b-86a6ba725765',
+        title: 'Car wash',
+        price: 50
+      },
+      {
+        id: 'ef559446-7ec4-49f5-a67f-db68719fd1ad',
+        title: 'Goodies for the road',
+        price: 30
+      },
+      {
+        id: 'c6e96aec-713d-4d4d-a532-79e060cb528a',
+        title: 'trailer',
         price: 120
-      }
+      },
     ]
   },
   {
