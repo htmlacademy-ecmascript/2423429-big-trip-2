@@ -101,44 +101,7 @@ function createEditor(point, offers){
     <section class="event__details">
       <section class="event__section  event__section--offers"> //TODO: формировать из данных
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-
         <div class="event__available-offers">
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked="">
-            <label class="event__offer-label" for="event-offer-luggage-1">
-              <span class="event__offer-title">Add luggage</span>
-              +€&nbsp;
-              <span class="event__offer-price">50</span>
-            </label>
-          </div>
-
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked="">
-            <label class="event__offer-label" for="event-offer-comfort-1">
-              <span class="event__offer-title">Switch to comfort</span>
-              +€&nbsp;
-              <span class="event__offer-price">80</span>
-            </label>
-          </div>
-
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-            <label class="event__offer-label" for="event-offer-meal-1">
-              <span class="event__offer-title">Add meal</span>
-              +€&nbsp;
-              <span class="event__offer-price">15</span>
-            </label>
-          </div>
-
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-            <label class="event__offer-label" for="event-offer-seats-1">
-              <span class="event__offer-title">Choose seats</span>
-              +€&nbsp;
-              <span class="event__offer-price">5</span>
-            </label>
-          </div>
-
           <div class="event__offer-selector">
             <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
             <label class="event__offer-label" for="event-offer-train-1">
@@ -148,6 +111,7 @@ function createEditor(point, offers){
             </label>
           </div>
         </div>
+        ${offerItemTemplate}
       </section>
 
       <section class="event__section  event__section--destination">
@@ -159,9 +123,33 @@ function createEditor(point, offers){
   </form> `;
 }
 
+function createOffersItemTemplate () {
+  return `
+          <div class="event__offer-selector">
+            <input
+            class="event__offer-checkbox  visually-hidden"
+            id="event-offer-???-1"
+            type="checkbox" name="event-offer-???}"
+            // {isChecked ? 'checked' : ''}
+            // {count === 0 ? 'disabled' : ''}
+            />
+            <label class="event__offer-label" for="event-offer-????-1">
+              <span class="event__offer-title">Add ????</span>
+              +€&nbsp;
+              <span class="event__offer-price">50</span>
+            </label>
+          </div>`;
+}
+
+function createOfferTemplate(){
+  const offerItemTemplate = offerItems
+    .map((offers) => createOffersItemTemplate(offers))
+    .join('');
+}
+
 export default class EditorView extends AbstractView {
   #element = null;
-
+  #offers = this.offers;
   constructor({point, onEditorClick, offers}){
     console.log(offers);
     super();
@@ -172,7 +160,8 @@ export default class EditorView extends AbstractView {
   }
 
   get template() {
-    return createEditor(this.point);
+    createOfferTemplate(this.#offers);
+    return createEditor(this.point,);
   }
 
   get element () {

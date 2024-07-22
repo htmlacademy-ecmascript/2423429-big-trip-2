@@ -11,7 +11,7 @@ const FISH_TEXT = [
 const CITIES = [
   {
     name: 'Amsterdam',
-    id: crypto.randomUUID(),
+    id: '3954f7a5-4d2d-4065-8c3a-36605e32689f',
     pictures: [{
       description: getRandomArrayElement(FISH_TEXT),
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
@@ -19,7 +19,7 @@ const CITIES = [
   },
   {
     name: 'Kaliningrad',
-    id: crypto.randomUUID(),
+    id: '3954f7a5-4d2d-4065-8c3a-36605e326877',
     pictures: [{
       description: getRandomArrayElement(FISH_TEXT),
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
@@ -27,7 +27,7 @@ const CITIES = [
   },
   {
     name: 'Vaduz',
-    id: crypto.randomUUID(),
+    id: 'dc43bec3-c630-48c5-9023-d6c7aa2988f1',
     pictures: [{
       description: getRandomArrayElement(FISH_TEXT),
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
@@ -35,7 +35,7 @@ const CITIES = [
   },
   {
     name: 'Rome',
-    id: crypto.randomUUID(),
+    id: 'a4347946-1f2d-4e78-ae35-e17bc8c5da6f',
     pictures: [{
       description: getRandomArrayElement(FISH_TEXT),
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
@@ -43,7 +43,7 @@ const CITIES = [
   },
   {
     name: 'Jakarta',
-    id: crypto.randomUUID(),
+    id: '01fd8f32-5902-40c5-8e51-5768e966766e',
     pictures: [{
       description: getRandomArrayElement(FISH_TEXT),
       src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
@@ -263,22 +263,22 @@ const OFFERS = [
     type: 'restaurant',
     offers: [
       {
-        id: crypto.randomUUID(),
+        id: '3954f7a5-4d2d-4065-8c3a-36605782689f',
         title: 'Music service',
         price: 30
       },
       {
-        id: crypto.randomUUID(),
+        id: '3954f7a5-4d2d-4065-8c3a-36605e326800',
         title: 'Pre-booking of tables',
         price: 20
       },
       {
-        id: crypto.randomUUID(),
+        id: '3954f7a5-4d2d-4065-8c3a-36605e22689f',
         title: 'Fire show and fireworks',
         price: 50
       },
       {
-        id: crypto.randomUUID(),
+        id: '3954f7a5-4d2d-4065-877a-36605e32689f',
         title: 'Calling a taxi to the restaurant',
         price: 10
       },
