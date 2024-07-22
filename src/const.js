@@ -111,10 +111,36 @@ const OFFERS = [
     type: 'train',
     offers: [
       {
-        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c', //присвоить ID
+        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c',
         title: 'Upgrade to a business class',
         price: 120
-      }
+      },
+      {
+        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8398b9c',
+        title: 'Shower on the train',
+        price: 40
+      },
+      {
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e8398b9c',
+        title: 'Information and entertainment systems',
+        price: 50
+      },
+      {
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e8398b9c',
+        title: 'Breakfast',
+        price: 20
+      },
+      {
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e8398b9c',
+        title: 'Lunch',
+        price: 25
+      },
+      {
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e7778b9c',
+        title: 'Dinner',
+        price: 25
+      },
+
     ]
   },
   {
