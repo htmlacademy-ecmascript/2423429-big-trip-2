@@ -103,16 +103,14 @@ function createEditor(point, offers){
       <section class="event__section  event__section--offers"> //TODO: формировать из данных
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         <div class="event__available-offers">
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-            <label class="event__offer-label" for="event-offer-train-1">
-              <span class="event__offer-title">Travel by train</span>
-              +€&nbsp;
-              <span class="event__offer-price">40</span>
-            </label>
-          </div>
+
+
+
+
+
+
+      ${createOffersItemTemplate(offers)};
         </div>
-        ${createOffersItemTemplate(offers)}
       </section>
 
       <section class="event__section  event__section--destination">
@@ -121,35 +119,41 @@ function createEditor(point, offers){
       </section>
       <img
     </section>
-  </form> `;
+  </form>`;
 }
 
+//{filterOffers(offers, point.type)}
+
+//TODO: как сделать фильтрацию по типу?
+// function filterOffers (offers, type){
+//  const filterOffer = offers;
+//  const filterOfferType = type;
+//    filtredOffer = filterOffer.filter(filterOfferType);
+//  console.log(filterOffer);
+// }
+
 function createOffersItemTemplate (offers) {
-  console.log(offers);
-  return offers.map((el) =>
-  el.offers.map((offer, i) => `
-          <div class="event__offer-selector">
-            <input
-            class="event__offer-checkbox  visually-hidden"
-            id="event-offer-${el.type}-${i}"
-            type="checkbox" name="event-offer-${offer.title}}"
-            // {isChecked ? 'checked' : ''}
+  //console.log(offers);
+  return offers.map((el) => el.offers.map((offer, i) =>
+    `<div class="event__offer-selector">
+          <input class="event__offer-checkbox  visually-hidden"
+           id="event-offer-${el.type}-${i}"
+           type="checkbox" name="event-offer-${offer.title}}"
+            // {isChecked ? 'checked' : ''} //TODO: доделать проветку на выбранно - невыбрано
             // {count === 0 ? 'disabled' : ''}
-            />
-            <label class="event__offer-label" for="event-offer-${el.type}-${i}">
-              <span class="event__offer-title">Add ${offer.title}</span>
-              +€&nbsp;
-              <span class="event__offer-price">${offer.price}</span>
-            </label>
-          </div>`)
+           >
+          <label class="event__offer-label" for="event-offer-${el.type}-${i}">
+            <span class="event__offer-title">Add ${offer.title}</span>
+            +€&nbsp;
+           <span class="event__offer-price">${offer.price}</span>
+          </label>
+      </div>`)
   );
 
 }
 
-// function createOfferTemplate(){
-//   const offerItemTemplate = offerItems
-//     this.offers = offers.map((el) => el.offers);
-//     .join('');
+// function offerItemTemplate(el){
+//   return
 // }
 
 export default class EditorView extends AbstractView {
