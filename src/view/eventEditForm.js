@@ -103,13 +103,7 @@ function createEditor(point, offers){
       <section class="event__section  event__section--offers"> //TODO: формировать из данных
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         <div class="event__available-offers">
-
-
-
-
-
-
-      ${createOffersItemTemplate(offers)};
+        ${createOffersItemTemplate(filterOffers(offers, point.type))}
         </div>
       </section>
 
@@ -122,19 +116,14 @@ function createEditor(point, offers){
   </form>`;
 }
 
-//{filterOffers(offers, point.type)}
+//фильтрация офферов по типу
+function filterOffers (offers, type){
+  const filtredOffer = offers.filter((offer) => offer.type === type);
+  return filtredOffer;
+}
 
-//TODO: как сделать фильтрацию по типу?
-// function filterOffers (offers, type){
-//  const filterOffer = offers;
-//  const filterOfferType = type;
-//    filtredOffer = filterOffer.filter(filterOfferType);
-//  console.log(filterOffer);
-// }
-
-function createOffersItemTemplate (offers) {
-  //console.log(offers);
-  return offers.map((el) => el.offers.map((offer, i) =>
+function createOffersItemTemplate (filtredOffer) {
+  return filtredOffer.map((el) => el.offers.map((offer, i) =>
     `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden"
            id="event-offer-${el.type}-${i}"
@@ -151,11 +140,6 @@ function createOffersItemTemplate (offers) {
   );
 
 }
-
-// function offerItemTemplate(el){
-//   return
-// }
-
 export default class EditorView extends AbstractView {
   #element = null;
 
