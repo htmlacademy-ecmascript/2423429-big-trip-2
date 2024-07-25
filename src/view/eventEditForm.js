@@ -1,5 +1,4 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { generatePoint } from '../mock/getPoints.js';
 import { createElement } from '../render.js';
 
 function createEditor(point, offers){
