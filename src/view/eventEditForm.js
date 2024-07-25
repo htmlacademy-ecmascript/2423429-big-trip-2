@@ -121,8 +121,8 @@ function filterOffers (offers, type){
   return filtredOffer;
 }
 
-function createOffersItemTemplate (filtredOffer) {
-  return filtredOffer.map((el) => el.offers.map((offer, i) =>
+function createOffersItemTemplate (offers) {
+  return offers.map((el) => el.offers.map((offer, i) =>
     `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden"
            id="event-offer-${el.type}-${i}"
@@ -136,6 +136,7 @@ function createOffersItemTemplate (filtredOffer) {
            <span class="event__offer-price">${offer.price}</span>
           </label>
       </div>`)
+    .join('')
   );
 
 }
