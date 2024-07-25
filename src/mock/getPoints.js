@@ -20,5 +20,3 @@ const generatePoint = () => {
   };
 };
 export {generatePoint};
-
-// позже добавить дополнительные предложения

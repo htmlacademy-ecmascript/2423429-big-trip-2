@@ -117,27 +117,25 @@ function createEditor(point, offers){
 
 //фильтрация офферов по типу
 function filterOffers (offers, type){
-  const filtredOffer = offers.filter((offer) => offer.type === type);
+  const filtredOffer = offers.find((offer) => offer.type === type);
   return filtredOffer;
 }
 
-function createOffersItemTemplate (offers) {
-  return offers.map((el) => el.offers.map((offer, i) =>
+function createOffersItemTemplate (typeTransport) {
+  return typeTransport.offers.map((offer, i) =>
     `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden"
-           id="event-offer-${el.type}-${i}"
+           id="event-offer-${typeTransport.type}-${i}"
            type="checkbox" name="event-offer-${offer.title}}"
-            // {isChecked ? 'checked' : ''} //TODO: доделать проветку на выбранно - невыбрано
-            // {count === 0 ? 'disabled' : ''}
+            ${i === 0 ? 'checked' : ''}
            >
-          <label class="event__offer-label" for="event-offer-${el.type}-${i}">
+          <label class="event__offer-label" for="event-offer-${typeTransport.type}-${i}">
             <span class="event__offer-title">Add ${offer.title}</span>
             +€&nbsp;
            <span class="event__offer-price">${offer.price}</span>
           </label>
       </div>`)
-    .join('')
-  );
+    .join('');
 
 }
 export default class EditorView extends AbstractView {
