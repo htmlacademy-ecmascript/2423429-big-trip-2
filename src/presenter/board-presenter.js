@@ -16,7 +16,8 @@ export default class BoardPresenter {
       point,
       onPointClick: () => {
         replacePointToEditor();
-      }
+      },
+      offers: this.offersModel.offers
     });
 
     const editorComponent = new EditorView({
