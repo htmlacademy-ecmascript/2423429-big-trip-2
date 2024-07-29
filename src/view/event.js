@@ -42,7 +42,7 @@ function createInformationForOffers (offersForInformation) {
   return offersForInformation.map((el) => el.offers.map((offer) =>
     `<li class="event__offer">
                     <span class="event__offer-title"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.title}" data-translation="${offer.title}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.title}</ya-tr-span></span><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" +€ " data-translation=" + " data-ch="0" data-type="trSpan" style="visibility: initial !important;"> + </ya-tr-span><span class="event__offer-price"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.price}" data-translation="${offer.price} евро" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.price} евро</ya-tr-span></span>
-                  </li>`).join(''));
+                  </li>`).join('')).join('');
 }
 
 export default class PointView extends AbstractView{
