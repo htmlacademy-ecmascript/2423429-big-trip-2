@@ -21,7 +21,7 @@ function createNewEvent(point, offers){
                 </p>
                 <h4 class="visually-hidden"><ya-tr-span data-index="46-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Offers:" data-translation="Предложения:" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Предложения:</ya-tr-span></h4>
                 <ul class="event__selected-offers">
-                  ${createInformationForOffers(offers)}
+                  ${createInformationForOffers(filterOffers(offers, point.type))}
                 </ul>
                 <button class="event__favorite-btn ${point.is_favorite}" type="button">
                   <span class="visually-hidden"><ya-tr-span data-index="48-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Add to favorite" data-translation="Добавить в избранное" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Добавить в избранное</ya-tr-span></span>
@@ -37,12 +37,16 @@ function createNewEvent(point, offers){
           `;
 }
 
+function filterOffers (offers, type){
+  const filtredOffer = offers.find((offer) => offer.type === type);
+  return filtredOffer;
+}
 
 function createInformationForOffers (offersForInformation) {
-  return offersForInformation.map((el) => el.offers.map((offer) =>
+  return offersForInformation.offers.map((offer) =>
     `<li class="event__offer">
                     <span class="event__offer-title"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.title}" data-translation="${offer.title}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.title}</ya-tr-span></span><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" +€ " data-translation=" + " data-ch="0" data-type="trSpan" style="visibility: initial !important;"> + </ya-tr-span><span class="event__offer-price"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.price}" data-translation="${offer.price} евро" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.price} евро</ya-tr-span></span>
-                  </li>`).join('')).join('');
+                  </li>`).join('');
 }
 
 export default class PointView extends AbstractView{
