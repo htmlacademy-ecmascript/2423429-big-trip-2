@@ -12,7 +12,7 @@ function createEditor(point, offers){
         </label>
         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
-        <div class="event__type-list">  //TODO: формировать список типов транспорта из данных
+        <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Event type</legend>
            ${createTypesItemTemplate(offers)}
@@ -55,7 +55,7 @@ function createEditor(point, offers){
       </button>
     </header>
     <section class="event__details">
-      <section class="event__section  event__section--offers"> //TODO: формировать из данных
+      <section class="event__section  event__section--offers">
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         <div class="event__available-offers">
         ${createOffersItemTemplate(filterOffers(offers, point.type))}
@@ -87,7 +87,6 @@ function createTypesItemTemplate (typeTransport) {
 //фильтрация офферов по типу
 function filterOffers (offers, type){
   const filtredOffer = offers.find((offer) => offer.type === type);
-  //console.log(filtredOffer.type);
   return filtredOffer;
 }
 
