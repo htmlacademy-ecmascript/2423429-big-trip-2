@@ -2,7 +2,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
 
-function createNewEvent(point){
+function createNewEvent(point, offers){
   return `
             <li class="trip-events__item">
               <div class="event">
@@ -21,9 +21,8 @@ function createNewEvent(point){
                 </p>
                 <h4 class="visually-hidden"><ya-tr-span data-index="46-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Offers:" data-translation="Предложения:" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Предложения:</ya-tr-span></h4>
                 <ul class="event__selected-offers">
-                  <li class="event__offer">
-                    <span class="event__offer-title"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Add breakfast" data-translation="Добавить завтрак" data-ch="0" data-type="trSpan" style="visibility: initial !important;">Добавить завтрак</ya-tr-span></span><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" +€ " data-translation=" + " data-ch="0" data-type="trSpan" style="visibility: initial !important;"> + </ya-tr-span><span class="event__offer-price"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="50" data-translation="50 евро" data-ch="0" data-type="trSpan" style="visibility: initial !important;">50 евро</ya-tr-span></span>
-                  </li>
+                //TODO: в списке точек маршрута нужно выводить только выбранные офферы
+                  ${createInformationForOffers(filterOffers(offers, point.type))}
                 </ul>
                 <button class="event__favorite-btn ${point.is_favorite}" type="button">
                   <span class="visually-hidden"><ya-tr-span data-index="48-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Add to favorite" data-translation="Добавить в избранное" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Добавить в избранное</ya-tr-span></span>
@@ -39,19 +38,31 @@ function createNewEvent(point){
           `;
 }
 
+function filterOffers (offers, type){
+  const filtredOffer = offers.find((offer) => offer.type === type);
+  return filtredOffer;
+}
+
+function createInformationForOffers (offersForInformation) {
+  return offersForInformation.offers.map((offer) =>
+    `<li class="event__offer">
+                    <span class="event__offer-title"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.title}" data-translation="${offer.title}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.title}</ya-tr-span></span><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" +€ " data-translation=" + " data-ch="0" data-type="trSpan" style="visibility: initial !important;"> + </ya-tr-span><span class="event__offer-price"><ya-tr-span data-index="47-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${offer.price}" data-translation="${offer.price} евро" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${offer.price} евро</ya-tr-span></span>
+                  </li>`).join('');
+}
 
 export default class PointView extends AbstractView{
   #element = null;
-  constructor({point, onPointClick}){
+  constructor({point, onPointClick, offers}){
     super();
     this.point = point;
+    this.offers = offers;
     this.onPointClick = onPointClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onPointClick);
   }
 
   get template (){
-    return createNewEvent(this.point);
+    return createNewEvent(this.point, this.offers);
   }
 
   get element () {

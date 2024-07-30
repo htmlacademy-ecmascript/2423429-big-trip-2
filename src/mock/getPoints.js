@@ -14,10 +14,9 @@ const generatePoint = () => {
     'date_to': 'date to',
     destination: CITY.name, // добавить в event,js
     'is_favorite': checkFavorite(), // или true
-    type: offer.type, // point.type добавить смену иконки типа маршрута
-    pictures: CITY.pictures
+    type: offer.type,
+    pictures: CITY.pictures,
+    offers: offer.offers.map((el) => el.id)
   };
 };
 export {generatePoint};
-
-// позже добавить дополнительные предложения
