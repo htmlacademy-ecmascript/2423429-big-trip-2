@@ -21,6 +21,7 @@ function createNewEvent(point, offers){
                 </p>
                 <h4 class="visually-hidden"><ya-tr-span data-index="46-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Offers:" data-translation="Предложения:" data-ch="1" data-type="trSpan" style="visibility: initial !important;">Предложения:</ya-tr-span></h4>
                 <ul class="event__selected-offers">
+                //TODO: в списке точек маршрута нужно выводить только выбранные офферы
                   ${createInformationForOffers(filterOffers(offers, point.type))}
                 </ul>
                 <button class="event__favorite-btn ${point.is_favorite}" type="button">
