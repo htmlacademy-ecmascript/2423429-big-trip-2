@@ -1,8 +1,12 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
+import {humanizeEventDate, humanizeStartTime} from '../utils.js';
 
 
 function createNewEvent(point, offers){
+
+  //const dateStart = humanizeStartTime(date_from);
+  //const dateEnd = humanizeEventDate(date_to);
   return `
             <li class="trip-events__item">
               <div class="event">
