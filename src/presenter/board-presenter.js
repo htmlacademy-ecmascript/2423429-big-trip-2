@@ -12,12 +12,15 @@ export default class BoardPresenter {
 
 
   #renderPoint(point){
+    //TODO: нужно созранить все pointPresenter по аналогии с boardPoints
 
     const pointPresenter = new PointPresenter ({
       pointListContainer: this.container,
       offersModel: this.offersModel
     });
     pointPresenter.init(point);
+
+    //TODO: this.pointPresenters.push(pointPresenter)
   }
 
   #renderPoints() {
@@ -43,4 +46,7 @@ export default class BoardPresenter {
     this.#renderPoints();
   }
 
+  #closeEditors (){
+    //TODO: пройтись по pointPresenters и вызвать метод закрытия формы (вызов метода editorToPoint)
+  }
 }

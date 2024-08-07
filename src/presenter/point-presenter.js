@@ -20,6 +20,7 @@ export default class PointPresenter {
     this.#pointComponent = new PointView({
       point: this.#point,
       onPointClick: () =>{
+        //TODO: донести метод closeEditors
         this.#replacePointToEditor();
       },
       offers: this.#offersModel.offers
@@ -28,7 +29,7 @@ export default class PointPresenter {
     this.#editorComponent = new EditorView({
       point,
       onEditorClick: () =>{
-        this.#replaceEditorToPoint();
+        this.replaceEditorToPoint();
       },
       offers: this.#offersModel.offers
     });
@@ -38,9 +39,10 @@ export default class PointPresenter {
 
   #replacePointToEditor() {
     replace(this.#editorComponent, this.#pointComponent);
+
   }
 
-  #replaceEditorToPoint() {
+  replaceEditorToPoint() {
     replace(this.#pointComponent, this.#editorComponent);
   }
 }

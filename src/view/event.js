@@ -6,9 +6,8 @@ import {humanizeEventDate} from '../utils.js';
 function createNewEvent(point, offers){
 
   const dateStart = humanizeEventDate(point.date_from, 'HH:mm');
-  //console.log(dateStart);//TODO: доделать по примеру
-  const dateEnd = humanizeEventDate(point.date_from, 'HH');
-  //console.log(dateEnd);
+  //TODO: доделать по примеру
+  //const dateEnd = humanizeEventDate(point.date_from, 'HH');
   return `
             <li class="trip-events__item">
               <div class="event">
