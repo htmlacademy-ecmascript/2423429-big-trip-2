@@ -1,9 +1,9 @@
-import PointView from '../view//event.js';
+
 import SortView from '../view/sort.js';
-import {render, replace} from '../framework/render.js';
 import listView from '../view/tripEventsList.js';
-import EditorView from '../view/eventEditForm.js';
+import {render} from '../framework/render.js';
 import ListEmpty from '../view/listEmpty.js';
+import PointPresenter from './point-presenter.js';
 export default class BoardPresenter {
   #tripListComponent = new listView();
   #sortComponent = new SortView();
@@ -12,31 +12,12 @@ export default class BoardPresenter {
 
 
   #renderPoint(point){
-    const pointComponent = new PointView({
-      point,
-      onPointClick: () => {
-        replacePointToEditor();
-      },
-      offers: this.offersModel.offers
+
+    const pointPresenter = new PointPresenter ({
+      pointListContainer: this.container,
+      offersModel: this.offersModel
     });
-
-    const editorComponent = new EditorView({
-      point,
-      onEditorClick: () => {
-        replaceEditorToPoint();
-      },
-      offers: this.offersModel.offers
-    });
-
-    function replacePointToEditor (){
-      replace(editorComponent, pointComponent);
-    }
-
-    function replaceEditorToPoint (){
-      replace(pointComponent, editorComponent);
-    }
-
-    render(pointComponent, this.container.querySelector('.trip-events__list'));
+    pointPresenter.init(point);
   }
 
   #renderPoints() {

@@ -1,16 +1,18 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
-import {humanizeEventDate, humanizeStartTime} from '../utils.js';
+import {humanizeEventDate} from '../utils.js';
 
 
 function createNewEvent(point, offers){
 
-  //const dateStart = humanizeStartTime(date_from);
-  //const dateEnd = humanizeEventDate(date_to);
+  const dateStart = humanizeEventDate(point.date_from, 'HH:mm');
+  //console.log(dateStart);//TODO: доделать по примеру
+  const dateEnd = humanizeEventDate(point.date_from, 'HH');
+  //console.log(dateEnd);
   return `
             <li class="trip-events__item">
               <div class="event">
-                <time class="event__date" datetime="${point.date_from}"><ya-tr-span data-index="41-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.date_from}" data-translation="${point.date_from}" data-ch="1" data-type="trSpan" style="visibility: initial !important;">${point.date_from}</ya-tr-span></time>
+                <time class="event__date" datetime="${dateStart}"><ya-tr-span data-index="41-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.date_from}" data-translation="${point.date_from}" data-ch="1" data-type="trSpan" style="visibility: initial !important;">${point.date_from}</ya-tr-span></time>
                 <div class="event__type">
                   <img class="event__type-icon" width="42" height="42" src="img/icons/${point.type}.png" alt="Значок типа события">
                 </div>
