@@ -5,20 +5,21 @@ import {humanizeEventDate} from '../utils.js';
 
 function createNewEvent(point, offers){
 
-  const dateStart = humanizeEventDate(point.date_from, 'HH:mm');
-  //TODO: доделать по примеру
-  //const dateEnd = humanizeEventDate(point.date_from, 'HH');
+  const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm'); // 00:00
+  const dateStartDate = humanizeEventDate(point.date_from, 'MMM:DD'); // MON 00
+  const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
+
   return `
             <li class="trip-events__item">
               <div class="event">
-                <time class="event__date" datetime="${dateStart}"><ya-tr-span data-index="41-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.date_from}" data-translation="${point.date_from}" data-ch="1" data-type="trSpan" style="visibility: initial !important;">${point.date_from}</ya-tr-span></time>
+                <time class="event__date" datetime="${dateStartDate}"><ya-tr-span data-index="41-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${dateStartDate}" data-translation="${dateStartDate}" data-ch="1" data-type="trSpan" style="visibility: initial !important;">${dateStartDate}</ya-tr-span></time>
                 <div class="event__type">
                   <img class="event__type-icon" width="42" height="42" src="img/icons/${point.type}.png" alt="Значок типа события">
                 </div>
                 <h3 class="event__title"><ya-tr-span data-index="42-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.type} Chamonix" data-translation="${point.type} в ${point.destination}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.type} в ${point.destination}</ya-tr-span></h3>
                 <div class="event__schedule">
                   <p class="event__time">
-                    <time class="event__start-time" datetime="${point.date_from}"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.date_from}" data-translation="${point.date_from}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.date_from}</ya-tr-span></time><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" — " data-translation=" — " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  —  </ya-tr-span><time class="event__end-time" ${point.date_to}"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${point.date_to}" data-translation="${point.date_to}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${point.date_to}</ya-tr-span></time>
+                    <time class="event__start-time" datetime="${dateStartHours}"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${dateStartHours}" data-translation="${dateStartHours}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${dateStartHours}</ya-tr-span></time><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" — " data-translation=" — " data-ch="0" data-type="trSpan" style="visibility: initial !important;">  —  </ya-tr-span><time class="event__end-time" ${dateEndHours}"><ya-tr-span data-index="43-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="${dateEndHours}" data-translation="${dateEndHours}" data-ch="0" data-type="trSpan" style="visibility: initial !important;">${dateEndHours}</ya-tr-span></time>
                   </p>
                   <p class="event__duration"><ya-tr-span data-index="44-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="40M" data-translation="40 м" data-ch="0" data-type="trSpan" style="visibility: initial !important;">40 м</ya-tr-span></p>
                 </div>

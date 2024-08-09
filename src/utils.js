@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
 
-const EVENT_DATE_FORMAT = 'MMM-DD'; //'2019-01-25T00:00:00-02:00Z';
 const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
-//const EVENT_START_TIME_FORMAT = 'HH:mm';
 
 
 function getRandomArrayElement(items) {
