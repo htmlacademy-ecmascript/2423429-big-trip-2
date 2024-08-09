@@ -1,7 +1,9 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { createElement } from '../render.js';
 
+
 function createEditor(point, offers){
+
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">

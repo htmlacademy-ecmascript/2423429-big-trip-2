@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+
+const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
+
+
 function getRandomArrayElement(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
@@ -22,4 +27,4 @@ function checkFavorite() {
 }
 
 
-export {getRandomArrayElement, getRandomInteger, checkFavorite};
+export {getRandomArrayElement, getRandomInteger, checkFavorite, humanizeEventDate};
