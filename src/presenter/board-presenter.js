@@ -9,18 +9,20 @@ export default class BoardPresenter {
   #sortComponent = new SortView();
   #boardPoints = [];
   #listEmpty = new ListEmpty();
-
+  pointPresenters = [];
 
   #renderPoint(point){
-    //TODO: нужно созранить все pointPresenter по аналогии с boardPoints
 
     const pointPresenter = new PointPresenter ({
       pointListContainer: this.container,
       offersModel: this.offersModel
     });
-    pointPresenter.init(point);
 
+    pointPresenter.init(point, this.closeEditors(this.pointPresenters));
+    //TODO: нужно созранить все pointPresenter по аналогии с boardPoints
+    this.pointPresenters.push(pointPresenter);
     //TODO: this.pointPresenters.push(pointPresenter)
+    //console.log(this.pointPresenters);
   }
 
   #renderPoints() {
@@ -46,7 +48,11 @@ export default class BoardPresenter {
     this.#renderPoints();
   }
 
-  #closeEditors (){
+  closeEditors (pointPresenters){
     //TODO: пройтись по pointPresenters и вызвать метод закрытия формы (вызов метода editorToPoint)
+    for (let i = 0 ; pointPresenters[i] < pointPresenters.length; i++){
+      console.log(pointPresenters[i]);
+      pointPresenters.replaceEditorToPoint();
+    }
   }
 }
