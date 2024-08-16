@@ -27,4 +27,4 @@ function checkFavorite() {
 }
 
 
-export {getRandomArrayElement, getRandomInteger, checkFavorite, humanizeEventDate};
+export {getRandomArrayElement, getRandomInteger, checkFavorite, humanizeEventDate, getRandomBoolean};

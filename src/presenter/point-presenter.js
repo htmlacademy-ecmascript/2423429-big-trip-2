@@ -15,13 +15,13 @@ export default class PointPresenter {
     this.#offersModel = offersModel;
   }
 
-  init(point, closeEditors) {
+  init(point) {
     this.#point = point;
     this.#pointComponent = new PointView({
       point: this.#point,
       onPointClick: () =>{
         //TODO: донести метод closeEditors
-        closeEditors();
+        //closeEditors();
         this.#replacePointToEditor();
       },
       offers: this.#offersModel.offers

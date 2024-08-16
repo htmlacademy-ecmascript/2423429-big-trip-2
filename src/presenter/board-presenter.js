@@ -18,7 +18,7 @@ export default class BoardPresenter {
       offersModel: this.offersModel
     });
 
-    pointPresenter.init(point, this.closeEditors(this.pointPresenters));
+    pointPresenter.init(point);
     //TODO: нужно созранить все pointPresenter по аналогии с boardPoints
     this.pointPresenters.push(pointPresenter);
     //TODO: this.pointPresenters.push(pointPresenter)
@@ -35,10 +35,11 @@ export default class BoardPresenter {
     }
   }
 
-  constructor({container, pointModel, offersModel}){
+  constructor({container, pointModel, offersModel, closeEditors}){
     this.container = container;
     this.pointModel = pointModel;
     this.offersModel = offersModel;
+    //this.closeEditors = closeEditor;
   }
 
   init() {
@@ -48,11 +49,11 @@ export default class BoardPresenter {
     this.#renderPoints();
   }
 
-  closeEditors (pointPresenters){
+  closeEditors (){
     //TODO: пройтись по pointPresenters и вызвать метод закрытия формы (вызов метода editorToPoint)
-    for (let i = 0 ; pointPresenters[i] < pointPresenters.length; i++){
-      console.log(pointPresenters[i]);
-      pointPresenters.replaceEditorToPoint();
+    for (let i = 0 ; this.pointPresenters[i] < this.pointPresenters.length; i++){
+      console.log(this.pointPresenters[i]);
+      this.pointPresenters[i].replaceEditorToPoint();
     }
   }
 }

@@ -12,42 +12,52 @@ const CITIES = [
   {
     name: 'Amsterdam',
     id: '3954f7a5-4d2d-4065-8c3a-36605e32689f',
-    pictures: [{
-      description: getRandomArrayElement(FISH_TEXT),
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-    }]
+    pictures: [
+      {
+        description: getRandomArrayElement(FISH_TEXT),
+        src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      }
+    ]
   },
   {
     name: 'Kaliningrad',
     id: '3954f7a5-4d2d-4065-8c3a-36605e326877',
-    pictures: [{
-      description: getRandomArrayElement(FISH_TEXT),
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-    }]
+    pictures: [
+      {
+        description: getRandomArrayElement(FISH_TEXT),
+        src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      }
+    ]
   },
   {
     name: 'Vaduz',
     id: 'dc43bec3-c630-48c5-9023-d6c7aa2988f1',
-    pictures: [{
-      description: getRandomArrayElement(FISH_TEXT),
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-    }]
+    pictures: [
+      {
+        description: getRandomArrayElement(FISH_TEXT),
+        src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      }
+    ]
   },
   {
     name: 'Rome',
     id: 'a4347946-1f2d-4e78-ae35-e17bc8c5da6f',
-    pictures: [{
-      description: getRandomArrayElement(FISH_TEXT),
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-    }]
+    pictures: [
+      {
+        description: getRandomArrayElement(FISH_TEXT),
+        src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      }
+    ]
   },
   {
     name: 'Jakarta',
     id: '01fd8f32-5902-40c5-8e51-5768e966766e',
-    pictures: [{
-      description: getRandomArrayElement(FISH_TEXT),
-      src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
-    }]
+    pictures: [
+      {
+        description: getRandomArrayElement(FISH_TEXT),
+        src: `https://loremflickr.com/248/152?random=${getRandomInteger(1, 100)}`,
+      }
+    ]
   },
 ];
 const OFFERS = [
