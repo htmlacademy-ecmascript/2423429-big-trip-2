@@ -1,6 +1,6 @@
 import {render, replace} from '../framework/render.js';
 import PointView from '../view/event.js';
-import EditorView from '../view/eventEditForm.js';
+import EditorView from '../view/event-edit-form.js';
 
 export default class PointPresenter {
   #pointListContainer = null;

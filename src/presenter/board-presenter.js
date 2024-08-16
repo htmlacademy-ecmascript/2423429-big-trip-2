@@ -1,8 +1,8 @@
 
 import SortView from '../view/sort.js';
-import listView from '../view/tripEventsList.js';
+import listView from '../view/trip-events-list.js';
 import {render} from '../framework/render.js';
-import ListEmpty from '../view/listEmpty.js';
+import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 export default class BoardPresenter {
   #tripListComponent = new listView();

@@ -2,8 +2,8 @@
 import BoardPresenter from './presenter/board-presenter.js';
 import FilterView from './view/filter.js';
 import { render } from './framework/render.js';
-import PointModel from './model/pointModel.js';
-import OffersModel from './model/offerModel.js';
+import PointModel from './model/point-model.js';
+import OffersModel from './model/offer-model.js';
 const siteFilterElement = document.querySelector('.trip-controls__filters');
 render(new FilterView(), siteFilterElement);
 
