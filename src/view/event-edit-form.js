@@ -1,6 +1,36 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { createElement } from '../render.js';
 
+function getOffersByType (offers, type){
+  return offers.find((offer) => offer.type === type);
+}
+
+function createOffersItemTemplate (typeTransport) {
+  return typeTransport.offers.map((offer, i) =>
+    `<div class="event__offer-selector">
+          <input class="event__offer-checkbox  visually-hidden"
+           id="event-offer-${typeTransport.type}-${i}"
+           type="checkbox" name="event-offer-${offer.title}}"
+            ${i === 0 ? 'checked' : ''}
+           >
+          <label class="event__offer-label" for="event-offer-${typeTransport.type}-${i}">
+            <span class="event__offer-title">Add ${offer.title}</span>
+            +€&nbsp;
+           <span class="event__offer-price">${offer.price}</span>
+          </label>
+      </div>`).join('');
+}
+
+function createTypesItemTemplate (typeTransport) {
+  return typeTransport.map((offer, i) =>
+    `<div class="event__type-item">
+          <input id="event-type-${offer.type}-${i}" class="event__type-input  visually-hidden"
+          type="radio" name="event-type" value="${offer.type}"
+          ${i === 0 ? 'checked' : ''}
+          >
+        <label class="event__type-label  event__type-label--${offer.type}"
+        for="event-type-${offer.type}-${i}">${offer.type}</label>
+    </div>`).join('');
+}
 
 function createEditor(point, offers){
 
@@ -60,7 +90,7 @@ function createEditor(point, offers){
       <section class="event__section  event__section--offers">
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         <div class="event__available-offers">
-        ${createOffersItemTemplate(filterOffers(offers, point.type))}
+        ${createOffersItemTemplate(getOffersByType(offers, point.type))}
         </div>
       </section>
 
@@ -73,43 +103,7 @@ function createEditor(point, offers){
   </form>`;
 }
 
-//получение списка типов точек маршрута
-function createTypesItemTemplate (typeTransport) {
-  return typeTransport.map((offer, i) =>
-    `<div class="event__type-item">
-          <input id="event-type-${offer.type}-${i}" class="event__type-input  visually-hidden"
-          type="radio" name="event-type" value="${offer.type}"
-          ${i === 0 ? 'checked' : ''}
-          >
-        <label class="event__type-label  event__type-label--${offer.type}"
-        for="event-type-${offer.type}-${i}">${offer.type}</label>
-    </div>`).join('');
-}
-
-//фильтрация офферов по типу
-function filterOffers (offers, type){
-  const filtredOffer = offers.find((offer) => offer.type === type);
-  return filtredOffer;
-}
-
-function createOffersItemTemplate (typeTransport) {
-  return typeTransport.offers.map((offer, i) =>
-    `<div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden"
-           id="event-offer-${typeTransport.type}-${i}"
-           type="checkbox" name="event-offer-${offer.title}}"
-            ${i === 0 ? 'checked' : ''}
-           >
-          <label class="event__offer-label" for="event-offer-${typeTransport.type}-${i}">
-            <span class="event__offer-title">Add ${offer.title}</span>
-            +€&nbsp;
-           <span class="event__offer-price">${offer.price}</span>
-          </label>
-      </div>`).join('');
-
-}
 export default class EditorView extends AbstractView {
-  #element = null;
   constructor({point, onEditorClick, offers}){
     super();
     this.point = point;
@@ -123,10 +117,4 @@ export default class EditorView extends AbstractView {
     return createEditor(this.point, this.offers);
   }
 
-  get element () {
-    if (!this.#element){
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
 }

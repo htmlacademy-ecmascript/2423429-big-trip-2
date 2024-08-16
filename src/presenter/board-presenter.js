@@ -1,11 +1,11 @@
-
 import SortView from '../view/sort.js';
-import listView from '../view/trip-events-list.js';
+import ListView from '../view/trip-events-list.js';
 import {render} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
+
 export default class BoardPresenter {
-  #tripListComponent = new listView();
+  #tripListComponent = new ListView();
   #sortComponent = new SortView();
   #boardPoints = [];
   #listEmpty = new ListEmpty();
@@ -27,15 +27,14 @@ export default class BoardPresenter {
 
   #renderPoints() {
     if(this.#boardPoints.length === 0){
-      render(this.#listEmpty, this.container.querySelector('.trip-events__list'));
-    } else {
-      for (let i = 0 ; i < this.#boardPoints.length; i++){
-        this.#renderPoint(this.#boardPoints[i]);
-      }
+      render(this.#listEmpty, this.#tripListComponent.element);
+      return;
     }
+
+    this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
-  constructor({container, pointModel, offersModel, closeEditors}){
+  constructor({container, pointModel, offersModel}) {
     this.container = container;
     this.pointModel = pointModel;
     this.offersModel = offersModel;
@@ -47,13 +46,5 @@ export default class BoardPresenter {
     render(this.#sortComponent, this.container);
     render(this.#tripListComponent, this.container);
     this.#renderPoints();
-  }
-
-  closeEditors (){
-    //TODO: пройтись по pointPresenters и вызвать метод закрытия формы (вызов метода editorToPoint)
-    for (let i = 0 ; this.pointPresenters[i] < this.pointPresenters.length; i++){
-      console.log(this.pointPresenters[i]);
-      this.pointPresenters[i].replaceEditorToPoint();
-    }
   }
 }
