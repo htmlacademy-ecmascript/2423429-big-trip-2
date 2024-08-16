@@ -1,4 +1,3 @@
-
 import BoardPresenter from './presenter/board-presenter.js';
 import FilterView from './view/filter.js';
 import { render } from './framework/render.js';

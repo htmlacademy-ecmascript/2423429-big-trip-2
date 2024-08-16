@@ -17,12 +17,8 @@ export default class BoardPresenter {
       pointListContainer: this.container,
       offersModel: this.offersModel
     });
-
     pointPresenter.init(point);
-    //TODO: нужно созранить все pointPresenter по аналогии с boardPoints
     this.pointPresenters.push(pointPresenter);
-    //TODO: this.pointPresenters.push(pointPresenter)
-    //console.log(this.pointPresenters);
   }
 
   #renderPoints() {
