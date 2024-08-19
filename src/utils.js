@@ -18,4 +18,13 @@ function getRandomBoolean(){
   return Math.random() < 0.5;
 }
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean};
+function getNameForDest (destinationId, points) {
+  for (let i = 0; i < points.length; i++) {
+    if (points[i].id === destinationId){
+      return points[i].name;
+    }
+  }
+  return null;
+}
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, getNameForDest};

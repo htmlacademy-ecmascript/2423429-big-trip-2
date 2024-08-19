@@ -1,4 +1,6 @@
+import { CITIES } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
+import { getNameForDest } from '../utils.js';
 
 function getOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
@@ -34,6 +36,8 @@ function createTypesItemTemplate (typeTransport) {
 
 function createEditor(point, offers){
 
+  const destinationName = getNameForDest(point.destination, CITIES);
+
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -56,7 +60,7 @@ function createEditor(point, offers){
         <label class="event__label  event__type-output" for="event-destination-1">
           ${point.type}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${point.destination}" list="destination-list-1">
+        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destinationName}" list="destination-list-1">
         <datalist id="destination-list-1">
           <option value="Amsterdam"></option>
           <option value="Geneva"></option>
@@ -96,7 +100,7 @@ function createEditor(point, offers){
 
       <section class="event__section  event__section--destination">
         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-        <p class="event__destination-description">${point.destination}-Mont-Blanc (usually shortened to ${point.destination}) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
+        <p class="event__destination-description">${destinationName}-Mont-Blanc (usually shortened to ${destinationName}) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
       </section>
       <img
     </section>

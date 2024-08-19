@@ -1,9 +1,12 @@
+import { CITIES } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeEventDate} from '../utils.js';
+import {getNameForDest, humanizeEventDate} from '../utils.js';
+
 
 function getOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
+
 
 function createInformationForOffers (offersForInformation) {
   return offersForInformation.offers.map((offer) =>
@@ -19,6 +22,8 @@ function createEvent(point, offers){
   const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm'); // 00:00
   const dateStartDate = humanizeEventDate(point.date_from, 'MMM:DD'); // MON 00
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
+  const resultGetOffersByType = getOffersByType(offers, point.type);
+  const destinationName = getNameForDest(point.destination, CITIES);
 
   return (
     `<li class="trip-events__item">
@@ -29,7 +34,7 @@ function createEvent(point, offers){
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${point.type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title"> ${point.type} ${point.destination}</h3>
+        <h3 class="event__title"> ${point.type} ${destinationName}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time"
@@ -45,7 +50,7 @@ function createEvent(point, offers){
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          ${createInformationForOffers(getOffersByType(offers, point.type))}
+          ${createInformationForOffers(resultGetOffersByType)}
         </ul>
         <button class="event__favorite-btn ${point.is_favorite ? 'event__favorite-btn--active' : ''}" type="button">
           <span class="visually-hidden">Add to favorite</span>
