@@ -7,6 +7,10 @@ function getOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
 
+function filterOffers (offers, point){
+  return offers.filter((id) => point.offers.includes(id));
+}
+
 
 function createInformationForOffers (offersForInformation) {
   return offersForInformation.offers.map((offer) =>
@@ -24,6 +28,7 @@ function createEvent(point, offers){
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
   const resultGetOffersByType = getOffersByType(offers, point.type);
   const destinationName = getNameForDest(point.destination, CITIES);
+  const resultOffers = filterOffers(resultGetOffersByType.offers, point);
 
   return (
     `<li class="trip-events__item">
