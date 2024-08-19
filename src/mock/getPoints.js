@@ -15,7 +15,6 @@ const generatePoint = () => {
     destination: city.id,
     'is_favorite': randomBoolean,
     type: offer.type,
-    //pictures: city.pictures,
     offers: offer.offers.map((el) => el.id)
   };
 };
