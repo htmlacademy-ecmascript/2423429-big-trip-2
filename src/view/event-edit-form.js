@@ -4,15 +4,15 @@ function findOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
 
-function createOffersItemTemplate (typeTransport) {
-  return typeTransport.offers.map((offer, i) =>
+function createOffersItemTemplate (offers) {
+  return offers.offers.map((offer, i) =>
     `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden"
-           id="event-offer-${typeTransport.type}-${i}"
+           id="event-offer-${offers.type}-${i}"
            type="checkbox" name="event-offer-${offer.title}}"
             ${i === 0 ? 'checked' : ''}
            >
-          <label class="event__offer-label" for="event-offer-${typeTransport.type}-${i}">
+          <label class="event__offer-label" for="event-offer-${offers.type}-${i}">
             <span class="event__offer-title">Add ${offer.title}</span>
             +€&nbsp;
            <span class="event__offer-price">${offer.price}</span>
@@ -20,8 +20,8 @@ function createOffersItemTemplate (typeTransport) {
       </div>`).join('');
 }
 
-function createTypesItemTemplate (typeTransport) {
-  return typeTransport.map((offer, i) =>
+function createTypesItemTemplate (offers) {
+  return offers.map((offer, i) =>
     `<div class="event__type-item">
           <input id="event-type-${offer.type}-${i}" class="event__type-input  visually-hidden"
           type="radio" name="event-type" value="${offer.type}"
