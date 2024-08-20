@@ -1,4 +1,3 @@
-import { CITIES } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
 import {getNameForDest, humanizeEventDate} from '../utils.js';
 
@@ -21,15 +20,13 @@ function createInformationForOffers (offersForInformation) {
      </li>`).join('');
 }
 
-function createEvent(point, offers){
-
+function createEvent(point, offers, cities){
   const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm'); // 00:00
   const dateStartDate = humanizeEventDate(point.date_from, 'MMM:DD'); // MON 00
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
   const resultGetOffersByType = getOffersByType(offers, point.type);
-  const destinationName = getNameForDest(point.destination, CITIES);
+  const destinationName = getNameForDest(point.destination, cities);
   const resultOffers = filterOffers(resultGetOffersByType.offers, point);
-
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -73,16 +70,17 @@ function createEvent(point, offers){
 
 export default class PointView extends AbstractView{
 
-  constructor({point, onPointClick, offers}){
+  constructor({point, onPointClick, offers, cities}){
     super();
     this.point = point;
     this.offers = offers;
+    this.cities = cities;
     this.onPointClick = onPointClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onPointClick);
   }
 
   get template (){
-    return createEvent(this.point, this.offers);
+    return createEvent(this.point, this.offers, this.cities);
   }
 }

@@ -5,24 +5,26 @@ import EditorView from '../view/event-edit-form.js';
 export default class PointPresenter {
   #pointListContainer = null;
   #offersModel = null;
+  #citiesModel = null;
   #pointComponent = null;
   #editorComponent = null;
-  #point = null;
 
 
-  constructor ({pointListContainer, offersModel}) {
+  constructor ({pointListContainer, offersModel, citiesModel}) {
     this.#pointListContainer = pointListContainer;
     this.#offersModel = offersModel;
+    this.#citiesModel = citiesModel;
+
   }
 
   init(point) {
-    this.#point = point;
     this.#pointComponent = new PointView({
-      point: this.#point,
+      point,
       onPointClick: () =>{
         this.#replacePointToEditor();
       },
-      offers: this.#offersModel.offers
+      offers: this.#offersModel.offers,
+      cities: this.#citiesModel.cities
     });
 
     this.#editorComponent = new EditorView({
@@ -30,7 +32,8 @@ export default class PointPresenter {
       onEditorClick: () =>{
         this.replaceEditorToPoint();
       },
-      offers: this.#offersModel.offers
+      offers: this.#offersModel.offers,
+      cities: this.#citiesModel.cities
     });
 
     render(this.#pointComponent, this.#pointListContainer.querySelector('.trip-events__list'));

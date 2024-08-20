@@ -15,7 +15,8 @@ export default class BoardPresenter {
 
     const pointPresenter = new PointPresenter ({
       pointListContainer: this.container,
-      offersModel: this.offersModel
+      offersModel: this.offersModel,
+      citiesModel: this.citiesModel
     });
     pointPresenter.init(point);
     this.pointPresenters.push(pointPresenter);
@@ -30,10 +31,11 @@ export default class BoardPresenter {
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
-  constructor({container, pointModel, offersModel}) {
+  constructor({container, pointModel, offersModel, citiesModel}) {
     this.container = container;
     this.pointModel = pointModel;
     this.offersModel = offersModel;
+    this.citiesModel = citiesModel;
     //this.closeEditors = closeEditor;
   }
 
