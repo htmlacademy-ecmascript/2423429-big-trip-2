@@ -9,12 +9,10 @@ export default class PointPresenter {
   #pointComponent = null;
   #editorComponent = null;
 
-
-  constructor ({pointListContainer, offersModel, citiesModel}) {
+  constructor({pointListContainer, offersModel, citiesModel}) {
     this.#pointListContainer = pointListContainer;
     this.#offersModel = offersModel;
     this.#citiesModel = citiesModel;
-
   }
 
   init(point) {
@@ -30,21 +28,19 @@ export default class PointPresenter {
     this.#editorComponent = new EditorView({
       point,
       onEditorClick: () =>{
-        this.replaceEditorToPoint();
+        this.#replaceEditorToPoint();
       },
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
-
-    render(this.#pointComponent, this.#pointListContainer.querySelector('.trip-events__list'));
+    render(this.#pointComponent, this.#pointListContainer.element);
   }
 
   #replacePointToEditor() {
     replace(this.#editorComponent, this.#pointComponent);
-
   }
 
-  replaceEditorToPoint() {
+  #replaceEditorToPoint() {
     replace(this.#pointComponent, this.#editorComponent);
   }
 }

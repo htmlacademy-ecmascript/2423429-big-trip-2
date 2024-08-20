@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 
 const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
 
-
 function getRandomArrayElement(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
@@ -18,13 +17,4 @@ function getRandomBoolean(){
   return Math.random() < 0.5;
 }
 
-function getNameForDest (destinationId, points) {
-  for (let i = 0; i < points.length; i++) {
-    if (points[i].id === destinationId){
-      return points[i].name;
-    }
-  }
-  return null;
-}
-
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, getNameForDest};
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean};

@@ -1,6 +1,4 @@
-import { CITIES } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
-import { getNameForDest } from '../utils.js';
 
 function getOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
@@ -34,10 +32,8 @@ function createTypesItemTemplate (typeTransport) {
     </div>`).join('');
 }
 
-function createEditor(point, offers){
-
-  const destinationName = getNameForDest(point.destination, CITIES);
-
+function createEditor(point, offers, cities){
+  const destinationName = cities.find((city) => city.id === point.destination)?.name;
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -108,17 +104,18 @@ function createEditor(point, offers){
 }
 
 export default class EditorView extends AbstractView {
-  constructor({point, onEditorClick, offers}){
+  constructor({point, onEditorClick, offers, cities}){
     super();
     this.point = point;
     this.offers = offers;
+    this.cities = cities;
     this.onEditorClick = onEditorClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onEditorClick);
   }
 
   get template() {
-    return createEditor(this.point, this.offers);
+    return createEditor(this.point, this.offers, this.cities);
   }
 
 }

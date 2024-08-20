@@ -1,5 +1,5 @@
 import { getRandomArrayElement, getRandomInteger } from './utils.js';
-const MAX_POINTS = 8;
+const MAX_POINTS = 2;
 const FISH_TEXT = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   'Cras aliquet varius magna, non porta ligula feugiat eget.',
@@ -173,7 +173,7 @@ const OFFERS = [
       },
       {
         id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086',
-        title: 'Internet nd telephone on the ship',
+        title: 'Internet and telephone on the ship',
         price: 60
       }
     ]

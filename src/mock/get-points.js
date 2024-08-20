@@ -5,7 +5,6 @@ const generatePoint = () => {
   const id = crypto.randomUUID();
   const offer = getRandomArrayElement(OFFERS);
   const city = getRandomArrayElement(CITIES);
-  const randomBoolean = getRandomBoolean();
 
   return {
     id,
@@ -13,9 +12,9 @@ const generatePoint = () => {
     'date_from': '2019-07-10T22:55:56.845Z',
     'date_to': '2019-07-11T11:22:13.375Z',
     destination: city.id,
-    'is_favorite': randomBoolean,
+    'is_favorite':  getRandomBoolean(),
     type: offer.type,
-    offers: offer.offers.map((el) => el.id)
+    offers: offer.offers.map((el) => Math.random() > 0.5 ? el.id : null).filter(Boolean),
   };
 };
 export {generatePoint};

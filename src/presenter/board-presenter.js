@@ -11,10 +11,16 @@ export default class BoardPresenter {
   #listEmpty = new ListEmpty();
   pointPresenters = [];
 
-  #renderPoint(point){
+  constructor({container, pointModel, offersModel, citiesModel}) {
+    this.container = container;
+    this.pointModel = pointModel;
+    this.offersModel = offersModel;
+    this.citiesModel = citiesModel;
+  }
 
+  #renderPoint(point) {
     const pointPresenter = new PointPresenter ({
-      pointListContainer: this.container,
+      pointListContainer: this.#tripListComponent,
       offersModel: this.offersModel,
       citiesModel: this.citiesModel
     });
@@ -27,17 +33,9 @@ export default class BoardPresenter {
       render(this.#listEmpty, this.#tripListComponent.element);
       return;
     }
-
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
-  constructor({container, pointModel, offersModel, citiesModel}) {
-    this.container = container;
-    this.pointModel = pointModel;
-    this.offersModel = offersModel;
-    this.citiesModel = citiesModel;
-    //this.closeEditors = closeEditor;
-  }
 
   init() {
     this.#boardPoints = [...this.pointModel.element];

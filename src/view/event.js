@@ -1,18 +1,17 @@
-import AbstractView from '../framework/view/abstract-view.js';
-import {getNameForDest, humanizeEventDate} from '../utils.js';
 
+import AbstractView from '../framework/view/abstract-view.js';
+import { humanizeEventDate} from '../utils.js';
 
 function getOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
 
 function filterOffers (offers, point){
-  return offers.filter((id) => point.offers.includes(id));
+  return offers.filter((offer) => point.offers.includes(offer.id));
 }
 
-
-function createInformationForOffers (offersForInformation) {
-  return offersForInformation.offers.map((offer) =>
+function createInformationForOffers (checkedOffers) {
+  return checkedOffers.map((offer) =>
     `<li class="event__offer">
       <span class="event__offer-title">${offer.title}</span>
       +€
@@ -21,12 +20,13 @@ function createInformationForOffers (offersForInformation) {
 }
 
 function createEvent(point, offers, cities){
-  const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm'); // 00:00
-  const dateStartDate = humanizeEventDate(point.date_from, 'MMM:DD'); // MON 00
+  const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm');
+  const dateStartDate = humanizeEventDate(point.date_from, 'MMM DD');
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
-  const resultGetOffersByType = getOffersByType(offers, point.type);
-  const destinationName = getNameForDest(point.destination, cities);
-  const resultOffers = filterOffers(resultGetOffersByType.offers, point);
+  const offersByType = getOffersByType(offers, point.type);
+  const destinationName = cities.find((city) => city.id === point.destination)?.name;
+  const checkedOffers = filterOffers(offersByType.offers, point);
+
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -52,7 +52,7 @@ function createEvent(point, offers, cities){
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          ${createInformationForOffers(resultGetOffersByType)}
+          ${createInformationForOffers(checkedOffers)}
         </ul>
         <button class="event__favorite-btn ${point.is_favorite ? 'event__favorite-btn--active' : ''}" type="button">
           <span class="visually-hidden">Add to favorite</span>
@@ -69,7 +69,6 @@ function createEvent(point, offers, cities){
 }
 
 export default class PointView extends AbstractView{
-
   constructor({point, onPointClick, offers, cities}){
     super();
     this.point = point;

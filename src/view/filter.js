@@ -1,7 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
 function createFilterTemplate() {
-
   return (
     `<div class="trip-controls__filters">
       <h2 class="visually-hidden">Filter events</h2>
