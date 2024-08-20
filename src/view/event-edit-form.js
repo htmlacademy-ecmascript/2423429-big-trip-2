@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-function getOffersByType (offers, type){
+function findOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
 
@@ -90,7 +90,7 @@ function createEditor(point, offers, cities){
       <section class="event__section  event__section--offers">
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         <div class="event__available-offers">
-        ${createOffersItemTemplate(getOffersByType(offers, point.type))}
+        ${createOffersItemTemplate(findOffersByType(offers, point.type))}
         </div>
       </section>
 
