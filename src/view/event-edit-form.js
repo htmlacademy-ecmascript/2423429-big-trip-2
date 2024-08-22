@@ -46,13 +46,8 @@ function createTypesItemTemplate (offers) {
 }
 
 function createDestinationList (cities) {
-  return cities.map((city) => (`
-  <datalist id="destination-list-1">
-    <option value="${city.name}"></opion>
-  </datalist>
-  `));
+  return cities.map((city) =>(`<option value="${city.name}"></opion>`)).join('');
 }
-
 
 function createEditorFormTemplate(point, offers, cities){
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
