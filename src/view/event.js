@@ -1,12 +1,7 @@
-
 import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeEventDate} from '../utils.js';
+import {findOffersByType, humanizeEventDate} from '../utils.js';
 
-function getOffersByType (offers, type){
-  return offers.find((offer) => offer.type === type);
-}
-
-function filterOffers (offers, point){
+function filterOffers(offers, point) {
   return offers.filter((offer) => point.offers.includes(offer.id));
 }
 
@@ -23,7 +18,7 @@ function createEvent(point, offers, cities){
   const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm');
   const dateStartDate = humanizeEventDate(point.date_from, 'MMM DD');
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
-  const offersByType = getOffersByType(offers, point.type);
+  const offersByType = findOffersByType(offers, point.type);
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
   const checkedOffers = filterOffers(offersByType.offers, point);
 
