@@ -26,6 +26,7 @@ function createOffersItemTemplate (offers, point) {
   }).join('');
 }
 
+
 function createTypesItemTemplate (offers) {
   return offers.map((offer, i) =>
     `<div class="event__type-item">
@@ -44,7 +45,16 @@ function createTypesItemTemplate (offers) {
     </div>`).join('');
 }
 
-function createEditor(point, offers, cities){
+function createDestinationList (cities) {
+  return cities.map((city) => (`
+  <datalist id="destination-list-1">
+    <option value="${city.name}"></opion>
+  </datalist>
+  `));
+}
+
+
+function createEditorFormTemplate(point, offers, cities){
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
 
   return `
@@ -71,9 +81,7 @@ function createEditor(point, offers, cities){
         </label>
         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destinationName}" list="destination-list-1">
         <datalist id="destination-list-1">
-          <option value="Amsterdam"></option>
-          <option value="Geneva"></option>
-          <option value="Chamonix"></option>
+          ${createDestinationList(cities)}
         </datalist>
       </div>
 
@@ -128,7 +136,7 @@ export default class EditorView extends AbstractView {
   }
 
   get template() {
-    return createEditor(this.point, this.offers, this.cities);
+    return createEditorFormTemplate(this.point, this.offers, this.cities);
   }
 
 }
