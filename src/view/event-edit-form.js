@@ -34,6 +34,7 @@ function createTypesItemTemplate (offers) {
 
 function createEditor(point, offers, cities){
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
+  
   return `
     <form class="event event--edit" action="#" method="post">
     <header class="event__header">
