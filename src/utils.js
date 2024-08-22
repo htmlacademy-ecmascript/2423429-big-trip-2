@@ -17,4 +17,8 @@ function getRandomBoolean(){
   return Math.random() < 0.5;
 }
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean};
+function findOffersByType (offers, type){
+  return offers.find((offer) => offer.type === type);
+}
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType};
