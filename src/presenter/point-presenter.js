@@ -2,6 +2,11 @@ import {render, replace, remove} from '../framework/render.js';
 import PointView from '../view/event.js';
 import EditorView from '../view/event-edit-form.js';
 
+const Mode = {
+  DEFAULT: 'DEFAULT',
+  EDITING : 'EDITING',
+};
+
 export default class PointPresenter {
   #pointListContainer = null;
   #offersModel = null;
@@ -9,12 +14,16 @@ export default class PointPresenter {
   #pointComponent = null;
   #editorComponent = null;
   #handleDataChange = null;
+  #handleModeChange = null;
 
-  constructor({pointListContainer, offersModel, citiesModel, onDataChange}) {
+  #mode = Mode.DEFAULT;
+
+  constructor({pointListContainer, offersModel, citiesModel, onDataChange, onModeChange}) {
     this.#pointListContainer = pointListContainer;
     this.#offersModel = offersModel;
     this.#citiesModel = citiesModel;
     this.#handleDataChange = onDataChange;
+    this.#handleModeChange = onModeChange;
   }
 
   init(point) {
@@ -44,7 +53,7 @@ export default class PointPresenter {
     if (this.#pointListContainer.element.contains(prevPointComponent.element)) {
       replace(this.#pointComponent, prevPointComponent);
     }
-    if (this.#pointListContainer.element.contains(prevEditorComponent.element)) {
+    if (this.#mode === Mode.EDITING) {
       replace(this.#editorComponent, prevEditorComponent);
     }
 
@@ -52,14 +61,23 @@ export default class PointPresenter {
     remove(prevEditorComponent);
   }
 
+  resetView() {
+    if (this.#mode !== Mode.DEFAULT) {
+      this.#replaceEditorToPoint();
+    }
+  }
+
   #replacePointToEditor() {
     replace(this.#editorComponent, this.#pointComponent);
     document.addEventListener('keydown', this.#escKeyDownHandler);
+    this.#handleModeChange();
+    this.#mode = Mode.EDITING;
   }
 
   #replaceEditorToPoint() {
     replace(this.#pointComponent, this.#editorComponent);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
+    this.#mode = Mode.DEFAULT;
   }
 
   #escKeyDownHandler = (evt) => {
@@ -79,6 +97,6 @@ export default class PointPresenter {
   };
 
   #handleFavoriteClick = () => {
-    this.#handleDataChange({...this.point, isFavorite: !this.point.isFavorite});
+    //this.#handleDataChange({...this.point, isFavorite: !this.point.isFavorite});
   };
 }
