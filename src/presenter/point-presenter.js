@@ -1,4 +1,4 @@
-import {render, replace} from '../framework/render.js';
+import {render, replace, remove} from '../framework/render.js';
 import PointView from '../view/event.js';
 import EditorView from '../view/event-edit-form.js';
 
@@ -16,6 +16,9 @@ export default class PointPresenter {
   }
 
   init(point) {
+    const prevPointComponent = this.#pointComponent;
+    const prevEditorComponent = this.#editorComponent;
+
     this.#pointComponent = new PointView({
       point,
       onPointClick: this.#handleEditClick,
@@ -29,7 +32,21 @@ export default class PointPresenter {
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
-    render(this.#pointComponent, this.#pointListContainer.element);
+
+    if (prevPointComponent === null || prevEditorComponent === null) {
+      render(this.#pointComponent, this.#pointListContainer.element);
+      return;
+    }
+
+    if (this.#pointListContainer.element.contains(prevPointComponent.element)) {
+      replace(this.#pointComponent, prevPointComponent);
+    }
+    if (this.#pointListContainer.element.contains(prevEditorComponent.element)) {
+      replace(this.#editorComponent, prevEditorComponent);
+    }
+
+    remove(prevPointComponent);
+    remove(prevEditorComponent);
   }
 
   #replacePointToEditor() {
