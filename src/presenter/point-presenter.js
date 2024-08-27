@@ -8,6 +8,8 @@ const Mode = {
 };
 
 export default class PointPresenter {
+
+  #point = null;
   #pointListContainer = null;
   #offersModel = null;
   #citiesModel = null;
@@ -29,6 +31,7 @@ export default class PointPresenter {
   init(point) {
     const prevPointComponent = this.#pointComponent;
     const prevEditorComponent = this.#editorComponent;
+    this.#point = point;
 
     this.#pointComponent = new PointView({
       point,
@@ -97,6 +100,6 @@ export default class PointPresenter {
   };
 
   #handleFavoriteClick = () => {
-    //this.#handleDataChange({...this.point, isFavorite: !this.point.isFavorite});
+    this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
   };
 }
