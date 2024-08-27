@@ -38,9 +38,18 @@ export default class PointPresenter {
 
   #replacePointToEditor() {
     replace(this.#editorComponent, this.#pointComponent);
+    document.addEventListener('keydown', this.#escKeyDownHandler);
   }
 
   #replaceEditorToPoint() {
     replace(this.#pointComponent, this.#editorComponent);
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
   }
+
+  #escKeyDownHandler = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      this.#replaceEditorToPoint();
+    }
+  };
 }
