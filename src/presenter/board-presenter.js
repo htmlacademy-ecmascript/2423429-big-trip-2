@@ -3,13 +3,14 @@ import ListView from '../view/trip-events-list.js';
 import {render} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
+import { updateItem } from '../utils.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
   #sortComponent = new SortView();
   #boardPoints = [];
   #listEmpty = new ListEmpty();
-  pointPresenters = [];
+  #pointPresenters = new Map();
 
   constructor({container, pointModel, offersModel, citiesModel}) {
     this.container = container;
@@ -18,14 +19,32 @@ export default class BoardPresenter {
     this.citiesModel = citiesModel;
   }
 
+  init() {
+    this.#boardPoints = [...this.pointModel.element];
+    render(this.#sortComponent, this.container);
+    render(this.#tripListComponent, this.container);
+    this.#renderPoints();
+  }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
+
   #renderPoint(point) {
     const pointPresenter = new PointPresenter ({
       pointListContainer: this.#tripListComponent,
       offersModel: this.offersModel,
-      citiesModel: this.citiesModel
+      citiesModel: this.citiesModel,
+      onDataChange: this.#handlePointChange,
     });
     pointPresenter.init(point);
-    this.pointPresenters.push(pointPresenter);
+    this.#pointPresenters.set(point.id, pointPresenter);
+  }
+
+  #clearPoints() {
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
   }
 
   #renderPoints() {
@@ -36,11 +55,4 @@ export default class BoardPresenter {
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
-
-  init() {
-    this.#boardPoints = [...this.pointModel.element];
-    render(this.#sortComponent, this.container);
-    render(this.#tripListComponent, this.container);
-    this.#renderPoints();
-  }
 }

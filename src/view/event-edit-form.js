@@ -168,4 +168,9 @@ export default class EditorView extends AbstractView {
     return createEditFormTemplate(this.point, this.offers, this.cities);
   }
 
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.handlePointClick(this.point);
+  };
+
 }

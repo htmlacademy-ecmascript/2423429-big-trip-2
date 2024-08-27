@@ -64,17 +64,27 @@ function createEvent(point, offers, cities){
 }
 
 export default class PointView extends AbstractView{
-  constructor({point, onPointClick, offers, cities}){
+
+  #handleFavoriteClick = null;
+  constructor({point, onPointClick, onFavoriteClick, offers, cities}){
     super();
     this.point = point;
     this.offers = offers;
     this.cities = cities;
     this.onPointClick = onPointClick;
+    this.#handleFavoriteClick = onFavoriteClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onPointClick);
+    this.element.querySelector('.event__favorite-btn')
+      .addEventListener('click', this.#favoriteClickHandler);
   }
 
   get template (){
     return createEvent(this.point, this.offers, this.cities);
   }
+
+  #favoriteClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFavoriteClick();
+  };
 }

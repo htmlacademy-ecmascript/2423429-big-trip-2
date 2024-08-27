@@ -8,11 +8,13 @@ export default class PointPresenter {
   #citiesModel = null;
   #pointComponent = null;
   #editorComponent = null;
+  #handleDataChange = null;
 
-  constructor({pointListContainer, offersModel, citiesModel}) {
+  constructor({pointListContainer, offersModel, citiesModel, onDataChange}) {
     this.#pointListContainer = pointListContainer;
     this.#offersModel = offersModel;
     this.#citiesModel = citiesModel;
+    this.#handleDataChange = onDataChange;
   }
 
   init(point) {
@@ -22,6 +24,7 @@ export default class PointPresenter {
     this.#pointComponent = new PointView({
       point,
       onPointClick: this.#handleEditClick,
+      onFavoriteClick: this.#handleFavoriteClick,
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
@@ -70,7 +73,12 @@ export default class PointPresenter {
     this.#replacePointToEditor();
   };
 
-  #handlePointClick = () => {
+  #handlePointClick = (point) =>{
+    this.#handleDataChange(point);
     this.#replaceEditorToPoint();
+  };
+
+  #handleFavoriteClick = () => {
+    this.#handleDataChange({...this.point, isFavorite: !this.point.isFavorite});
   };
 }
