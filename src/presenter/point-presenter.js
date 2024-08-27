@@ -18,18 +18,14 @@ export default class PointPresenter {
   init(point) {
     this.#pointComponent = new PointView({
       point,
-      onPointClick: () =>{
-        this.#replacePointToEditor();
-      },
+      onPointClick: this.#handleEditClick,
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
 
     this.#editorComponent = new EditorView({
       point,
-      onEditorClick: () =>{
-        this.#replaceEditorToPoint();
-      },
+      onEditorClick: this.#handlePointClick,
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
@@ -51,5 +47,13 @@ export default class PointPresenter {
       evt.preventDefault();
       this.#replaceEditorToPoint();
     }
+  };
+
+  #handleEditClick = () => {
+    this.#replacePointToEditor();
+  };
+
+  #handlePointClick = () => {
+    this.#replaceEditorToPoint();
   };
 }
