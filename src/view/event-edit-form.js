@@ -154,14 +154,14 @@ function createEditFormTemplate(point, offers, cities){
 }
 
 export default class EditorView extends AbstractView {
-  constructor({point, onEditorClick, offers, cities}){
+  constructor({point, onCloseClick, offers, cities}){
     super();
     this.point = point;
     this.offers = offers;
     this.cities = cities;
-    this.onEditorClick = onEditorClick;
+    this.onCloseClick = onCloseClick;
     this.element.querySelector('.event__rollup-btn')
-      .addEventListener('click', this.onEditorClick);
+      .addEventListener('click', this.onCloseClick);
   }
 
   get template() {

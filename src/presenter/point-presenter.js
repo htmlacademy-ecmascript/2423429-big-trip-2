@@ -43,7 +43,7 @@ export default class PointPresenter {
 
     this.#editorComponent = new EditorView({
       point,
-      onEditorClick: this.#handlePointClick,
+      onCloseClick: this.#handlePointClick,
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities
     });
@@ -56,6 +56,7 @@ export default class PointPresenter {
     if (this.#pointListContainer.element.contains(prevPointComponent.element)) {
       replace(this.#pointComponent, prevPointComponent);
     }
+
     if (this.#mode === Mode.EDITING) {
       replace(this.#editorComponent, prevEditorComponent);
     }
@@ -94,12 +95,11 @@ export default class PointPresenter {
     this.#replacePointToEditor();
   };
 
-  #handlePointClick = (point) =>{
-    this.#handleDataChange(point);
+  #handlePointClick = () =>{
     this.#replaceEditorToPoint();
   };
 
   #handleFavoriteClick = () => {
-    this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
+    this.#handleDataChange({...this.#point, 'is_favorite': !this.#point.is_favorite});
   };
 }
