@@ -1,3 +1,7 @@
+import dayjs from 'dayjs';
+
+const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
+
 function getRandomArrayElement(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
@@ -13,13 +17,12 @@ function getRandomBoolean(){
   return Math.random() < 0.5;
 }
 
-
-function checkFavorite() {
-  if (getRandomBoolean()){
-    return 'event__favorite-btn--active';
-  }
-  return 'event__favorite-btn';
+function findOffersByType (offers, type){
+  return offers.find((offer) => offer.type === type);
 }
 
+function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
 
-export {getRandomArrayElement, getRandomInteger, checkFavorite};
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, updateItem};

@@ -1,58 +1,22 @@
-import PointView from '../view//event.js';
 import SortView from '../view/sort.js';
-import {render, replace} from '../framework/render.js';
-import listView from '../view/tripEventsList.js';
-import EditorView from '../view/eventEditForm.js';
-import ListEmpty from '../view/listEmpty.js';
+import ListView from '../view/trip-events-list.js';
+import {render} from '../framework/render.js';
+import ListEmpty from '../view/list-empty.js';
+import PointPresenter from './point-presenter.js';
+import { updateItem } from '../utils.js';
+
 export default class BoardPresenter {
-  #tripListComponent = new listView();
+  #tripListComponent = new ListView();
   #sortComponent = new SortView();
   #boardPoints = [];
   #listEmpty = new ListEmpty();
+  #pointPresenters = new Map();
 
-
-  #renderPoint(point){
-    const pointComponent = new PointView({
-      point,
-      onPointClick: () => {
-        replacePointToEditor();
-      },
-      offers: this.offersModel.offers
-    });
-
-    const editorComponent = new EditorView({
-      point,
-      onEditorClick: () => {
-        replaceEditorToPoint();
-      },
-      offers: this.offersModel.offers
-    });
-
-    function replacePointToEditor (){
-      replace(editorComponent, pointComponent);
-    }
-
-    function replaceEditorToPoint (){
-      replace(pointComponent, editorComponent);
-    }
-
-    render(pointComponent, this.container.querySelector('.trip-events__list'));
-  }
-
-  #renderPoints() {
-    if(this.#boardPoints.length === 0){
-      render(this.#listEmpty, this.container.querySelector('.trip-events__list'));
-    } else {
-      for (let i = 0 ; i < this.#boardPoints.length; i++){
-        this.#renderPoint(this.#boardPoints[i]);
-      }
-    }
-  }
-
-  constructor({container, pointModel, offersModel}){
+  constructor({container, pointModel, offersModel, citiesModel}) {
     this.container = container;
     this.pointModel = pointModel;
     this.offersModel = offersModel;
+    this.citiesModel = citiesModel;
   }
 
   init() {
@@ -60,6 +24,40 @@ export default class BoardPresenter {
     render(this.#sortComponent, this.container);
     render(this.#tripListComponent, this.container);
     this.#renderPoints();
+  }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
+
+  #handleModeChange = () => {
+    this.#pointPresenters.forEach((presenter) => presenter.resetView());
+  };
+
+  #renderPoint(point) {
+    const pointPresenter = new PointPresenter ({
+      pointListContainer: this.#tripListComponent,
+      offersModel: this.offersModel,
+      citiesModel: this.citiesModel,
+      onDataChange: this.#handlePointChange,
+      onModeChange: this.#handleModeChange,
+    });
+    pointPresenter.init(point);
+    this.#pointPresenters.set(point.id, pointPresenter);
+  }
+
+  #clearPoints() {
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
+  }
+
+  #renderPoints() {
+    if(this.#boardPoints.length === 0){
+      render(this.#listEmpty, this.#tripListComponent.element);
+      return;
+    }
+    this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
 }
