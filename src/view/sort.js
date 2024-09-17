@@ -1,31 +1,32 @@
 import AbstractView from '../framework/view/abstract-view.js';
+import { sortType } from '../const.js';
 
 function createSortTemplate () {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
-      <div class="trip-sort__item  trip-sort__item--day">
-        <input id="sort-day" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-day">
-        <label class="trip-sort__btn" for="sort-day">Day</label>
+      <div class="trip-sort__item  trip-sort__item--${sortType.DAY}">
+        <input id="sort-${sortType.DAY}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.DAY}">
+        <label class="trip-sort__btn" for="sort-${sortType.DAY}">${sortType.DAY}</label>
       </div>
 
-      <div class="trip-sort__item  trip-sort__item--event">
-        <input id="sort-event" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-event" disabled>
-        <label class="trip-sort__btn" for="sort-event">Event</label>
+      <div class="trip-sort__item  trip-sort__item--${sortType.EVENT}">
+        <input id="sort-${sortType.EVENT}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.EVENT}" disabled>
+        <label class="trip-sort__btn" for="sort-${sortType.EVENT}">${sortType.EVENT}</label>
       </div>
 
-      <div class="trip-sort__item  trip-sort__item--time">
-        <input id="sort-time" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-time">
-        <label class="trip-sort__btn" for="sort-time">Time</label>
+      <div class="trip-sort__item  trip-sort__item--${sortType.TIME}">
+        <input id="sort-${sortType.TIME}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.TIME}">
+        <label class="trip-sort__btn" for="sort-${sortType.TIME}">${sortType.TIME}</label>
       </div>
 
-      <div class="trip-sort__item  trip-sort__item--price">
-        <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price" checked>
-        <label class="trip-sort__btn" for="sort-price">Price</label>
+      <div class="trip-sort__item  trip-sort__item--${sortType.PRICE}">
+        <input id="sort-${sortType.PRICE}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.PRICE}" checked>
+        <label class="trip-sort__btn" for="sort-${sortType.PRICE}">${sortType.PRICE}</label>
       </div>
 
-      <div class="trip-sort__item  trip-sort__item--offer">
-        <input id="sort-offer" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-offer" disabled>
-        <label class="trip-sort__btn" for="sort-offer">Offers</label>
+      <div class="trip-sort__item  trip-sort__item--${sortType.OFFER}">
+        <input id="sort-${sortType.OFFER}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.OFFER}" disabled>
+        <label class="trip-sort__btn" for="sort-${sortType.OFFER}">${sortType.OFFER}s</label>
       </div>
       </form>
   `);

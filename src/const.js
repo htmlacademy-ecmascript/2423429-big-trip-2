@@ -316,4 +316,12 @@ const OFFERS = [
   },
 ];
 
-export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES};
+const sortType = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer',
+};
+
+export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, sortType};
