@@ -316,12 +316,20 @@ const OFFERS = [
   },
 ];
 
-const sortType = {
-  DAY: 'day',
+const SortType = {
+  DEFAULT: 'day',
   EVENT: 'event',
   TIME: 'time',
   PRICE: 'price',
   OFFER: 'offer',
 };
 
-export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, sortType};
+const filterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PRESENT: 'present',
+  PAST: 'past',
+
+};
+
+export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, SortType, filterType};
