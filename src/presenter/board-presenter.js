@@ -1,9 +1,9 @@
 import SortView from '../view/sort.js';
 import ListView from '../view/trip-events-list.js';
-import {render} from '../framework/render.js';
+import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
-import { updateItem, sortTaskUp, sortTaskDown } from '../utils.js';
+import { updateItem, sortDate, } from '../utils.js';
 import { SortType } from '../const.js';
 
 export default class BoardPresenter {
@@ -23,11 +23,9 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#boardPoints = [...this.pointModel.element];
-    this.#sourcedBoardPoints = [...this.pointModel.element];
-    //render(this.#sortComponent, this.container);
-    render(this.#tripListComponent, this.container);
-    this.#renderPoints();
+    this.#boardPoints = [...this.pointModel.points];
+    this.#sourcedBoardPoints = [...this.pointModel.points];
+    this.#renderBoard();
   }
 
   #handlePointChange = (updatedPoint) => {
@@ -37,15 +35,19 @@ export default class BoardPresenter {
   };
 
   #sortPoints(sortType) {
+    console.log(this.#boardPoints);
     // 2. Этот исходный массив задач необходим,
     // потому что для сортировки мы будем мутировать
-    // массив в свойстве _boardTasks
+    // массив в свойстве _boardPoints
     switch (sortType) {
-      case SortType.DATE_UP:
-        this.#boardPoints.sort(sortTaskUp);
+      case SortType.DEFAULT:
+        this.#boardPoints.sort(sortDate(this.#boardPoints));
         break;
-      case SortType.DATE_DOWN:
-        this.#boardPoints.sort(sortTaskDown);
+      case SortType.TIME:
+        this.#boardPoints.sort();
+        break;
+      case SortType.PRICE:
+        this.#boardPoints.sort();
         break;
       default:
         // 3. А когда пользователь захочет "вернуть всё, как было",
@@ -70,6 +72,8 @@ export default class BoardPresenter {
     this.#sortComponent = new SortView({
       onSortTypeChange: this.#handleSortTypeChange
     });
+
+    render(this.#sortComponent, this.container, RenderPosition.AFTERBEGIN);
   }
 
   #handleModeChange = () => {
@@ -94,11 +98,18 @@ export default class BoardPresenter {
   }
 
   #renderPoints() {
-    if(this.#boardPoints.length === 0){
+    if (this.#boardPoints.length === 0){
       render(this.#listEmpty, this.#tripListComponent.element);
+
       return;
     }
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
+  }
+
+  #renderBoard () {
+    this.#renderSort();
+    render(this.#tripListComponent, this.container);
+    this.#renderPoints();
   }
 
 }
