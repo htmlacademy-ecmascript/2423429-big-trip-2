@@ -3,7 +3,7 @@ import ListView from '../view/trip-events-list.js';
 import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
-import { updateItem, sortDate, } from '../utils.js';
+import { updateItem, sortByPrice, sortByTime } from '../utils.js';
 import { SortType } from '../const.js';
 
 export default class BoardPresenter {
@@ -36,18 +36,20 @@ export default class BoardPresenter {
 
   #sortPoints(sortType) {
     console.log(this.#boardPoints);
+
+
     // 2. Этот исходный массив задач необходим,
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints
     switch (sortType) {
       case SortType.DEFAULT:
-        this.#boardPoints.sort(sortDate(this.#boardPoints));
+        this.#boardPoints.sort(sortByDay);
         break;
       case SortType.TIME:
-        this.#boardPoints.sort();
+        this.#boardPoints.sort(sortByTime);
         break;
       case SortType.PRICE:
-        this.#boardPoints.sort();
+        this.#boardPoints.sort(sortByPrice);
         break;
       default:
         // 3. А когда пользователь захочет "вернуть всё, как было",
@@ -60,6 +62,7 @@ export default class BoardPresenter {
 
   #handleSortTypeChange = (sortType) => {
     if (this.#currentSortType === sortType) {
+
       return;
     }
 
