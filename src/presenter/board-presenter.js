@@ -42,15 +42,15 @@ export default class BoardPresenter {
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints
     switch (sortType) {
-      case sortType.DEFAULT:
-        this.#boardPoints.sort(sortByTime); //??
-        console.log(this.#boardPoints.sort(sortByTime));
+      case "sort-day":
+        this.#boardPoints.sort(sortByTime); //доработать по дню??
         break;
-      case sortType.TIME:
+      case "sort-time":
         this.#boardPoints.sort(sortByTime);
         break;
-      case sortType.PRICE:
+      case "sort-price":
         this.#boardPoints.sort(sortByPrice);
+
         break;
       default:
         // 3. А когда пользователь захочет "вернуть всё, как было",
@@ -66,7 +66,6 @@ export default class BoardPresenter {
 
       return;
     }
-
     this.#sortPoints(sortType);
     this.#clearPoints();
     this.#renderPoints();
