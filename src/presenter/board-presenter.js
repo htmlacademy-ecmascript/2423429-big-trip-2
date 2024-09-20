@@ -4,7 +4,7 @@ import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import { updateItem, sortByPrice, sortByTime } from '../utils.js';
-import { SortType } from '../const.js';
+import { sortType } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
@@ -12,7 +12,7 @@ export default class BoardPresenter {
   #boardPoints = [];
   #listEmpty = new ListEmpty();
   #pointPresenters = new Map();
-  #currentSortType = SortType.DEFAULT;
+  #currentSortType = sortType.DEFAULT;
   #sourcedBoardPoints = [];
 
   constructor({container, pointModel, offersModel, citiesModel}) {
@@ -35,20 +35,21 @@ export default class BoardPresenter {
   };
 
   #sortPoints(sortType) {
-    console.log(this.#boardPoints);
+    //console.log(this.#boardPoints);
 
 
     // 2. Этот исходный массив задач необходим,
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints
     switch (sortType) {
-      case SortType.DEFAULT:
-        this.#boardPoints.sort(sortByDay);
+      case sortType.DEFAULT:
+        this.#boardPoints.sort(sortByTime); //??
+        console.log(this.#boardPoints.sort(sortByTime));
         break;
-      case SortType.TIME:
+      case sortType.TIME:
         this.#boardPoints.sort(sortByTime);
         break;
-      case SortType.PRICE:
+      case sortType.PRICE:
         this.#boardPoints.sort(sortByPrice);
         break;
       default:

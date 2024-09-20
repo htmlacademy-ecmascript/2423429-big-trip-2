@@ -316,7 +316,7 @@ const OFFERS = [
   },
 ];
 
-const SortType = {
+const sortType = {
   DEFAULT: 'day',
   EVENT: 'event',
   TIME: 'time',
@@ -332,4 +332,4 @@ const filterType = {
 
 };
 
-export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, SortType, filterType};
+export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, sortType, filterType};
