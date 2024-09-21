@@ -35,17 +35,18 @@ export default class BoardPresenter {
   };
 
   #sortPoints(sortType) {
+    console.log(sortType);
     // 2. Этот исходный массив задач необходим,
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints
     switch (sortType) {
-      case "sort-day":
+      case sortType.DEFAULT:
         this.#boardPoints.sort(sortByTime);
         break;
-      case "sort-time":
+      case sortType.TIME:
         this.#boardPoints.sort(sortByTime);
         break;
-      case "sort-price":
+      case sortType.PRICE:
         this.#boardPoints.sort(sortByPrice);
 
         break;
