@@ -21,8 +21,23 @@ function findOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
 
-function updateItem(items, update) {
+function updateItem (items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, updateItem};
+function sortByPrice (eventB, eventA) {
+  return eventA.base_price - eventB.base_price;
+}
+
+function sortByTime (eventA, eventB) {
+  const eventADuration = getEventDuration(eventA);
+  const eventBDuration = getEventDuration(eventB);
+
+  return eventBDuration - eventADuration;
+}
+
+function getEventDuration (event) {
+  return dayjs(event.date_to).diff(dayjs(event.date_from));
+}
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, updateItem, sortByPrice, sortByTime };

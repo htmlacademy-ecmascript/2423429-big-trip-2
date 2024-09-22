@@ -5,7 +5,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 export default class PointModel extends AbstractView {
   #points = Array.from ({length: MAX_POINTS}, generatePoint);
 
-  get element () {
+  get points () {
     return this.#points;
   }
 }

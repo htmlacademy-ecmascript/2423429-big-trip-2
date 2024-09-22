@@ -1,16 +1,19 @@
 import SortView from '../view/sort.js';
 import ListView from '../view/trip-events-list.js';
-import {render} from '../framework/render.js';
+import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
-import { updateItem } from '../utils.js';
+import { updateItem, sortByPrice, sortByTime } from '../utils.js';
+import { SortType } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
-  #sortComponent = new SortView();
+  #sortComponent = null;
   #boardPoints = [];
   #listEmpty = new ListEmpty();
   #pointPresenters = new Map();
+  #currentSortType = SortType.DEFAULT;
+  #sourcedBoardPoints = [];
 
   constructor({container, pointModel, offersModel, citiesModel}) {
     this.container = container;
@@ -20,16 +23,53 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#boardPoints = [...this.pointModel.element];
-    render(this.#sortComponent, this.container);
-    render(this.#tripListComponent, this.container);
-    this.#renderPoints();
+    this.#boardPoints = [...this.pointModel.points];
+    this.#sourcedBoardPoints = [...this.pointModel.points];
+    this.#renderBoard();
   }
 
   #handlePointChange = (updatedPoint) => {
     this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+    this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
+
+  #sortPoints(sortType) {
+    console.log(sortType);
+    // 2. Этот исходный массив задач необходим,
+    // потому что для сортировки мы будем мутировать
+    // массив в свойстве _boardPoints
+    switch (sortType) {
+      case SortType.DEFAULT:
+        this.#boardPoints = [...this.#sourcedBoardPoints];
+        break;
+      case SortType.TIME:
+        this.#boardPoints.sort(sortByTime);
+        break;
+      case SortType.PRICE:
+        this.#boardPoints.sort(sortByPrice);
+        break;
+      default:
+        this.#boardPoints = [...this.#sourcedBoardPoints];
+    }
+
+    this.#currentSortType = sortType;
+  }
+
+  #handleSortTypeChange = (sortType) => {
+    this.#sortPoints(sortType);
+    this.#clearPoints();
+    this.#renderPoints();
+  };
+
+  #renderSort() {
+    this.#sortComponent = new SortView({
+      onSortTypeChange: this.#handleSortTypeChange,
+      currentSortType: this.#currentSortType
+    });
+
+    render(this.#sortComponent, this.container, RenderPosition.AFTERBEGIN);
+  }
 
   #handleModeChange = () => {
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
@@ -53,11 +93,18 @@ export default class BoardPresenter {
   }
 
   #renderPoints() {
-    if(this.#boardPoints.length === 0){
+    if (this.#boardPoints.length === 0){
       render(this.#listEmpty, this.#tripListComponent.element);
+
       return;
     }
+
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
+  #renderBoard () {
+    this.#renderSort();
+    render(this.#tripListComponent, this.container);
+    this.#renderPoints();
+  }
 }
