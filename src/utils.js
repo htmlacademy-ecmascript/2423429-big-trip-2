@@ -26,7 +26,6 @@ function updateItem (items, update) {
 }
 
 function sortByPrice (eventB, eventA) {
-  //console.log('price', eventA.base_price); почему не выводится? не работает обработчик по сортировке?
   return eventA.base_price - eventB.base_price;
 }
 

@@ -4,7 +4,7 @@ import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import { updateItem, sortByPrice, sortByTime } from '../utils.js';
-import { sortType } from '../const.js';
+import { SortType } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
@@ -12,7 +12,7 @@ export default class BoardPresenter {
   #boardPoints = [];
   #listEmpty = new ListEmpty();
   #pointPresenters = new Map();
-  #currentSortType = sortType.DEFAULT;
+  #currentSortType = SortType.DEFAULT;
   #sourcedBoardPoints = [];
 
   constructor({container, pointModel, offersModel, citiesModel}) {
@@ -40,19 +40,16 @@ export default class BoardPresenter {
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints
     switch (sortType) {
-      case sortType.DEFAULT:
+      case SortType.DEFAULT:
+        this.#boardPoints = [...this.#sourcedBoardPoints];
+        break;
+      case SortType.TIME:
         this.#boardPoints.sort(sortByTime);
         break;
-      case sortType.TIME:
-        this.#boardPoints.sort(sortByTime);
-        break;
-      case sortType.PRICE:
+      case SortType.PRICE:
         this.#boardPoints.sort(sortByPrice);
-
         break;
       default:
-        // 3. А когда пользователь захочет "вернуть всё, как было",
-        // мы просто запишем в _boardPoints исходный массив
         this.#boardPoints = [...this.#sourcedBoardPoints];
     }
 
@@ -60,10 +57,6 @@ export default class BoardPresenter {
   }
 
   #handleSortTypeChange = (sortType) => {
-    if (this.#currentSortType === sortType) {
-
-      return;
-    }
     this.#sortPoints(sortType);
     this.#clearPoints();
     this.#renderPoints();
@@ -71,7 +64,8 @@ export default class BoardPresenter {
 
   #renderSort() {
     this.#sortComponent = new SortView({
-      onSortTypeChange: this.#handleSortTypeChange
+      onSortTypeChange: this.#handleSortTypeChange,
+      currentSortType: this.#currentSortType
     });
 
     render(this.#sortComponent, this.container, RenderPosition.AFTERBEGIN);
@@ -104,6 +98,7 @@ export default class BoardPresenter {
 
       return;
     }
+
     this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
@@ -112,5 +107,4 @@ export default class BoardPresenter {
     render(this.#tripListComponent, this.container);
     this.#renderPoints();
   }
-
 }
