@@ -1,4 +1,4 @@
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { findOffersByType } from '../utils.js';
 
 
@@ -153,10 +153,10 @@ function createEditFormTemplate(point, offers, cities){
   `);
 }
 
-export default class EditorView extends AbstractView {
+export default class EditorView extends AbstractStatefulView {
   constructor({point, onCloseClick, offers, cities}){
     super();
-    this.point = point;
+    this._setState(EditorView.parsePointToState(point));
     this.offers = offers;
     this.cities = cities;
     this.onCloseClick = onCloseClick;
@@ -165,12 +165,24 @@ export default class EditorView extends AbstractView {
   }
 
   get template() {
-    return createEditFormTemplate(this.point, this.offers, this.cities);
+    return createEditFormTemplate(this._state, this.offers, this.cities);
   }
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.handlePointClick(this.point);
+    this.handlePointClick(EditorView.parsePointToState(this._state));
   };
 
+  static parsePointToState(point) {
+    return {...point,
+      //??
+
+    };
+  }
+
+  static parseStateToPoint(state) {
+    const point = {...state};
+
+
+  }
 }
