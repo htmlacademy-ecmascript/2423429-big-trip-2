@@ -67,18 +67,26 @@ function createEditFormTemplate(point, offers, cities){
     `<form class="event event--edit" action="#" method="post">
        <header class="event__header">
           <div class="event__type-wrapper">
-            <label class="event__type  event__type-btn" for="event-type-toggle-1">
-              <span class="visually-hidden">Choose event type
+            <label
+             class="event__type  event__type-btn"
+             for="event-type-toggle-1"
+             >
+              <span class="visually-hidden">
+                Choose event type
               </span>
-              <img class="event__type-icon"
-              width="17"
-              height="17"
-              src="img/icons/${point.type}.png"
-              alt="Event type icon">
+              <img
+               class="event__type-icon"
+               width="17"
+               height="17"
+               src="img/icons/${point.type}.png"
+               alt="Event type icon"
+              >
             </label>
-            <input class="event__type-toggle  visually-hidden"
-            id="event-type-toggle-1"
-            type="checkbox">
+            <input
+             class="event__type-toggle  visually-hidden"
+             id="event-type-toggle-1"
+             type="checkbox"
+            >
 
             <div class="event__type-list">
               <fieldset class="event__type-group">
@@ -154,30 +162,46 @@ function createEditFormTemplate(point, offers, cities){
 }
 
 export default class EditorView extends AbstractStatefulView {
+  #handleFormSubmit = null;
+
+
   constructor({point, onCloseClick, offers, cities}){
     super();
     this._setState(EditorView.parsePointToState(point));
+    this.onCloseClick = onCloseClick;
+
     this.offers = offers;
     this.cities = cities;
-    this.onCloseClick = onCloseClick;
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.onCloseClick);
+
+    this.element.addEventListener('submit', this.#formSubmitHandler);
+    this._restoreHandlers();
   }
 
   get template() {
     return createEditFormTemplate(this._state, this.offers, this.cities);
   }
 
+  _restoreHandlers() {
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.onCloseClick);
+    this.element.addEventListener('submit', this.#formSubmitHandler);
+    console.log();
+    this.element.querySelector('.event__type-input').addEventListener('change', this.#offersTypeHandler);
+    console.log(this.element.querySelectorAll('.event__type-input'));
+  }
+
+  #offersTypeHandler = (evt) => {
+    console.log(this.element);
+  };
+
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.handlePointClick(EditorView.parsePointToState(this._state));
+    this.handleFormSubmit(EditorView.parsePointToState(this._state));
   };
 
   static parsePointToState(point) {
-    return {...point,
-      //??
-
-    };
+    return {...point};
   }
 
   static parseStateToPoint(state) {
