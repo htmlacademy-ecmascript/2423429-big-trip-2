@@ -190,6 +190,7 @@ export default class EditorView extends AbstractStatefulView {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleCloseClick);
     this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandle);
     this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
+    this.element.querySelector('.event__input--destination').addEventListener('input', this.#destinationInputHandler);
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
 
     const eventTypeInput = this.element.querySelectorAll('.event__type-input');
@@ -218,9 +219,20 @@ export default class EditorView extends AbstractStatefulView {
   #priceInputHandler = (evt) => {
     evt.preventDefault();
     this._setState({
-      base_price: evt.target.value,
+      'base_price': evt.target.value,
     });
   };
+
+  // #destinationInputHandler = (evt) => {
+  //   evt.preventDefault();
+  //   this._setState({
+  //     //??: evt.target.value,
+  //   });
+  //   this.updateElement({
+  //   // ??: evt.target.value,
+  //   });
+  // };
+
 
   static parsePointToState(point) {
     return {...point};
