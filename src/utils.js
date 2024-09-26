@@ -40,4 +40,8 @@ function getEventDuration (event) {
   return dayjs(event.date_to).diff(dayjs(event.date_from));
 }
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, updateItem, sortByPrice, sortByTime };
+function replaceFirstSymbol (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, updateItem, sortByPrice, sortByTime, replaceFirstSymbol };

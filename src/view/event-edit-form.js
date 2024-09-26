@@ -1,5 +1,5 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
-import { findOffersByType } from '../utils.js';
+import { findOffersByType, replaceFirstSymbol } from '../utils.js';
 
 
 function createOffersItemTemplate (offers, point) {
@@ -9,14 +9,14 @@ function createOffersItemTemplate (offers, point) {
     return (
       `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden"
-          id="event-offer-${offer.type}-${i}"
+          id="event-offer-${(offer.type)}-${i}"
           type="checkbox"
           name="event-offer-${offer.title}"
           ${isChecked ? 'checked' : ''}
           >
         <label
         class="event__offer-label"
-        for="event-offer-${offer.type}-${i}">
+        for="event-offer-(${offer.type})}-${i}">
           <span class="event__offer-title">Add ${offer.title}</span>
           +€&nbsp;
           <span class="event__offer-price">${offer.price}</span>
@@ -27,7 +27,8 @@ function createOffersItemTemplate (offers, point) {
 }
 
 
-function createTypesItemTemplate (offers) {
+function createTypesItemTemplate (offers, point) {
+
   return offers.map((offer, i) =>
     `<div class="event__type-item">
       <input id="event-type-${offer.type}-${i}"
@@ -35,12 +36,12 @@ function createTypesItemTemplate (offers) {
         type="radio"
         name="event-type"
         value="${offer.type}"
-        ${ i === 0 ? 'checked' : ''}
+        ${ point.type === offer.type ? 'checked' : ''}
       >
       <label class="event__type-label
         event__type-label--${offer.type}"
         for="event-type-${offer.type}-${i}">
-        ${offer.type}
+        ${replaceFirstSymbol(offer.type)}
       </label>
     </div>`).join('');
 }
@@ -92,7 +93,7 @@ function createEditFormTemplate(point, offers, cities){
               <div class="event__type-list">
                 <fieldset class="event__type-group">
                   <legend class="visually-hidden">Event type</legend>
-                  ${createTypesItemTemplate(offers)}
+                  ${createTypesItemTemplate(offers, point)}
                 </fieldset>
               </div>
              </div>
@@ -194,9 +195,6 @@ export default class EditorView extends AbstractStatefulView {
     const eventTypeInput = this.element.querySelectorAll('.event__type-input');
     for(let i = 0; i < eventTypeInput.length; i++) {
       eventTypeInput[i].addEventListener('change', this.#offersChangeHandler);
-      if (this._state.type !== this.type) {
-        console.log('разный');
-      }
     }
   }
 
