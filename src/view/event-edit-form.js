@@ -47,7 +47,7 @@ function createTypesItemTemplate (offers, point) {
 }
 
 function createDestinationList (cities) {
-  return cities.map((city) =>(`<option value="${city.name}"></opion>`)).join('');
+  return cities.map((city) =>(`<option value="${city.name}"></option>`)).join('');
 }
 
 function createEditDestinationPoint(destinationDescription) {
@@ -189,7 +189,7 @@ export default class EditorView extends AbstractStatefulView {
   _restoreHandlers() {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleCloseClick);
     this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandle);
-    //this.element.querySelector('event__save-btn').addEventListener('click', this.#formSaveButton);
+    this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
 
     const eventTypeInput = this.element.querySelectorAll('.event__type-input');
@@ -213,6 +213,13 @@ export default class EditorView extends AbstractStatefulView {
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
     this.#handleFormSubmit(EditorView.parseStateToPoint(this._state));
+  };
+
+  #priceInputHandler = (evt) => {
+    evt.preventDefault();
+    this._setState({
+      base_price: evt.target.value,
+    });
   };
 
   static parsePointToState(point) {
