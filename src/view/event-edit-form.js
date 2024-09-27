@@ -9,7 +9,7 @@ function createOffersItemTemplate (offers, point) {
     return (
       `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden"
-          id="event-offer-${(offer.type)}-${i}"
+          id="event-offer-${offer.type}-${i}"
           type="checkbox"
           name="event-offer-${offer.title}"
           ${isChecked ? 'checked' : ''}
@@ -223,15 +223,13 @@ export default class EditorView extends AbstractStatefulView {
     });
   };
 
-  // #destinationInputHandler = (evt) => {
-  //   evt.preventDefault();
-  //   this._setState({
-  //     //??: evt.target.value,
-  //   });
-  //   this.updateElement({
-  //   // ??: evt.target.value,
-  //   });
-  // };
+  #destinationInputHandler = (evt) => {
+    evt.preventDefault();
+    this._setState({
+      value: evt.target.value,
+    });
+
+  };
 
 
   static parsePointToState(point) {
