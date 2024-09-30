@@ -2,24 +2,24 @@ import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { findOffersByType, replaceFirstSymbol } from '../utils.js';
 
 
-function createOffersItemTemplate (offers, point) {
+function createOffersItemTemplate (offers, point, checkedOffers) {
   return offers.offers.map((offer, i) => {
     const isChecked = point.offers.includes(offer.id);
 
     return (
       `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden"
-          id="event-offer-${offer.type}-${i}"
+          id="event-offer-${offer.id}-${i}"
           type="checkbox"
           name="event-offer-${offer.title}"
-          ${isChecked ? 'checked' : ''}
+          ${ isChecked ? 'checked' : ''}
           >
         <label
-        class="event__offer-label"
-        for="event-offer-(${offer.type})}-${i}">
-          <span class="event__offer-title">Add ${offer.title}</span>
-          +€&nbsp;
-          <span class="event__offer-price">${offer.price}</span>
+          class="event__offer-label"
+          for="event-offer-${offer.id}-${i}">
+           <span class="event__offer-title">Add ${offer.title}</span>
+           +€&nbsp;
+           <span class="event__offer-price">${offer.price}</span>
         </label>
      </div>`
     );
@@ -60,8 +60,6 @@ function createPictures(destination) {
 }
 
 function createEditFormTemplate(point, offers, cities){
-  // const destinationName = cities.find((city) => city.id === point.destination)?.name;
-  // const destinationDescription = cities.find((city) => city.id === point.destination)?.description;
   const destination = cities.find((city) => city.id === point.destination);
 
   return (
@@ -141,22 +139,22 @@ function createEditFormTemplate(point, offers, cities){
             </button>
           </header>
           <section class="event__details">
-           ${findOffersByType.length !== 0 ? `<section class="event__section  event__section--offers">
+           ${findOffersByType.length !== 0 ? (`<section class="event__section  event__section--offers">
              <h3 class="event__section-title  event__section-title--offers">Offers</h3>
              <div class="event__available-offers">
              ${createOffersItemTemplate(findOffersByType(offers, point.type), point)}
              </div>
-            </section>` : ''}
+            </section>`) : ''}
 
             <section class="event__section  event__section--destination">
-              <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-              ${createEditDestinationPoint(destination?.description || '')}
-
-              <div class="event__photos-container">
-                <div class="event__photos-tape">
-                  ${createPictures(destination)}
-                </div>
-              </div>
+              ${(destination?.description && destination?.name) ? (`<h3 class="event__section-title  event__section-title--destination">Destination</h3>
+                ${createEditDestinationPoint(destination?.description || '')}
+                  <div class="event__photos-container">
+                    <div class="event__photos-tape">
+                      ${createPictures(destination)}
+                    </div>
+                  </div>
+               `) : ''}
             </section>
           </section>
         </form>
@@ -183,7 +181,7 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   get template() {
-    console.log('state', this._state);
+    // console.log('state', this._state);
     return createEditFormTemplate(this._state, this.#offers, this.#cities);
   }
 
@@ -199,9 +197,20 @@ export default class EventEditView extends AbstractStatefulView {
     this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
     this.element.querySelector('.event__input--destination').addEventListener('input', this.#destinationInputHandler);
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
+
     const eventTypeInputs = this.element.querySelectorAll('.event__type-input');
     eventTypeInputs.forEach((typeInput) => (typeInput.addEventListener('change', this.#typeChangeHandler)));
+
+    const availableOffers = this.element.querySelectorAll('.event__offer-selector');
+    availableOffers.forEach((offer) => (offer.addEventListener('input', this.#checkOffersHandler)));
   }
+
+  #checkOffersHandler = (evt) => {
+    evt.preventDefault();
+
+    console.log(evt.target);
+  };
+
 
   #typeChangeHandler = (evt) => {
     evt.preventDefault();
