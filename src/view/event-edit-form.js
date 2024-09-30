@@ -60,8 +60,8 @@ function createPictures(destination) {
 }
 
 function createEditFormTemplate(point, offers, cities){
-  const destinationName = cities.find((city) => city.id === point.destination)?.name;
-  const destinationDescription = cities.find((city) => city.id === point.destination)?.description;
+  // const destinationName = cities.find((city) => city.id === point.destination)?.name;
+  // const destinationDescription = cities.find((city) => city.id === point.destination)?.description;
   const destination = cities.find((city) => city.id === point.destination);
 
   return (
@@ -105,7 +105,7 @@ function createEditFormTemplate(point, offers, cities){
              <input class="event__input  event__input--destination" id="event-destination-1"
              type="text"
              name="event-destination"
-             value="${destinationName}"
+             value="${destination?.name || ''}"
              list="destination-list-1">
               <datalist id="destination-list-1">
                ${createDestinationList(cities)}
@@ -141,16 +141,16 @@ function createEditFormTemplate(point, offers, cities){
             </button>
           </header>
           <section class="event__details">
-            <section class="event__section  event__section--offers">
+           ${findOffersByType.length !== 0 ? `<section class="event__section  event__section--offers">
              <h3 class="event__section-title  event__section-title--offers">Offers</h3>
              <div class="event__available-offers">
              ${createOffersItemTemplate(findOffersByType(offers, point.type), point)}
              </div>
-            </section>
+            </section>` : ''}
 
             <section class="event__section  event__section--destination">
               <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-              ${createEditDestinationPoint(destinationDescription)}
+              ${createEditDestinationPoint(destination?.description || '')}
 
               <div class="event__photos-container">
                 <div class="event__photos-tape">
@@ -164,15 +164,15 @@ function createEditFormTemplate(point, offers, cities){
   `);
 }
 
-export default class EditorView extends AbstractStatefulView {
+export default class EventEditView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleCloseClick = null;
   #offers = null;
   #cities = null;
 
-  constructor({point, onCloseClick, onFormSubmit = () =>{}, offers, cities}){
+  constructor({point, onCloseClick, onFormSubmit, offers, cities}){
     super();
-    this._setState(EditorView.parsePointToState(point));
+    this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
     this.#handleFormSubmit = onFormSubmit;
 
@@ -183,7 +183,14 @@ export default class EditorView extends AbstractStatefulView {
   }
 
   get template() {
+    console.log('state', this._state);
     return createEditFormTemplate(this._state, this.#offers, this.#cities);
+  }
+
+  reset(point) {
+    this.updateElement(
+      EventEditView.parsePointToState(point),
+    );
   }
 
   _restoreHandlers() {
@@ -192,39 +199,47 @@ export default class EditorView extends AbstractStatefulView {
     this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
     this.element.querySelector('.event__input--destination').addEventListener('input', this.#destinationInputHandler);
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
-
-    const eventTypeInput = this.element.querySelectorAll('.event__type-input');
-    for(let i = 0; i < eventTypeInput.length; i++) {
-      eventTypeInput[i].addEventListener('change', this.#offersChangeHandler);
-    }
+    const eventTypeInputs = this.element.querySelectorAll('.event__type-input');
+    eventTypeInputs.forEach((typeInput) => (typeInput.addEventListener('change', this.#typeChangeHandler)));
   }
 
-  #offersChangeHandler = (evt) => {
+  #typeChangeHandler = (evt) => {
     evt.preventDefault();
+
     this.updateElement({
       type: evt.target.value,
+      offers: [],
     });
   };
 
   #formDeleteClickHandle = (evt) => {
     evt.preventDefault();
-    this.#handleCloseClick(EditorView.parseStateToPoint(this._state));
   };
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(EditorView.parseStateToPoint(this._state));
+    this.#handleFormSubmit(EventEditView.parseStateToPoint(this._state));
   };
+
+  #isNumeric = (value) => /^\d+$/.test(value);
 
   #priceInputHandler = (evt) => {
     evt.preventDefault();
-    this._setState({
-      'base_price': evt.target.value,
-    });
+    if (this.#isNumeric(evt.target.value)){
+      this._setState({
+        'base_price': evt.target.value,
+      });
+    }
   };
 
   #destinationInputHandler = (evt) => {
     evt.preventDefault();
+    console.log(evt.target.value);
+
+    if(evt.target.value === ''){
+      return;
+    }
+
     this._setState({
       value: evt.target.value,
     });
