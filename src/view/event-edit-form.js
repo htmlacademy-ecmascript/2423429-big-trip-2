@@ -2,7 +2,7 @@ import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { findOffersByType, replaceFirstSymbol } from '../utils.js';
 
 
-function createOffersItemTemplate (offers, point, checkedOffers) {
+function createOffersItemTemplate (offers, point) {
   return offers.offers.map((offer, i) => {
     const isChecked = point.offers.includes(offer.id);
 
@@ -167,7 +167,6 @@ export default class EventEditView extends AbstractStatefulView {
   #handleCloseClick = null;
   #offers = null;
   #cities = null;
-
   constructor({point, onCloseClick, onFormSubmit, offers, cities}){
     super();
     this._setState(EventEditView.parsePointToState(point));
@@ -181,7 +180,7 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   get template() {
-    // console.log('state', this._state);
+    console.log('state', this._state);
     return createEditFormTemplate(this._state, this.#offers, this.#cities);
   }
 
@@ -203,12 +202,26 @@ export default class EventEditView extends AbstractStatefulView {
 
     const availableOffers = this.element.querySelectorAll('.event__offer-selector');
     availableOffers.forEach((offer) => (offer.addEventListener('input', this.#checkOffersHandler)));
+
+    //this.element.querySelector('.event__available-offers').addEventListener('change', this.#offerChangeHandler);
   }
 
   #checkOffersHandler = (evt) => {
     evt.preventDefault();
 
-    console.log(evt.target);
+    //const checkedBoxes = Array.from(this.element.querySelectorAll('.event_offer-checkbox:checked'));
+    //this._setState({offers: checkedBoxes.map((element) => element.dataset.offer.id)});
+
+    const newOffers = Array.from(this._state.offers);
+    if (evt.target.checked) {
+      newOffers.push(evt.target.id);
+    } else {
+      newOffers.pop(evt.target.id);
+    }
+    console.log(newOffers);
+    this._setState({
+      offers: newOffers,
+    });
   };
 
 
@@ -217,7 +230,6 @@ export default class EventEditView extends AbstractStatefulView {
 
     this.updateElement({
       type: evt.target.value,
-      offers: [],
     });
   };
 
