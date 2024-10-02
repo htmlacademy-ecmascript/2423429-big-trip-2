@@ -213,10 +213,16 @@ export default class EventEditView extends AbstractStatefulView {
     //this._setState({offers: checkedBoxes.map((element) => element.dataset.offer.id)});
 
     const newOffers = Array.from(this._state.offers);
+    const checkedID = evt.target.id.substr(12, 36);
+    console.log(checkedID);
+
     if (evt.target.checked) {
-      newOffers.push(evt.target.id);
+      newOffers.push(checkedID);
     } else {
-      newOffers.pop(evt.target.id);
+      const index = newOffers.indexOf(checkedID);
+      if (index !== -1) {
+        newOffers.splice(index, 1);
+      }
     }
     console.log(newOffers);
     this._setState({
