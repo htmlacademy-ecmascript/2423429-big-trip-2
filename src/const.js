@@ -76,7 +76,7 @@ const CITIES = [
   {
     name: 'Jakarta',
     id: '01fd8f32-5902-40c5-8e51-5768e966766e',
-    description: getRandomArrayElement(FISH_TEXT),
+    description: [],
     pictures: []
   },
 ];
@@ -85,7 +85,7 @@ const OFFERS = [
     type: 'taxi',
     offers: [
       {
-        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8373b9c',
+        id: 'f4f9ffbd-bb2e-4e5a-8f72-9ae5e8263b9c',
         title: 'Upgrade to a business class',
         price: 120
       },
@@ -105,7 +105,7 @@ const OFFERS = [
         price: 30
       },
       {
-        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8373b9c',
+        id: 'f4f234bd-bb2e-4s5a-8f72-9ae5e8213b9c',
         title: 'Transportation of a large number of items',
         price: 130
       },
@@ -156,12 +156,12 @@ const OFFERS = [
         price: 50
       },
       {
-        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e8398b9c',
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e3598b9c',
         title: 'Breakfast',
         price: 20
       },
       {
-        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e8398b9c',
+        id: 'f4f9ff4t-bb2e-4e5a-8f72-9ae5e4398b9c',
         title: 'Lunch',
         price: 25
       },
@@ -192,7 +192,7 @@ const OFFERS = [
         price: 80
       },
       {
-        id: 'dc6b51f7-0961-4aef-afgh-1e13uu8d0086',
+        id: 'dc6b51f7-0961-4aef-afgh-1e13uu6d0086',
         title: 'Internet and telephone on the ship',
         price: 60
       }
@@ -203,7 +203,7 @@ const OFFERS = [
     offers: [
       {
         id: '01960644-7779-4c1a-810c-f493f06d92a2',
-        title: 'Uprgade to a business class',
+        title: 'Upgrade to a business class',
         price: 100
       },
       {
@@ -228,7 +228,7 @@ const OFFERS = [
     offers: [
       {
         id: '34cb2f41-8ecf-4f32-8190-169aa9cef41b',
-        title: 'Uprgade to a business class',
+        title: 'Upgrade to a business class',
         price: 120
       },
       {
@@ -276,18 +276,7 @@ const OFFERS = [
   },
   {
     type: 'sightseeing',
-    offers: [
-      {
-        id: '9b8082e7-4f0e-4c25-8249-27ce99a12d65',
-        title: 'Museum guide',
-        price: 80
-      },
-      {
-        id: '9b8082e7-4f0e-4c25-8249-27ce99a13u65',
-        title: 'Sightseeing guide',
-        price: 80
-      },
-    ]
+    offers: []
   },
   {
     type: 'restaurant',
