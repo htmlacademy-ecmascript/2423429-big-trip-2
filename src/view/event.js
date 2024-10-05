@@ -63,7 +63,7 @@ function createEvent(point, offers, cities){
   `);
 }
 
-export default class PointView extends AbstractView{
+export default class EventView extends AbstractView{
 
   #handleFavoriteClick = null;
   constructor({point, onPointClick, onFavoriteClick, offers, cities}){

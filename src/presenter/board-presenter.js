@@ -35,7 +35,6 @@ export default class BoardPresenter {
   };
 
   #sortPoints(sortType) {
-    console.log(sortType);
     // 2. Этот исходный массив задач необходим,
     // потому что для сортировки мы будем мутировать
     // массив в свойстве _boardPoints

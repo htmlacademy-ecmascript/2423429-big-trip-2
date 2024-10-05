@@ -2,7 +2,6 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { SortType } from '../const.js';
 
 function createSortTemplate (currentSortType) {
-  console.log(currentSortType);
 
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
@@ -46,7 +45,7 @@ function createSortTemplate (currentSortType) {
          type="radio"
          name="trip-sort"
          value="${SortType.TIME}"
-         checked="${currentSortType === SortType.TIME ? 'checked' : ''}"
+         ${currentSortType === SortType.TIME ? 'checked' : ''}
         >
         <label
          class="trip-sort__btn"
@@ -63,7 +62,7 @@ function createSortTemplate (currentSortType) {
          type="radio"
          name="trip-sort"
          value="${SortType.PRICE}"
-         checked="${currentSortType === SortType.PRICE ? 'checked' : ''}"
+         ${currentSortType === SortType.PRICE ? 'checked' : ''}
         >
         <label
          class="trip-sort__btn"
