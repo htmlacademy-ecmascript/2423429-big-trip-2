@@ -1,6 +1,7 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { findOffersByType, replaceFirstSymbol } from '../utils.js';
-
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 
 function createOffersItemTemplate(offersByType, point) {
   return offersByType.offers.map((offer, i) => {
@@ -179,6 +180,9 @@ export default class EventEditView extends AbstractStatefulView {
   #handleCloseClick = null;
   #offers = null;
   #cities = null;
+  #datepickerFrom = null;
+  #datepickerTo = null;
+
   constructor({ point, onCloseClick, onFormSubmit, offers, cities }) {
     super();
     this._setState(EventEditView.parsePointToState(point));
