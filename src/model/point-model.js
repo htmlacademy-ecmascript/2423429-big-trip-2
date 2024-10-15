@@ -1,7 +1,6 @@
 import { generatePoint } from '../mock/get-points.js';
 import { MAX_POINTS } from '../const.js';
 import Observable from '../framework/observable.js';
-import { updateItem } from '../utils.js';
 
 export default class PointModel extends Observable {
   #points = Array.from ({length: MAX_POINTS}, generatePoint);

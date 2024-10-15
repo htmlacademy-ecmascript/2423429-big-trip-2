@@ -178,16 +178,18 @@ function createEditFormTemplate(point, offers, cities) {
 export default class EventEditView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleCloseClick = null;
+  #handleDeleteClick = null;
   #offers = null;
   #cities = null;
   #datepickerFrom = null;
   #datepickerTo = null;
 
-  constructor({ point, onCloseClick, onFormSubmit, offers, cities }) {
+  constructor({ point, onCloseClick, onFormSubmit, onDeleteClick, offers, cities }) {
     super();
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
     this.#handleFormSubmit = onFormSubmit;
+    this.handleDeleteClick = onDeleteClick;
 
     this.#offers = offers;
     this.#cities = cities;
@@ -221,10 +223,11 @@ export default class EventEditView extends AbstractStatefulView {
 
   _restoreHandlers() {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleCloseClick);
-    this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandle);
+    this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandler);
     this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
     this.element.querySelector('.event__input--destination').addEventListener('change', this.#destinationInputHandler);
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
+
 
     const eventTypeInputs = this.element.querySelectorAll('.event__type-input');
     eventTypeInputs.forEach((typeInput) => (typeInput.addEventListener('change', this.#typeChangeHandler)));
@@ -300,8 +303,9 @@ export default class EventEditView extends AbstractStatefulView {
     });
   };
 
-  #formDeleteClickHandle = (evt) => {
+  #formDeleteClickHandler = (evt) => {
     evt.preventDefault();
+    this.#handleDeleteClick(EventEditView.parseStateToPoint(this._state));
   };
 
   #formSubmitHandler = (evt) => {

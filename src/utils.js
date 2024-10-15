@@ -61,6 +61,10 @@ function sortByDay (eventA, eventB) {
   return dayjs(startDateEventA).diff(startDateEventB);
 }
 
+function isDatesEqual(dateA, dateB) {
+  return (dateA === null && dateB === null) || dayjs(dateA).isSame(dateB, 'D');
+}
+
 function getEventDuration (event) {
   return dayjs(event.date_to).diff(dayjs(event.date_from));
 }
@@ -70,4 +74,4 @@ function replaceFirstSymbol (string) {
 }
 
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol };
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual};

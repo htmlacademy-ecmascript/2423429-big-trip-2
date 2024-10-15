@@ -1,10 +1,10 @@
 import SortView from '../view/sort.js';
 import ListView from '../view/trip-events-list.js';
-import {render, RenderPosition} from '../framework/render.js';
+import {remove, render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
-import { SortType, UserAction, UpdateType } from '../const.js';
+import { SortType, UserAction, UpdateType, MAX_POINTS } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
@@ -12,6 +12,8 @@ export default class BoardPresenter {
   #listEmpty = new ListEmpty();
   #pointPresenters = new Map();
   #currentSortType = SortType.DEFAULT;
+
+  #renderedPointCount = MAX_POINTS;
 
   constructor({container, pointModel, offersModel, citiesModel}) {
     this.container = container;
@@ -69,46 +71,20 @@ export default class BoardPresenter {
   };
 
   #handleModelEvent = (updateType, point) => {
-    console.log(updateType , point);
-    // В зависимости от типа изменений решаем, что делать:
-    // - обновить часть списка (например, когда поменялось описание)
-    // - обновить список (например, когда задача ушла в архив)
-    // - обновить всю доску (например, при переключении фильтра)
-
     switch(updateType) {
       case UpdateType.PATCH:
-        //- обновить часть списка
         this.#pointPresenters.get(point.id).init(point);
         break;
       case UpdateType.MINOR:
-        //- обновить список (например удаление точки маршрута)
+        this.#clearBoard();
+        this.#renderBoard();
         break;
       case UpdateType.MAJOR:
-        // - обновить всю доску (например, при переключении фильтра)
+        this.#clearBoard({resetRenderedPointCount: true, resetSortType: true});
+        this.#renderBoard();
         break;
     }
   };
-
-  // #sortPoints(sortType) {
-  //   // 2. Этот исходный массив задач необходим,
-  //   // потому что для сортировки мы будем мутировать
-  //   // массив в свойстве _boardPoints
-  //   switch (sortType) {
-  //     case SortType.DEFAULT:
-  //       this.#boardPoints = [...this.#sourcedBoardPoints];
-  //       break;
-  //     case SortType.TIME:
-  //       this.#boardPoints.sort(sortByTime);
-  //       break;
-  //     case SortType.PRICE:
-  //       this.#boardPoints.sort(sortByPrice);
-  //       break;
-  //     default:
-  //       this.#boardPoints = [...this.#sourcedBoardPoints];
-  //   }
-
-  //   this.#currentSortType = sortType;
-  // }
 
   #handleSortTypeChange = (sortType) => {
     if (this.#currentSortType === sortType) {
@@ -116,14 +92,14 @@ export default class BoardPresenter {
     }
 
     this.#currentSortType = sortType;
-    this.#clearPoints();
-    this.#renderPoints();
+    this.#clearBoard({resetRenderedPointCount: true});
+    this.#renderBoard();
   };
 
   #renderSort() {
     this.#sortComponent = new SortView({
+      currentSortType: this.#handleSortTypeChange,
       onSortTypeChange: this.#handleSortTypeChange,
-      currentSortType: this.#currentSortType
     });
 
     render(this.#sortComponent, this.container, RenderPosition.AFTERBEGIN);
@@ -145,10 +121,10 @@ export default class BoardPresenter {
     this.#pointPresenters.set(point.id, pointPresenter);
   }
 
-  #clearPoints() {
-    this.#pointPresenters.forEach((presenter) => presenter.destroy());
-    this.#pointPresenters.clear();
-  }
+  // #clearPoints() {
+  //   this.#pointPresenters.forEach((presenter) => presenter.destroy());
+  //   this.#pointPresenters.clear();
+  // }
 
   #renderPoints() {
     if (this.points.length === 0){
@@ -160,9 +136,41 @@ export default class BoardPresenter {
     this.points.forEach((point) => this.#renderPoint(point));
   }
 
-  #renderBoard () {
+  #clearBoard({resetRenderedPointCount = false, resetSortType = false} = {}) {
+    const pointCount = this.points.length;
+
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
+
+    remove(this.#sortComponent);
+    remove(this.#tripListComponent);
+
+    if (resetRenderedPointCount) {
+      this.#renderedPointCount = MAX_POINTS;
+    } else {
+      this.#renderedPointCount = Math.min(pointCount, this.#renderedPointCount);
+    }
+
+    if (resetSortType) {
+      this.#currentSortType = SortType.DEFAULT;
+    }
+  }
+
+  #renderBoard() {
+
     this.#renderSort();
+
+    const points = this.points;
+    const pointCount = points.length;
+
+    if (pointCount === 0) {
+      render(this.#listEmpty, this.#tripListComponent.element);
+      return;
+    }
+    //this.#renderPoints();
     render(this.#tripListComponent, this.container);
-    this.#renderPoints();
+
+    this.#renderPoints(points.slice(0, Math.min(pointCount, this.#renderedPointCount)));
+
   }
 }
