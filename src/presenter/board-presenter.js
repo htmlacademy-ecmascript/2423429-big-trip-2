@@ -4,7 +4,7 @@ import {render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
-import { SortType } from '../const.js';
+import { SortType, UserAction, UpdateType } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
@@ -42,25 +42,51 @@ export default class BoardPresenter {
   }
 
   //#handlePointChange = (updatedPoint) => {
-    // this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
-    // this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
-    // Здесь будет вызывать обновление модели
-    //this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  // this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+  // this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
+  // Здесь будет вызывать обновление модели
+  //this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   //};
 
   #handleViewAction = (actionType, updateType, update) => {
-    console.log(actionType, updateType, update);
+    //console.log(actionType, updateType, update);
     // Здесь будем вызывать обновление модели.
     // actionType - действие пользователя, нужно чтобы понять, какой метод модели вызвать
     // updateType - тип изменений, нужно чтобы понять, что после нужно обновить
     // update - обновленные данные
+
+    switch (actionType) {
+      case UserAction.UPDATE_POINT:
+        this.pointModel.updatePoint(updateType, update);
+        break;
+      case UserAction.ADD_POINT:
+        this.pointModel.addPoint(updateType, update);
+        break;
+      case UserAction.DELETE_POINT:
+        this.pointModel.deletePoint(updateType, update);
+        break;
+    }
   };
-  #handleModelEvent = (updateType, data) => {
-    console.log(updateType, data);
+
+  #handleModelEvent = (updateType, point) => {
+    console.log(updateType , point);
     // В зависимости от типа изменений решаем, что делать:
     // - обновить часть списка (например, когда поменялось описание)
     // - обновить список (например, когда задача ушла в архив)
     // - обновить всю доску (например, при переключении фильтра)
+
+    switch(updateType) {
+      case UpdateType.PATCH:
+        //- обновить часть списка
+        this.#pointPresenters.get(point.id).init(point);
+        break;
+      case UpdateType.MINOR:
+        //- обновить список (например удаление точки маршрута)
+        break;
+      case UpdateType.MAJOR:
+        // - обновить всю доску (например, при переключении фильтра)
+        break;
+    }
   };
 
   // #sortPoints(sortType) {
