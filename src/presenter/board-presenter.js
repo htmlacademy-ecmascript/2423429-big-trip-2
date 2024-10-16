@@ -136,8 +136,7 @@ export default class BoardPresenter {
     this.points.forEach((point) => this.#renderPoint(point));
   }
 
-  #clearBoard({resetRenderedPointCount = false, resetSortType = false} = {}) {
-    const pointCount = this.points.length;
+  #clearBoard({ resetSortType = false} = {}) {
 
     this.#pointPresenters.forEach((presenter) => presenter.destroy());
     this.#pointPresenters.clear();
@@ -145,11 +144,6 @@ export default class BoardPresenter {
     remove(this.#sortComponent);
     remove(this.#tripListComponent);
 
-    if (resetRenderedPointCount) {
-      this.#renderedPointCount = MAX_POINTS;
-    } else {
-      this.#renderedPointCount = Math.min(pointCount, this.#renderedPointCount);
-    }
 
     if (resetSortType) {
       this.#currentSortType = SortType.DEFAULT;

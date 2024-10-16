@@ -189,7 +189,7 @@ export default class EventEditView extends AbstractStatefulView {
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
     this.#handleFormSubmit = onFormSubmit;
-    this.handleDeleteClick = onDeleteClick;
+    this.#handleDeleteClick = onDeleteClick;
 
     this.#offers = offers;
     this.#cities = cities;
