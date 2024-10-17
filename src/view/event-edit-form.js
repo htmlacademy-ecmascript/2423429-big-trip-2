@@ -3,6 +3,18 @@ import { findOffersByType, replaceFirstSymbol } from '../utils.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+const BLANK_POINT = {
+  'base_price': '',
+  'date_from': '',
+  'date_to': '',
+  destination: [],
+  id: crypto.randomUUID(),
+  'is_favorite': false,
+  offers: [],
+  type: 'taxi',
+
+};
+
 function createOffersItemTemplate(offersByType, point) {
   return offersByType.offers.map((offer, i) => {
     const isChecked = point.offers.includes(offer.id);
@@ -53,18 +65,18 @@ function createDestinationList(cities) {
 }
 
 function createEditDestinationPoint(destinationDescription) {
-  if (destinationDescription.length !== 0){
+  if (destinationDescription?.length !== 0){
     return `<p class="event__destination-description">${destinationDescription}</p>`;
   }
   return '';
 }
 
 function createPictures(destination) {
-  return destination.pictures.map((picture) => (
+  return destination?.pictures.map((picture) => (
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
 
-function createEditFormTemplate(point, offers, cities, isEditMode) {
+function createEditFormTemplate(point, offers, cities, isEditMode,) {
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -181,11 +193,11 @@ export default class EventEditView extends AbstractStatefulView {
   #handleDeleteClick = null;
   #offers = null;
   #cities = null;
+  #isEditMode = null;
   #datepickerFrom = null;
   #datepickerTo = null;
-  #isEditMode = null;
 
-  constructor({ point, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode }) {
+  constructor({ point = BLANK_POINT, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode }) {
     super();
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
@@ -346,6 +358,7 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   static parseStateToPoint(state) {
+    console.log(state);
     return { ...state };
   }
 }

@@ -2,27 +2,43 @@ import { remove, render, RenderPosition } from '../framework/render.js';
 import EventEditView from '../view/event-edit-form.js';
 import { UpdateType, UserAction } from '../const.js';
 
+// const BLANK_POINT = {
+//   id: crypto.randomUUID(),
+//   'base_price': 0,
+//   'date_from': '',
+//   'date_to': '',
+//   destination: '',
+//   'is_favorite': false,
+//   type: '',
+//   offers: [],
+
+// };
 
 export default class NewPointPresenter {
   #pointListContainer = null;
   #handleDataChange = null;
   #handleDestroy = null;
   #pointEditComponent = null;
-
-  constructor({pointListContainer, onDataChange, onDestroy}) {
+  #offers = null;
+  #cities = null;
+  constructor({pointListContainer, onDataChange, onDestroy, offers, cities}) {
     this.#pointListContainer = pointListContainer;
     this.#handleDataChange = onDataChange;
     this.#handleDestroy = onDestroy;
+    this.#offers = offers;
+    this.#cities = cities;
   }
 
   init() {
     if (this.#pointEditComponent !== null) {
       return;
     }
-
-    this.#pointEditComponent = new EventEditView({
+    this.#pointEditComponent = new EventEditView ({
       onFormSubmit: this.#handleFormSubmit,
-      onDeleteClick: this.#handleDeleteClick
+      onDeleteClick: this.#handleDeleteClick,
+      offers: this.#offers,
+      cities: this.#cities,
+      isEditMode: true,
     });
 
     render(this.#pointEditComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);

@@ -24,7 +24,9 @@ export default class BoardPresenter {
     this.#newPointPresenter = new NewPointPresenter({
       pointListContainer: this.#tripListComponent.element,
       onDataChange: this.#handleViewAction,
-      onDestroy: onNewPointDestroy
+      onDestroy: onNewPointDestroy,
+      offers: offersModel.offers,
+      cities: citiesModel.cities,
     });
     this.pointModel.addObserver(this.#handleModelEvent);
   }
