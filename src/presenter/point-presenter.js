@@ -50,7 +50,8 @@ export default class PointPresenter {
       onFormSubmit: this.#handleFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
       offers: this.#offersModel.offers,
-      cities: this.#citiesModel.cities
+      cities: this.#citiesModel.cities,
+      isEditMode : true,
     });
 
     if (prevPointComponent === null || prevEditorComponent === null) {

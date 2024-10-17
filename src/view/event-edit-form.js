@@ -64,7 +64,7 @@ function createPictures(destination) {
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
 
-function createEditFormTemplate(point, offers, cities) {
+function createEditFormTemplate(point, offers, cities, isEditMode) {
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -183,13 +183,15 @@ export default class EventEditView extends AbstractStatefulView {
   #cities = null;
   #datepickerFrom = null;
   #datepickerTo = null;
+  #isEditMode = null;
 
-  constructor({ point, onCloseClick, onFormSubmit, onDeleteClick, offers, cities }) {
+  constructor({ point, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode }) {
     super();
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
     this.#handleFormSubmit = onFormSubmit;
     this.#handleDeleteClick = onDeleteClick;
+    this.#isEditMode = isEditMode;
 
     this.#offers = offers;
     this.#cities = cities;
@@ -198,7 +200,7 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   get template() {
-    return createEditFormTemplate(this._state, this.#offers, this.#cities);
+    return createEditFormTemplate(this._state, this.#offers, this.#cities, this.#isEditMode);
   }
 
   reset(point) {
