@@ -51,7 +51,7 @@ export default class PointPresenter {
       onDeleteClick: this.#handleDeleteClick,
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities,
-      isEditMode : true,
+      isEditMode : false,
     });
 
     if (prevPointComponent === null || prevEditorComponent === null) {
