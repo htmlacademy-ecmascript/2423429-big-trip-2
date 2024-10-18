@@ -21,10 +21,12 @@ export default class NewPointPresenter {
   #pointEditComponent = null;
   #offers = null;
   #cities = null;
+
   constructor({pointListContainer, onDataChange, onDestroy, offers, cities}) {
     this.#pointListContainer = pointListContainer;
     this.#handleDataChange = onDataChange;
     this.#handleDestroy = onDestroy;
+
     this.#offers = offers;
     this.#cities = cities;
   }
@@ -57,7 +59,12 @@ export default class NewPointPresenter {
     this.#pointEditComponent = null;
 
     document.addEventListener('keydown', this.#escKeyDownHandler);
+    document.addEventListener('click', this.#closeClickHandler);
   }
+
+  #closeClickHandler = () => {
+    this.destroy();
+  };
 
   #handleFormSubmit = (point) => {
     this.#handleDataChange(
@@ -77,5 +84,6 @@ export default class NewPointPresenter {
       evt.preventDefault();
       this.destroy();
     }
+
   };
 }

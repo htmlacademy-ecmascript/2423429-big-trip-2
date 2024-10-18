@@ -76,7 +76,7 @@ function createPictures(destination) {
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
 
-function createEditFormTemplate(point, offers, cities, isEditMode,) {
+function createEditFormTemplate(point, offers, cities, isEditMode) {
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -156,7 +156,7 @@ function createEditFormTemplate(point, offers, cities, isEditMode,) {
            </div>
 
             <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-            <button class="event__reset-btn" type="reset">Delete</button>
+            <button class="event__reset-btn" type="reset">${isEditMode ? 'Close' : 'Delete'}</button>
             <button class="event__rollup-btn" type="button">
               <span class="visually-hidden">Open event</span>
             </button>
@@ -169,17 +169,18 @@ function createEditFormTemplate(point, offers, cities, isEditMode,) {
                 ${offersItemTemplate}
               </div>
             </section>`) : ''}
-
-            ${destinationPoint.length !== 0 || pictureDestination.length !== 0 ? (`
-            <section class="event__section  event__section--destination">
-              <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-               ${destinationPoint}
-              <div class="event__photos-container">
-                <div class="event__photos-tape">
-                  ${pictureDestination}
-                </div>
-              </div>
-            `) : ''}
+            ${isEditMode !== true ? (`
+                ${(destinationPoint.length !== 0 || pictureDestination.length !== 0) || (!isEditMode) ? (`
+                <section class="event__section  event__section--destination">
+                  <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+                   ${destinationPoint}
+                  <div class="event__photos-container">
+                    <div class="event__photos-tape">
+                      ${pictureDestination}
+                    </div>
+                  </div>
+                `) : ''}
+             `) : ''}
             </section>
           </section>
         </form>
