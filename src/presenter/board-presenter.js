@@ -1,6 +1,7 @@
 import SortView from '../view/sort.js';
 import ListView from '../view/trip-events-list.js';
 import {remove, render, RenderPosition} from '../framework/render.js';
+import NewPointButtonView from '../view/new-point-button-view.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
@@ -48,8 +49,6 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
-    render(this.#newPointButtonComponent, this.#header);
     this.#renderBoard();
   }
 
