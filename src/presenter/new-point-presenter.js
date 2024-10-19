@@ -40,7 +40,7 @@ export default class NewPointPresenter {
       onDeleteClick: this.#handleDeleteClick,
       offers: this.#offers,
       cities: this.#cities,
-      isEditMode: true,
+      isEditMode: false,
     });
 
     render(this.#pointEditComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);

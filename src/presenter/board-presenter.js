@@ -4,6 +4,7 @@ import {remove, render, RenderPosition} from '../framework/render.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
+import NewPointButtonView from '../view/new-point-button-view.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
 import { SortType, UserAction, UpdateType } from '../const.js';
 
@@ -11,20 +12,23 @@ export default class BoardPresenter {
   #tripListComponent = new ListView();
   #sortComponent = null;
   #listEmpty = new ListEmpty();
+  #newPointButtonComponent = null;
   #pointPresenters = new Map();
   #currentSortType = SortType.DEFAULT;
   #newPointPresenter = null;
+  #header = null;
 
-  constructor({container, pointModel, offersModel, citiesModel, onNewPointDestroy}) {
+  constructor({container, header, pointModel, offersModel, citiesModel}) {
     this.container = container;
     this.pointModel = pointModel;
     this.offersModel = offersModel;
     this.citiesModel = citiesModel;
+    this.#header = header;
 
     this.#newPointPresenter = new NewPointPresenter({
       pointListContainer: this.#tripListComponent.element,
       onDataChange: this.#handleViewAction,
-      onDestroy: onNewPointDestroy,
+      onDestroy: this.#handleNewPointDestroy,
       offers: offersModel.offers,
       cities: citiesModel.cities,
     });
@@ -44,6 +48,8 @@ export default class BoardPresenter {
   }
 
   init() {
+    this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
+    render(this.#newPointButtonComponent, this.#header);
     this.#renderBoard();
   }
 
@@ -156,4 +162,14 @@ export default class BoardPresenter {
     this.#renderPoints(points);
 
   }
+
+  #handleNewPointClick = () => {
+    this.createPoint();
+    this.#newPointButtonComponent.setDisabled();
+  };
+
+  #handleNewPointDestroy = () => {
+    this.createPoint();
+    this.#newPointButtonComponent.setDisabled();
+  };
 }

@@ -72,6 +72,10 @@ function createEditDestinationPoint(destinationDescription) {
 }
 
 function createPictures(destination) {
+  if (destination?.pictures.length === 0) {
+    return '';
+  }
+
   return destination?.pictures.map((picture) => (
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
@@ -156,10 +160,12 @@ function createEditFormTemplate(point, offers, cities, isEditMode) {
            </div>
 
             <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-            <button class="event__reset-btn" type="reset">${isEditMode ? 'Close' : 'Delete'}</button>
-            <button class="event__rollup-btn" type="button">
-              <span class="visually-hidden">Open event</span>
-            </button>
+            <button class="event__reset-btn" type="reset">${isEditMode ? 'Delete' : 'Cancel'}</button>
+            ${isEditMode ? (`<button class="event__rollup-btn" type="button">
+                      <span class="visually-hidden">Open event</span>
+                    </button>
+              `) : ''
+            }
           </header>
           <section class="event__details">
            ${offersByType.offers.length !== 0 ? (`
@@ -169,18 +175,16 @@ function createEditFormTemplate(point, offers, cities, isEditMode) {
                 ${offersItemTemplate}
               </div>
             </section>`) : ''}
-            ${isEditMode !== true ? (`
-                ${(destinationPoint.length !== 0 || pictureDestination.length !== 0) || (!isEditMode) ? (`
-                <section class="event__section  event__section--destination">
-                  <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                   ${destinationPoint}
-                  <div class="event__photos-container">
-                    <div class="event__photos-tape">
-                      ${pictureDestination}
-                    </div>
+            ${destination ? (`
+              <section class="event__section  event__section--destination">
+                <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+                 ${destinationPoint}
+                <div class="event__photos-container">
+                  <div class="event__photos-tape">
+                    ${pictureDestination}
                   </div>
-                `) : ''}
-             `) : ''}
+                </div>
+              `) : ''}
             </section>
           </section>
         </form>
@@ -237,7 +241,10 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   _restoreHandlers() {
-    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleCloseClick);
+    if(this.#isEditMode) {
+      this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleCloseClick);
+    }
+
     this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandler);
     this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputHandler);
     this.element.querySelector('.event__input--destination').addEventListener('change', this.#destinationInputHandler);
@@ -248,7 +255,10 @@ export default class EventEditView extends AbstractStatefulView {
     eventTypeInputs.forEach((typeInput) => (typeInput.addEventListener('change', this.#typeChangeHandler)));
 
     const availableOffers = this.element.querySelectorAll('.event__offer-selector');
-    availableOffers.forEach((offer) => (offer.addEventListener('input', this.#checkOffersHandler)));
+
+    if(availableOffers.length > 0) {
+      availableOffers.forEach((offer) => (offer.addEventListener('input', this.#checkOffersHandler)));
+    }
 
     this.#setDatepicker();
   }
@@ -359,7 +369,6 @@ export default class EventEditView extends AbstractStatefulView {
   }
 
   static parseStateToPoint(state) {
-    console.log(state);
     return { ...state };
   }
 }
