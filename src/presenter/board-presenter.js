@@ -48,7 +48,7 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#newPointButtonComponent = new NewPointButtonView({onclick: this.#handleNewPointClick});
+    this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
     render(this.#newPointButtonComponent, this.#header);
     this.#renderBoard();
   }

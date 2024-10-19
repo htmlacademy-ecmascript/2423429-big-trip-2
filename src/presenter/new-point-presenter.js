@@ -2,18 +2,6 @@ import { remove, render, RenderPosition } from '../framework/render.js';
 import EventEditView from '../view/event-edit-form.js';
 import { UpdateType, UserAction } from '../const.js';
 
-// const BLANK_POINT = {
-//   id: crypto.randomUUID(),
-//   'base_price': 0,
-//   'date_from': '',
-//   'date_to': '',
-//   destination: '',
-//   'is_favorite': false,
-//   type: '',
-//   offers: [],
-
-// };
-
 export default class NewPointPresenter {
   #pointListContainer = null;
   #handleDataChange = null;
