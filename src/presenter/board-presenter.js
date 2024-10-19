@@ -5,7 +5,6 @@ import NewPointButtonView from '../view/new-point-button-view.js';
 import ListEmpty from '../view/list-empty.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
-import NewPointButtonView from '../view/new-point-button-view.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
 import { SortType, UserAction, UpdateType } from '../const.js';
 
@@ -49,6 +48,8 @@ export default class BoardPresenter {
   }
 
   init() {
+    this.#newPointButtonComponent = new NewPointButtonView({onclick: this.#handleNewPointClick});
+    render(this.#newPointButtonComponent, this.#header);
     this.#renderBoard();
   }
 
