@@ -18,7 +18,7 @@ export default class PointModel extends Observable {
   addPoint(updateType, update) {
     this.#points = [
       update,
-      this.#points,
+      ...this.#points,
     ];
 
     this._notify(updateType, update);

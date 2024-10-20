@@ -169,7 +169,7 @@ export default class BoardPresenter {
   };
 
   #handleNewPointDestroy = () => {
-    this.createPoint();
-    this.#newPointButtonComponent.setDisabled();
+    
+    this.#newPointButtonComponent.setEnabled();
   };
 }

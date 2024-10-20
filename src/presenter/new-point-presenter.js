@@ -46,13 +46,9 @@ export default class NewPointPresenter {
     remove(this.#pointEditComponent);
     this.#pointEditComponent = null;
 
-    document.addEventListener('keydown', this.#escKeyDownHandler);
-    document.addEventListener('click', this.#closeClickHandler);
-  }
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
 
-  #closeClickHandler = () => {
-    this.destroy();
-  };
+  }
 
   #handleFormSubmit = (point) => {
     this.#handleDataChange(

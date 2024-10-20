@@ -8,11 +8,9 @@ const BLANK_POINT = {
   'date_from': '',
   'date_to': '',
   destination: [],
-  id: crypto.randomUUID(),
   'is_favorite': false,
   offers: [],
   type: 'taxi',
-
 };
 
 function createOffersItemTemplate(offersByType, point) {
@@ -159,13 +157,25 @@ function createEditFormTemplate(point, offers, cities, isEditMode) {
              value="${point.base_price}">
            </div>
 
-            <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-            <button class="event__reset-btn" type="reset">${isEditMode ? 'Delete' : 'Cancel'}</button>
-            ${isEditMode ? (`<button class="event__rollup-btn" type="button">
-                      <span class="visually-hidden">Open event</span>
-                    </button>
-              `) : ''
-            }
+            <button class="event__save-btn  btn  btn--blue"
+              type="submit">
+              Save
+            </button>
+
+            <button class="event__reset-btn"
+              type="reset">
+              ${isEditMode ? 'Delete' : 'Cancel'}
+            </button>
+
+            ${isEditMode ? (`
+              <button class="event__rollup-btn"
+                type="button">
+                <span class="visually-hidden">
+                  Open event
+                </span>
+              </button>
+            `) : '' }
+
           </header>
           <section class="event__details">
            ${offersByType.offers.length !== 0 ? (`
@@ -280,12 +290,12 @@ export default class EventEditView extends AbstractStatefulView {
   };
 
   #dateFromCloseHandler = ([userDate]) => {
-    this._setState({point: {...this._state, 'date_from': userDate}});
+    this._setState({'date_from': userDate});
     this.#datepickerTo.set('minDate', this._state.date_from);
   };
 
   #dateToCloseHandler = ([userDate]) => {
-    this._setState({point: {...this._state, 'date_to': userDate}});
+    this._setState({'date_to': userDate});
     this.#datepickerFrom.set('maxDate', this._state.date_to);
   };
 

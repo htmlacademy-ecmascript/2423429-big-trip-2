@@ -31,7 +31,9 @@ export default class NewPointButtonView extends AbstractStatefulView {
   };
 
   setEnabled = () => {
-    this.#disabled = false;
+    this.updateElement({
+      disabled: false
+    });
   };
 
   static initState (disabled) {
