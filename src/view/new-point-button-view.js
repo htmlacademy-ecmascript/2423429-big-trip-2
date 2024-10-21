@@ -1,7 +1,6 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 
 function createNewPointButtonTemplate({disabled}) {
-  console.log({disabled});
   return (`
     <button class="trip-main__event-add-btn  btn  btn--big  btn--yellow"
       type="button"
@@ -14,7 +13,6 @@ function createNewPointButtonTemplate({disabled}) {
 
 export default class NewPointButtonView extends AbstractStatefulView {
   #handleClick = null;
-  #disabled = null;
 
   constructor({onClick, disabled = false}) {
     super();
