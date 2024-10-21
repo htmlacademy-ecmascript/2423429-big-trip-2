@@ -1,23 +1,34 @@
-import { generatePoint } from '../mock/get-points.js';
-import { MAX_POINTS } from '../const.js';
+//import { generatePoint } from '../mock/get-points.js';
+import { MAX_POINTS, UpdateType } from '../const.js';
 import Observable from '../framework/observable.js';
 
 export default class PointModel extends Observable {
   #pointsApiService = null;
-  #points = Array.from ({length: MAX_POINTS}, generatePoint);
+  #points = [];
 
   constructor({pointsApiService}) {
     super();
     this.#pointsApiService = pointsApiService;
 
-    this.#pointsApiService.points.then((points) => {
-      console.log(points);
-      console.log(points.map(this.#adaptToClient));
-    });
+    // this.#pointsApiService.points.then((points) => {
+    //   console.log(points);
+    //   console.log(points.map(this.#adaptToClient));
+    // });
   }
 
   get points () {
     return this.#points;
+  }
+
+  async init() {
+    try {
+      const points = await this.#pointsApiService.points;
+      this.#points = points.map(this.#adaptToClient);
+    } catch (err) {
+      this.#points = [];
+    }
+
+    this._notify(UpdateType.INIT);
   }
 
   updatePoint(updateType, update) {

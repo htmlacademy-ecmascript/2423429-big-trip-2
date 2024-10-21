@@ -30,3 +30,4 @@ const boardPresenter = new BoardPresenter({
 render(new FilterView(), siteFilterElement);
 
 boardPresenter.init();
+pointModel.init();

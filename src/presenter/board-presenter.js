@@ -3,6 +3,7 @@ import ListView from '../view/trip-events-list.js';
 import {remove, render, RenderPosition} from '../framework/render.js';
 import NewPointButtonView from '../view/new-point-button-view.js';
 import ListEmpty from '../view/list-empty.js';
+import LoadingView from '../view/loading-view.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
@@ -10,6 +11,7 @@ import { SortType, UserAction, UpdateType } from '../const.js';
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
+  #loadingComponent = new LoadingView();
   #sortComponent = null;
   #listEmpty = new ListEmpty();
   #newPointButtonComponent = null;
@@ -17,6 +19,7 @@ export default class BoardPresenter {
   #currentSortType = SortType.DEFAULT;
   #newPointPresenter = null;
   #header = null;
+  #isLoading = true;
 
   constructor({container, header, pointModel, offersModel, citiesModel}) {
     this.container = container;
@@ -85,6 +88,11 @@ export default class BoardPresenter {
         this.#clearBoard({resetSortType: true});
         this.#renderBoard();
         break;
+      case UpdateType.INIT:
+        this.#isLoading = false;
+        remove(this.#loadingComponent);
+        this.#renderBoard();
+        break;
     }
   };
 
@@ -134,12 +142,17 @@ export default class BoardPresenter {
     this.points.forEach((point) => this.#renderPoint(point));
   }
 
+  #renderLoading() {
+    render(this.#loadingComponent, this.#tripListComponent.element);
+  }
+
   #clearBoard({resetSortType = false} = {}) {
     this.#newPointPresenter.destroy();
     this.#pointPresenters.forEach((presenter) => presenter.destroy());
     this.#pointPresenters.clear();
 
     remove(this.#sortComponent);
+    remove(this.#loadingComponent);
     remove(this.#tripListComponent);
 
     if (resetSortType) {
@@ -149,6 +162,11 @@ export default class BoardPresenter {
 
   #renderBoard() {
     this.#renderSort();
+
+    if (this.#isLoading) {
+      this.#renderLoading();
+      return;
+    }
 
     const points = this.points;
     const pointCount = points.length;
