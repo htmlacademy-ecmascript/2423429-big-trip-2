@@ -336,4 +336,5 @@ const FilterType = {
 
 };
 
+
 export {MAX_POINTS, FISH_TEXT, OFFERS, CITIES, SortType, FilterType, UserAction, UpdateType};
