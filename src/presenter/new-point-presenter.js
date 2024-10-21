@@ -50,13 +50,30 @@ export default class NewPointPresenter {
 
   }
 
+  setSaving() {
+    this.#pointEditComponent.updateElement({
+      isSaving: true,
+    });
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#pointEditComponent.updateElement({
+        isSaving: false,
+        isDeleting: false
+      });
+    };
+
+    this.#pointEditComponent.shake(resetFormState);
+  }
+
   #handleFormSubmit = (point) => {
     this.#handleDataChange(
       UserAction.ADD_POINT,
       UpdateType.MINOR,
-      {id: crypto.randomUUID(), ...point},
+      point,
     );
-    this.destroy();
+    //this.destroy();
   };
 
   #handleDeleteClick = () => {
