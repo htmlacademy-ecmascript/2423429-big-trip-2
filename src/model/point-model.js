@@ -10,10 +10,9 @@ export default class PointModel extends Observable {
     super();
     this.#pointsApiService = pointsApiService;
 
-    // this.#pointsApiService.points.then((points) => {
-    //   console.log(points);
-    //   console.log(points.map(this.#adaptToClient));
-    // });
+    this.#pointsApiService.points.then((points) => {
+      console.log('pointsApiService',points);
+    });
   }
 
   get points () {
@@ -22,23 +21,23 @@ export default class PointModel extends Observable {
 
   async init() {
     try {
-      const points = await this.#pointsApiService.points;
-      this.#points = points.map(this.#adaptToClient);
+      this.#points = await this.#pointsApiService.points;
+      this._notify(UpdateType.INIT);
     } catch (err) {
       this.#points = [];
+      this._notify(UpdateType.INIT_ERROR);
     }
 
-    this._notify(UpdateType.INIT);
+
   }
 
   async updatePoint(updateType, update) {
 
     try {
       const response = await this.#pointsApiService.updatePoint(update);
-      const updatedPoint = this.#adaptToClient(response);
-      this.#points = this.points.map((point) => point.id === update.id ? updatedPoint : point);
+      this.#points = this.points.map((point) => point.id === update.id ? response : point);
       this._notify(updateType, update);
-    } catch(err) {
+    } catch (err) {
       throw new Error('Can\t update point');
     }
   }
@@ -46,10 +45,9 @@ export default class PointModel extends Observable {
   async addPoint(updateType, update) {
     try {
       const response = await this.#pointsApiService.addPoint(update);
-      const newPoint = this.#adaptToClient(response);
-      this.#points = [newPoint, ... this.#points];
+      this.#points = [response, ... this.#points];
       this._notify(updateType, update);
-    } catch(err) {
+    } catch (err) {
       throw new Error('Can\t add point');
     }
   }
@@ -59,23 +57,10 @@ export default class PointModel extends Observable {
       await this.#pointsApiService.deletePoint(update);
       this.#points = this.#points.filter((point) => point.id !== update.id);
       this._notify(updateType);
-    } catch(err) {
+    } catch (err) {
       throw new Error('Can\t delete task');
     }
 
   }
 
-  #adaptToClient(point) {
-    const adaptedPoint = {...point,
-      'base_price': point.base_price,
-      'date_from': point.date_from,
-      'date_to': point.date_to,
-      destination: point.destination,
-      offers: point.offers,
-      type: point.type,
-      'is_favorite': point.is_favorite,
-    };
-
-    return adaptedPoint;
-  }
 }

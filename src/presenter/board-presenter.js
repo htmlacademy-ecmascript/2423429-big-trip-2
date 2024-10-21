@@ -63,11 +63,12 @@ export default class BoardPresenter {
   init() {
     this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
     render(this.#newPointButtonComponent, this.#header);
-    this.#renderBoard();
+
   }
 
   createPoint() {
     this.#currentSortType = SortType.DEFAULT;
+    this.#pointPresenters.forEach((presenter) => presenter.resetView());
     this.#newPointPresenter.init();
   }
 
@@ -124,6 +125,9 @@ export default class BoardPresenter {
         remove(this.#loadingComponent);
         this.#renderBoard();
         break;
+      case UpdateType.INIT_ERROR:
+        this.#isLoading = false;
+        //вывод сообщения об ошибке
     }
   };
 
@@ -183,7 +187,7 @@ export default class BoardPresenter {
 
     remove(this.#sortComponent);
     remove(this.#loadingComponent);
-    remove(this.#tripListComponent);
+
 
     if (resetSortType) {
       this.#currentSortType = SortType.DEFAULT;
@@ -205,6 +209,7 @@ export default class BoardPresenter {
       render(this.#listEmpty, this.#tripListComponent.element);
       return;
     }
+
     render(this.#tripListComponent, this.container);
 
     this.#renderPoints(points);
