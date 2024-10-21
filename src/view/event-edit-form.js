@@ -78,7 +78,7 @@ function createPictures(destination) {
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
 
-function createEditFormTemplate(point, offers, cities, isEditMode) {
+function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isDeleting) {
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -159,12 +159,12 @@ function createEditFormTemplate(point, offers, cities, isEditMode) {
 
             <button class="event__save-btn  btn  btn--blue"
               type="submit">
-              Save
+              ${isSaving ? 'Saving...' : 'Save'}
             </button>
 
             <button class="event__reset-btn"
               type="reset">
-              ${isEditMode ? 'Delete' : 'Cancel'}
+              ${isEditMode ? `${ isDeleting ? 'Deleting...' : 'Delete'}` : 'Cancel'}
             </button>
 
             ${isEditMode ? (`
@@ -375,10 +375,19 @@ export default class EventEditView extends AbstractStatefulView {
 
 
   static parsePointToState(point) {
-    return { ...point };
+    return { ...point,
+      isSaving: false,
+      isDeleting: false,
+    };
   }
 
   static parseStateToPoint(state) {
-    return { ...state };
+    const point = {...state};
+
+    delete point.isDeleting;
+    delete point.isSaving;
+
+    return point;
   }
+
 }

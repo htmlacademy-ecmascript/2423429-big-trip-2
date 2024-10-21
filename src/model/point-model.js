@@ -1,5 +1,5 @@
 //import { generatePoint } from '../mock/get-points.js';
-import { MAX_POINTS, UpdateType } from '../const.js';
+import { UpdateType } from '../const.js';
 import Observable from '../framework/observable.js';
 
 export default class PointModel extends Observable {
@@ -31,25 +31,38 @@ export default class PointModel extends Observable {
     this._notify(UpdateType.INIT);
   }
 
-  updatePoint(updateType, update) {
-    this.#points = this.points.map((point) => point.id === update.id ? update : point);
+  async updatePoint(updateType, update) {
 
-    this._notify(updateType, update);
+    try {
+      const response = await this.#pointsApiService.updatePoint(update);
+      const updatedPoint = this.#adaptToClient(response);
+      this.#points = this.points.map((point) => point.id === update.id ? updatedPoint : point);
+      this._notify(updateType, update);
+    } catch(err) {
+      throw new Error('Can\t update point');
+    }
   }
 
-  addPoint(updateType, update) {
-    this.#points = [
-      update,
-      ...this.#points,
-    ];
-
-    this._notify(updateType, update);
+  async addPoint(updateType, update) {
+    try {
+      const response = await this.#pointsApiService.addPoint(update);
+      const newPoint = this.#adaptToClient(response);
+      this.#points = [newPoint, ... this.#points];
+      this._notify(updateType, update);
+    } catch(err) {
+      throw new Error('Can\t add point');
+    }
   }
 
-  deletePoint(updateType, update) {
-    this.#points = this.#points.filter((point) => point.id !== update.id);
+  async deletePoint(updateType, update) {
+    try {
+      await this.#pointsApiService.deletePoint(update);
+      this.#points = this.#points.filter((point) => point.id !== update.id);
+      this._notify(updateType);
+    } catch(err) {
+      throw new Error('Can\t delete task');
+    }
 
-    this._notify(updateType);
   }
 
   #adaptToClient(point) {

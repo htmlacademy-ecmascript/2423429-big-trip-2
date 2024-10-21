@@ -29,5 +29,6 @@ const boardPresenter = new BoardPresenter({
 
 render(new FilterView(), siteFilterElement);
 
-boardPresenter.init();
-pointModel.init();
+pointModel.init().finally(() => {
+  boardPresenter.init();
+});
