@@ -72,6 +72,16 @@ function getEventDuration (event) {
 function replaceFirstSymbol (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function createDatesDuration (startDate, endDate) {
+  const start = new Date(startDate).getTime();
+  const end = new Date(endDate).getTime();
+  const milliseconds = Math.abs(end - start).toString();
+  const seconds = parseInt(milliseconds / 1000, 10);
+  const minutes = parseInt(seconds / 60, 10);
+  const hours = parseInt(minutes / 60, 10);
+  const days = parseInt(hours / 24, 10);
+  const time = `${days }D ${ hours % 24 }H ${ minutes % 60 }M ${ seconds % 60}S`;
+  return time;
+}
 
-
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual};
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration};
