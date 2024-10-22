@@ -14,7 +14,7 @@ const BLANK_POINT = {
 };
 
 function createOffersItemTemplate(offersByType, point) {
-  return offersByType.offers.map((offer, i) => {
+  return offersByType?.offers.map((offer, i) => {
     const isChecked = point.offers.includes(offer.id);
 
     return (
@@ -79,6 +79,7 @@ function createPictures(destination) {
 }
 
 function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isDeleting) {
+  console.log(offers);
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -178,7 +179,7 @@ function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isD
 
           </header>
           <section class="event__details">
-           ${offersByType.offers.length !== 0 ? (`
+           ${offersByType?.offers.length !== 0 ? (`
             <section class="event__section  event__section--offers">
               <h3 class="event__section-title  event__section-title--offers">Offers</h3>
               <div class="event__available-offers">

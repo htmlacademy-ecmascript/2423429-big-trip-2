@@ -35,8 +35,7 @@ const boardPresenter = new BoardPresenter({
 
 render(new FilterView(), siteFilterElement);
 
-pointModel.init();
-boardPresenter.init();
-citiesModel.init();
-offersModel.init();
-
+Promise.all([citiesModel.init(), offersModel.init(),])
+  .then(() => pointModel.init())
+  .then(() => boardPresenter.init()
+  );
