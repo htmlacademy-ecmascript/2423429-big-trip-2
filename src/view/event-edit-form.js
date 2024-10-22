@@ -14,7 +14,7 @@ const BLANK_POINT = {
 };
 
 function createOffersItemTemplate(offersByType, point) {
-  return offersByType?.offers.map((offer, i) => {
+  return offersByType.offers.map((offer, i) => {
     const isChecked = point.offers.includes(offer.id);
 
     return (
@@ -59,6 +59,7 @@ function createTypesItemTemplate(offers, point) {
 }
 
 function createDestinationList(cities) {
+
   return cities.map((city) => (`<option value="${city.name}"></option>`)).join('');
 }
 
@@ -179,7 +180,7 @@ function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isD
 
           </header>
           <section class="event__details">
-           ${offersByType?.offers.length !== 0 ? (`
+           ${offersByType.offers.length !== 0 ? (`
             <section class="event__section  event__section--offers">
               <h3 class="event__section-title  event__section-title--offers">Offers</h3>
               <div class="event__available-offers">
@@ -356,7 +357,7 @@ export default class EventEditView extends AbstractStatefulView {
 
     if (this.#isNumeric(evt.target.value)) {
       this._setState({
-        'base_price': evt.target.value,
+        'base_price': Number(evt.target.value),
       });
     }
   };

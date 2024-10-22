@@ -31,6 +31,9 @@ export default class BoardPresenter {
     upperLimit: TimeLimit.UPPER_LIMIT
   });
 
+  // #offersModel = this.offersModel;
+  // #citiesModel = this.citiesModel;
+
   constructor({container, header, pointModel, offersModel, citiesModel}) {
     this.container = container;
     this.pointModel = pointModel;
@@ -38,13 +41,7 @@ export default class BoardPresenter {
     this.citiesModel = citiesModel;
     this.#header = header;
 
-    this.#newPointPresenter = new NewPointPresenter({
-      pointListContainer: this.#tripListComponent.element,
-      onDataChange: this.#handleViewAction,
-      onDestroy: this.#handleNewPointDestroy,
-      offers: offersModel.offers,
-      cities: citiesModel.cities,
-    });
+
     this.pointModel.addObserver(this.#handleModelEvent);
   }
 
@@ -60,10 +57,18 @@ export default class BoardPresenter {
     return this.pointModel.points;
   }
 
-  init() {
+  init(offersModel, citiesModel) {
+
     this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
     render(this.#newPointButtonComponent, this.#header);
 
+    this.#newPointPresenter = new NewPointPresenter({
+      pointListContainer: this.#tripListComponent.element,
+      onDataChange: this.#handleViewAction,
+      onDestroy: this.#handleNewPointDestroy,
+      offers: offersModel,
+      cities: citiesModel,
+    });
   }
 
   createPoint() {

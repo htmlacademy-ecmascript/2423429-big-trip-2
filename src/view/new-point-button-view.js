@@ -39,7 +39,7 @@ export default class NewPointButtonView extends AbstractStatefulView {
   }
 
   get template() {
-    return createNewPointButtonTemplate(this._state);
+    return createNewPointButtonTemplate(this._state, );
   }
 
   _restoreHandlers() {
