@@ -80,7 +80,6 @@ function createPictures(destination) {
 }
 
 function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isDeleting) {
-  console.log(offers);
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);

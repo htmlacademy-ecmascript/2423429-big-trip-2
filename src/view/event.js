@@ -15,16 +15,12 @@ function createInformationForOffers (checkedOffers) {
 }
 
 function createEvent(point, offers, cities){
-  const startDate = point.date_from;
-  const endDate = point.date_to;
   const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm');
   const dateStartDate = humanizeEventDate(point.date_from, 'MMM DD');
-  //const dateEndDate = humanizeEventDate(point.date_to, 'MMM DD HH:mm');
-
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
+  const startDate = point.date_from;
+  const endDate = point.date_to;
   const datesDuration = createDatesDuration(startDate, endDate);
-  console.log(datesDuration);
-
 
   const offersByType = findOffersByType(offers, point.type);
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
