@@ -80,8 +80,13 @@ function createDatesDuration (startDate, endDate) {
   const minutes = parseInt(seconds / 60, 10);
   const hours = parseInt(minutes / 60, 10);
   const days = parseInt(hours / 24, 10);
-  const time = `${days }D ${ hours % 24 }H ${ minutes % 60 }M ${ seconds % 60}S`;
-  return time;
+  const currentTime = `
+  ${days > 0 ? `${days}D ` : ''}
+  ${hours > 0 || days > 0 ? `${hours % 24}H` : ''}
+  ${minutes % 60 }M`;
+
+
+  return currentTime;
 }
 
 export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration};
