@@ -31,9 +31,6 @@ export default class BoardPresenter {
     upperLimit: TimeLimit.UPPER_LIMIT
   });
 
-  // #offersModel = this.offersModel;
-  // #citiesModel = this.citiesModel;
-
   constructor({container, header, pointModel, offersModel, citiesModel}) {
     this.container = container;
     this.pointModel = pointModel;
@@ -127,8 +124,8 @@ export default class BoardPresenter {
         break;
       case UpdateType.INIT:
         this.#isLoading = false;
-        remove(this.#loadingComponent);
         this.#renderBoard();
+        //remove(this.#loadingComponent);
         break;
       case UpdateType.INIT_ERROR:
         this.#isLoading = false;
@@ -172,7 +169,8 @@ export default class BoardPresenter {
   }
 
   #renderPoints() {
-    if (this.points.length === 0){
+    if (this.pointsCount === 0){
+      console.log(this.pointsCount);
       render(this.#listEmpty, this.#tripListComponent.element);
 
       return;
@@ -202,20 +200,22 @@ export default class BoardPresenter {
   #renderBoard() {
     this.#renderSort();
 
+    render(this.#tripListComponent, this.container);
+
     if (this.#isLoading) {
-      this.#renderLoading();
-      return;
+      return this.#renderLoading();
     }
 
     const points = this.points;
-    const pointCount = points.length;
 
-    if (pointCount === 0) {
-      render(this.#listEmpty, this.#tripListComponent.element);
+
+    if (points.length === 0) {
+      render(this.#listEmpty, this.container);
       return;
+    } else {
+      remove(this.#listEmpty, this.container);
     }
 
-    render(this.#tripListComponent, this.container);
 
     this.#renderPoints(points);
 
