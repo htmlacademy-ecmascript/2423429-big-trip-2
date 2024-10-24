@@ -9,10 +9,6 @@ export default class PointModel extends Observable {
   constructor({pointsApiService}) {
     super();
     this.#pointsApiService = pointsApiService;
-
-    this.#pointsApiService.points.then((points) => {
-      console.log('pointsApiService',points);
-    });
   }
 
   get points () {
@@ -27,8 +23,6 @@ export default class PointModel extends Observable {
       this.#points = [];
       this._notify(UpdateType.INIT_ERROR);
     }
-
-
   }
 
   async updatePoint(updateType, update) {
@@ -60,7 +54,5 @@ export default class PointModel extends Observable {
     } catch (err) {
       throw new Error('Can\t delete task');
     }
-
   }
-
 }

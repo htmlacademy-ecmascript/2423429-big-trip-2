@@ -14,7 +14,6 @@ export default class NewPointPresenter {
     this.#pointListContainer = pointListContainer;
     this.#handleDataChange = onDataChange;
     this.#handleDestroy = onDestroy;
-
     this.#offers = offers;
     this.#cities = cities;
   }
@@ -47,12 +46,17 @@ export default class NewPointPresenter {
     this.#pointEditComponent = null;
 
     document.removeEventListener('keydown', this.#escKeyDownHandler);
-
   }
 
   setSaving() {
     this.#pointEditComponent.updateElement({
       isSaving: true,
+    });
+  }
+
+  setDeleting() {
+    this.#pointEditComponent.updateElement({
+      isDeleting: true,
     });
   }
 
@@ -84,6 +88,5 @@ export default class NewPointPresenter {
       evt.preventDefault();
       this.destroy();
     }
-
   };
 }

@@ -7,10 +7,6 @@ export default class CitiesModel extends Observable{
   constructor ({destinationsApiService}) {
     super();
     this.#destinationsApiService = destinationsApiService;
-
-    this.#destinationsApiService.destinations.then((destinations) => {
-      console.log('destinationsApiService', destinations);
-    });
   }
 
   async init() {

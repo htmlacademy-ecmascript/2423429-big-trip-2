@@ -79,7 +79,7 @@ function createPictures(destination) {
     `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)).join('');
 }
 
-function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isDeleting) {
+function createEditFormTemplate(point, offers, cities, isEditMode) {
   const typesItemTemplate = createTypesItemTemplate(offers, point);
   const destinationList = createDestinationList(cities);
   const destination = cities.find((city) => city.id === point.destination);
@@ -160,12 +160,12 @@ function createEditFormTemplate(point, offers, cities, isEditMode, isSaving, isD
 
             <button class="event__save-btn  btn  btn--blue"
               type="submit">
-              ${isSaving ? 'Saving...' : 'Save'}
+              ${point.isSaving ? 'Saving...' : 'Save'}
             </button>
 
             <button class="event__reset-btn"
               type="reset">
-              ${isEditMode ? `${ isDeleting ? 'Deleting...' : 'Delete'}` : 'Cancel'}
+              ${isEditMode ? `${ point.isDeleting ? 'Deleting...' : 'Delete'}` : 'Cancel'}
             </button>
 
             ${isEditMode ? (`
@@ -213,7 +213,7 @@ export default class EventEditView extends AbstractStatefulView {
   #datepickerFrom = null;
   #datepickerTo = null;
 
-  constructor({ point = BLANK_POINT, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode }) {
+  constructor({ point = BLANK_POINT, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode}) {
     super();
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;

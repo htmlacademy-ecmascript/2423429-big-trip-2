@@ -41,7 +41,7 @@ export default class PointPresenter {
       onFavoriteClick: this.#handleFavoriteClick,
 
       offers: this.#offersModel.offers,
-      cities: this.#citiesModel.cities
+      cities: this.#citiesModel.cities,
     });
 
     this.#editorComponent = new EventEditView({
@@ -52,6 +52,8 @@ export default class PointPresenter {
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities,
       isEditMode : true,
+      isDeleting: false,
+      isSaving: false,
     });
 
     if (prevPointComponent === null || prevEditorComponent === null) {

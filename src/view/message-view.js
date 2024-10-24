@@ -4,7 +4,7 @@ function createLoadingTemplate() {
   return ('<p class="trip-events__msg">Loading...</p>');
 }
 
-export default class LoadingView extends AbstractView {
+export default class MessageView extends AbstractView {
   get template () {
     return createLoadingTemplate();
   }

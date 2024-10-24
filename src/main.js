@@ -4,12 +4,12 @@ import { render } from './framework/render.js';
 import PointModel from './model/point-model.js';
 import OffersModel from './model/offer-model.js';
 import CitiesModel from './model/cities-model.js';
-import PointsApiService from './points-api-service.js';
-import OffersApiService from './view/offers-api-service.js';
-import DestinationsApiService from './view/destinations-api-service.js';
+import PointsApiService from './api/points-api-service.js';
+import OffersApiService from './api/offers-api-service.js';
+import DestinationsApiService from './api/destinations-api-service.js';
 
 //const AUTHORIZATION = 'Basic iJ5mgI78cvo4ui5i';
-const AUTHORIZATION = 'Basic iJ5mgI78cvo4oi5i';
+ const AUTHORIZATION = 'Basic iJ5mgI78cvo4oi5i';
 
 const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 
@@ -39,5 +39,5 @@ render(new FilterView(), siteFilterElement);
 
 Promise.all([citiesModel.init(), offersModel.init()])
   .then(() => pointModel.init())
-  .then(() => boardPresenter.init(offersModel.offers, citiesModel.cities)
+  .finally(() => boardPresenter.init()
   );
