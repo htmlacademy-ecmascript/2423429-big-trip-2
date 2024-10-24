@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { FilterType } from './const.js';
 
 const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
 
@@ -72,6 +73,35 @@ function getEventDuration (event) {
 function replaceFirstSymbol (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function createDatesDuration (startDate, endDate) {
+  const start = new Date(startDate).getTime();
+  const end = new Date(endDate).getTime();
+  const milliseconds = Math.abs(end - start).toString();
+  const seconds = parseInt(milliseconds / 1000, 10);
+  const minutes = parseInt(seconds / 60, 10);
+  const hours = parseInt(minutes / 60, 10);
+  const days = parseInt(hours / 24, 10);
+  const currentTime = `
+  ${days > 0 ? `${days}D ` : ''}
+  ${hours > 0 || days > 0 ? `${hours % 24}H` : ''}
+  ${minutes % 60 }M`;
 
+  return currentTime;
+}
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual};
+function isDateExpired (dueData) {
+  return dueData === null ? false : dayjs(dueData).isBefore(dayjs(), 's');
+}
+
+function isPointExpiringToday(dueDate) {
+  return dueDate && dayjs(dueDate).isSame(dayjs(), 'D');
+}
+
+const filter = {
+  [FilterType.EVERYTHING]: (points) => points.slice(),
+  [FilterType.FUTURE]: (points) => points.filter((point) => !isDateExpired(point.date_from)),
+  [FilterType.PRESENT]: (points) => points.filter((point) => isPointExpiringToday(point.date_from)),
+  [FilterType.PAST]: (points) => points.filter((point) => isDateExpired(point.date_to)),
+};
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration, filter};

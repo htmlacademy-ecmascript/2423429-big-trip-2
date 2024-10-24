@@ -41,7 +41,7 @@ export default class PointPresenter {
       onFavoriteClick: this.#handleFavoriteClick,
 
       offers: this.#offersModel.offers,
-      cities: this.#citiesModel.cities
+      cities: this.#citiesModel.cities,
     });
 
     this.#editorComponent = new EventEditView({
@@ -52,6 +52,8 @@ export default class PointPresenter {
       offers: this.#offersModel.offers,
       cities: this.#citiesModel.cities,
       isEditMode : true,
+      isDeleting: false,
+      isSaving: false,
     });
 
     if (prevPointComponent === null || prevEditorComponent === null) {
@@ -64,7 +66,8 @@ export default class PointPresenter {
     }
 
     if (this.#mode === Mode.EDITING) {
-      replace(this.#editorComponent, prevEditorComponent);
+      replace(this.#pointComponent, prevEditorComponent);
+      this.#mode = Mode.DEFAULT;
     }
 
     remove(prevPointComponent);
@@ -76,6 +79,38 @@ export default class PointPresenter {
       this.#editorComponent.reset(this.#point);
       this.#replaceEditorToPoint();
     }
+  }
+
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#editorComponent.updateElement({
+        isSaving: true,
+      });
+    }
+  }
+
+  setDeleting() {
+    if (this.#mode === Mode.EDITING) {
+      this.#editorComponent.updateElement({
+        isDeleting: true,
+      });
+    }
+  }
+
+  setAborting() {
+    if(this.#mode === Mode.DEFAULT) {
+      this.#pointComponent.shake();
+      return;
+    }
+
+    const resetFormState = () => {
+      this.#editorComponent.updateElement({
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+
+    this.#editorComponent.shake(resetFormState);
   }
 
   destroy() {
@@ -123,7 +158,6 @@ export default class PointPresenter {
       isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
       update,
     );
-    this.#replaceEditorToPoint();
   };
 
   #handleDeleteClick = (point) => {

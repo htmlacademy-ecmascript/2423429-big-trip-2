@@ -59,6 +59,7 @@ function createTypesItemTemplate(offers, point) {
 }
 
 function createDestinationList(cities) {
+
   return cities.map((city) => (`<option value="${city.name}"></option>`)).join('');
 }
 
@@ -159,12 +160,12 @@ function createEditFormTemplate(point, offers, cities, isEditMode) {
 
             <button class="event__save-btn  btn  btn--blue"
               type="submit">
-              Save
+              ${point.isSaving ? 'Saving...' : 'Save'}
             </button>
 
             <button class="event__reset-btn"
               type="reset">
-              ${isEditMode ? 'Delete' : 'Cancel'}
+              ${isEditMode ? `${ point.isDeleting ? 'Deleting...' : 'Delete'}` : 'Cancel'}
             </button>
 
             ${isEditMode ? (`
@@ -212,7 +213,7 @@ export default class EventEditView extends AbstractStatefulView {
   #datepickerFrom = null;
   #datepickerTo = null;
 
-  constructor({ point = BLANK_POINT, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode }) {
+  constructor({ point = BLANK_POINT, onCloseClick, onFormSubmit, onDeleteClick, offers, cities, isEditMode}) {
     super();
     this._setState(EventEditView.parsePointToState(point));
     this.#handleCloseClick = onCloseClick;
@@ -355,7 +356,7 @@ export default class EventEditView extends AbstractStatefulView {
 
     if (this.#isNumeric(evt.target.value)) {
       this._setState({
-        'base_price': evt.target.value,
+        'base_price': Number(evt.target.value),
       });
     }
   };
@@ -375,10 +376,19 @@ export default class EventEditView extends AbstractStatefulView {
 
 
   static parsePointToState(point) {
-    return { ...point };
+    return { ...point,
+      isSaving: false,
+      isDeleting: false,
+    };
   }
 
   static parseStateToPoint(state) {
-    return { ...state };
+    const point = {...state};
+
+    delete point.isDeleting;
+    delete point.isSaving;
+
+    return point;
   }
+
 }
