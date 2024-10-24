@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { FilterType } from './const.js';
 
 const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
 
@@ -85,8 +86,22 @@ function createDatesDuration (startDate, endDate) {
   ${hours > 0 || days > 0 ? `${hours % 24}H` : ''}
   ${minutes % 60 }M`;
 
-
   return currentTime;
 }
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration};
+function isDateExpired (dueData) {
+  return dueData === null ? false : dayjs(dueData).isBefore(dayjs(), 's');
+}
+
+function isPointExpiringToday(dueDate) {
+  return dueDate && dayjs(dueDate).isSame(dayjs(), 'D');
+}
+
+const filter = {
+  [FilterType.EVERYTHING]: (points) => points.slice(),
+  [FilterType.FUTURE]: (points) => points.filter((point) => !isDateExpired(point.date_from)),
+  [FilterType.PRESENT]: (points) => points.filter((point) => isPointExpiringToday(point.date_from)),
+  [FilterType.PAST]: (points) => points.filter((point) => isDateExpired(point.date_to)),
+};
+
+export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration, filter};
