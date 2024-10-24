@@ -8,7 +8,7 @@ import MessageView from '../view/message-view.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
-import { SortType, UserAction, UpdateType, Message } from '../const.js';
+import { SortType, UserAction, UpdateType } from '../const.js';
 
 const TimeLimit = {
   LOWER_LIMIT: 350,

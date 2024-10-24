@@ -3,7 +3,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { FilterType } from '../const.js';
 
 function createFilterTemplate(filter, currentFilterType) {
-  const {type, count} = filter;
+  const {type} = filter;
   return (
     `<div class="trip-controls__filters">
       <h2 class="visually-hidden">Filter events</h2>

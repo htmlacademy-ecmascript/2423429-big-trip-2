@@ -4,6 +4,7 @@ import { render } from './framework/render.js';
 import PointModel from './model/point-model.js';
 import OffersModel from './model/offer-model.js';
 import CitiesModel from './model/cities-model.js';
+import FilterModel from './model/filter-model.js';
 import PointsApiService from './api/points-api-service.js';
 import OffersApiService from './api/offers-api-service.js';
 import DestinationsApiService from './api/destinations-api-service.js';
@@ -29,6 +30,15 @@ const offersModel = new OffersModel({
 const citiesModel = new CitiesModel({
   destinationsApiService: new DestinationsApiService(END_POINT, AUTHORIZATION)
 });
+
+const filterModel = new FilterModel();
+const filterPresenter = new FilterPresenter({
+  filterContainer: siteFilterElement,
+  pointModel,
+  filterModel,
+  onNewPointDestroy: handleNewTaskFormClose
+});
+
 const boardPresenter = new BoardPresenter({
   container: siteMainElement,
   header: siteMainTripEvent,
@@ -37,10 +47,11 @@ const boardPresenter = new BoardPresenter({
   citiesModel,
 });
 
-//render(new FilterView(), siteFilterElement);
+function handleNewTaskFormClose() {
+  newTaskButtonComponent.element.disabled = false;
+}
 
+filterPresenter.init();
 boardPresenter.start();
-
 Promise.all([citiesModel.init(), offersModel.init(), pointModel.init()])
-  .then(() => FilterPresenter.init())
   .then(() => boardPresenter.init());
