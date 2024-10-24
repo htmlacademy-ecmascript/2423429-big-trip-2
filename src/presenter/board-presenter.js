@@ -238,6 +238,5 @@ export default class BoardPresenter {
 
   #handleNewPointDestroy = () => {
     this.#newPointButtonComponent.setEnabled();
-    render(this.#listEmpty, this.#tripListComponent.element);
   };
 }
