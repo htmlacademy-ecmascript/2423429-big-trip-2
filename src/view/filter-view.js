@@ -1,8 +1,8 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-import { FilterType } from '../const.js';
 
-function createFilterTemplate(filter, currentFilterType) {
+function createFilterItemTemplate(filter, currentFilterType) {
+  console.log(filter, currentFilterType);
   const {type} = filter;
   return (
     `<div class="trip-controls__filters">
@@ -10,66 +10,18 @@ function createFilterTemplate(filter, currentFilterType) {
       <form class="trip-filters" action="#" method="get">
         <div class="trip-filters__filter">
           <input
-            id="filter-${FilterType.EVERYTHING}"
-            class="trip-filters__filter-input  visually-hidden"
-            type="radio" name="trip-filter"
-            value="${FilterType.EVERYTHING}"
-            ${type === currentFilterType ? 'checked' : ''}
-            >
-          <label
-            class="trip-filters__filter-label"
-            for="filter-${FilterType.EVERYTHING}"
-          >
-            ${FilterType.EVERYTHING}
-          </label>
-        </div>
-
-        <div class="trip-filters__filter">
-          <input
-            id="filter-${FilterType.FUTURE}"
-            class="trip-filters__filter-input  visually-hidden"
-            type="radio" name="trip-filter"
-            value="${FilterType.FUTURE}"
-            ${type === currentFilterType ? 'checked' : ''}
-          >
-          <label
-            class="trip-filters__filter-label"
-            for="filter-${FilterType.FUTURE}"
-          >
-            ${FilterType.FUTURE}
-          </label>
-        </div>
-
-        <div class="trip-filters__filter">
-          <input
-            id="filter-${FilterType.PRESENT}"
+            id="filter-${type}"
             class="trip-filters__filter-input  visually-hidden"
             type="radio"
             name="trip-filter"
-            value="${FilterType.PRESENT}"
-            ${type === currentFilterType ? 'checked' : ''}
-          >
-          <label class="trip-filters__filter-label"
-            for="filter-${FilterType.PRESENT}"
-          >
-            ${FilterType.PRESENT}
-          </label>
-        </div>
-
-        <div class="trip-filters__filter">
-          <input
-            id="filter-${FilterType.PAST}"
-            class="trip-filters__filter-input  visually-hidden"
-            type="radio"
-            name="trip-filter"
-            value="${FilterType.PAST}"
+            value="${type}"
             ${type === currentFilterType ? 'checked' : ''}
           >
           <label
             class="trip-filters__filter-label"
-            for="filter-${FilterType.PAST}"
+            for="filter-${type}"
           >
-            ${FilterType.PAST}
+            ${type}
           </label>
         </div>
 
@@ -78,6 +30,20 @@ function createFilterTemplate(filter, currentFilterType) {
     </div>
   `);
 }
+
+function createFilterTemplate(filterItems, currentFilterType) {
+  console.log(filterItems);
+  const filterItemsTemplate = filterItems
+    .map((filter) => createFilterItemTemplate(filter, currentFilterType))
+    .join('');
+
+  return (
+    `<section class="main__filter filter container">
+      ${filterItemsTemplate}
+    </section>`
+  );
+}
+
 
 export default class FilterView extends AbstractView{
   #filters = null;
