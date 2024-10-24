@@ -12,7 +12,6 @@ export default class CitiesModel extends Observable{
   async init() {
     try {
       this.#destinations = await this.#destinationsApiService.destinations;
-      this._notify(UpdateType.INIT);
     } catch (err) {
       this.#destinations = [];
       this._notify(UpdateType.INIT_ERROR);

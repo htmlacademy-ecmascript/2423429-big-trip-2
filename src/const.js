@@ -30,5 +30,9 @@ const FilterType = {
 
 };
 
+const Message = {
+  LOADING: 'Loading...',
+  ERROR: 'error'
+};
 
-export {SortType, FilterType, UserAction, UpdateType};
+export {SortType, FilterType, UserAction, UpdateType, Message};

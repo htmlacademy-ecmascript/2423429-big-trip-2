@@ -4,11 +4,11 @@ import {remove, render, RenderPosition} from '../framework/render.js';
 import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
 import NewPointButtonView from '../view/new-point-button-view.js';
 import ListEmpty from '../view/list-empty.js';
-import LoadingView from '../view/message-view.js';
+import MessageView from '../view/message-view.js';
 import PointPresenter from './point-presenter.js';
 import NewPointPresenter from './new-point-presenter.js';
 import { sortByPrice, sortByTime, sortByDay } from '../utils.js';
-import { SortType, UserAction, UpdateType } from '../const.js';
+import { SortType, UserAction, UpdateType, Message } from '../const.js';
 
 const TimeLimit = {
   LOWER_LIMIT: 350,
@@ -17,7 +17,7 @@ const TimeLimit = {
 
 export default class BoardPresenter {
   #tripListComponent = new ListView();
-  #loadingComponent = new LoadingView();
+  #messageComponent = null;
   #sortComponent = null;
   #listEmpty = new ListEmpty();
   #newPointButtonComponent = null;
@@ -59,8 +59,11 @@ export default class BoardPresenter {
     return this.#pointModel.points;
   }
 
-  init() {
+  start() {
+    this.#renderBoard();
+  }
 
+  init() {
     this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
     render(this.#newPointButtonComponent, this.#header);
 
@@ -129,12 +132,14 @@ export default class BoardPresenter {
       case UpdateType.INIT:
         this.#isLoading = false;
         this.#renderBoard();
-        //remove(this.#loadingComponent);
+        remove(this.#messageComponent);
         break;
       case UpdateType.INIT_ERROR:
+        remove(this.#messageComponent);
+        remove(this.#listEmpty, this.#container);
         this.#isLoading = false;
-        console.log('asdasd');
-        //вывод сообщения об ошибке
+        this.#renderMessage('message Error');
+
     }
   };
 
@@ -183,8 +188,9 @@ export default class BoardPresenter {
     this.points.forEach((point) => this.#renderPoint(point));
   }
 
-  #renderLoading() {
-    render(this.#loadingComponent, this.#tripListComponent.element);
+  #renderMessage(message) {
+    render(this.#messageComponent = new MessageView({message})
+      , this.#tripListComponent.element);
   }
 
   #clearBoard({resetSortType = false} = {}) {
@@ -193,7 +199,7 @@ export default class BoardPresenter {
     this.#pointPresenters.clear();
 
     remove(this.#sortComponent);
-    remove(this.#loadingComponent);
+    remove(this.#messageComponent);
 
 
     if (resetSortType) {
@@ -202,16 +208,16 @@ export default class BoardPresenter {
   }
 
   #renderBoard() {
-    this.#renderSort();
-
     render(this.#tripListComponent, this.#container);
 
     if (this.#isLoading) {
-      return this.#renderLoading();
+      this.#renderMessage('loading...');
+      return;
     }
 
     const points = this.points;
 
+    this.#renderSort();
 
     if (points.length === 0) {
       render(this.#listEmpty, this.#container);
