@@ -81,10 +81,12 @@ function createDatesDuration (startDate, endDate) {
   const minutes = parseInt(seconds / 60, 10);
   const hours = parseInt(minutes / 60, 10);
   const days = parseInt(hours / 24, 10);
+
   const currentTime = `
-  ${days > 0 ? `${days}D ` : ''}
-  ${hours > 0 || days > 0 ? `${hours % 24}H` : ''}
-  ${minutes % 60 }M`;
+  ${days > 0 ? `${days.toString().padStart(2, '0')}D ` : ''}
+  ${hours % 24 !== 0 ? `${(hours % 24).toString().padStart(2, '0')}H` : ''}
+  ${minutes % 60 !== 0 ? `${(minutes % 60).toString().padStart(2, '0')}M` : ''}
+  `;
 
   return currentTime;
 }

@@ -10,15 +10,13 @@ import OffersApiService from './api/offers-api-service.js';
 import DestinationsApiService from './api/destinations-api-service.js';
 
 
-const AUTHORIZATION = 'Basic iJ5mgI78cvo4oi5i';
+const AUTHORIZATION = 'Basic iJ5mgI78cvo4ui5i';
 
 const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 
 const siteMainElement = document.querySelector('.trip-events');
 const siteMainTripEvent = document.querySelector('.main-button');
 const siteFilterElement = document.querySelector('.trip-controls__filters');
-
-
 
 const pointModel = new PointModel({
   pointsApiService: new PointsApiService(END_POINT, AUTHORIZATION)
@@ -36,7 +34,6 @@ const filterPresenter = new FilterPresenter({
   filterContainer: siteFilterElement,
   pointModel,
   filterModel,
-  onNewPointDestroy: handleNewTaskFormClose
 });
 
 const boardPresenter = new BoardPresenter({
@@ -45,13 +42,12 @@ const boardPresenter = new BoardPresenter({
   pointModel,
   offersModel,
   citiesModel,
+  filterModel
 });
 
-function handleNewTaskFormClose() {
-  newTaskButtonComponent.element.disabled = false;
-}
 
 filterPresenter.init();
 boardPresenter.start();
-Promise.all([citiesModel.init(), offersModel.init(), pointModel.init()])
+Promise.all([citiesModel.init(), offersModel.init()])
+  .then(() => pointModel.init())
   .then(() => boardPresenter.init());

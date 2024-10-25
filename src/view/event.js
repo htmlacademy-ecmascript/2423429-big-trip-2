@@ -21,7 +21,6 @@ function createEvent(point, offers, cities){
   const startDate = point.date_from;
   const endDate = point.date_to;
   const datesDuration = createDatesDuration(startDate, endDate);
-
   const offersByType = findOffersByType(offers, point.type);
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
   const checkedOffers = filterOffers(offersByType.offers, point);
