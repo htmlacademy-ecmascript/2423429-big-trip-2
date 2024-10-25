@@ -2,6 +2,7 @@ import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { findOffersByType, replaceFirstSymbol } from '../utils.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import he from 'he';
 
 const BLANK_POINT = {
   'base_price': '',
@@ -356,7 +357,7 @@ export default class EventEditView extends AbstractStatefulView {
 
     if (this.#isNumeric(evt.target.value)) {
       this._setState({
-        'base_price': Number(evt.target.value),
+        'base_price': he.encode(Number(evt.target.value)),
       });
     }
   };
