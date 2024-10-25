@@ -8,7 +8,6 @@ const NoPointsTextType = {
   [FilterType.PRESENT]: 'There are no present points now.'
 };
 
-
 function createListEmpty (filterType) {
   const noPointsTextValue = NoPointsTextType[filterType];
 

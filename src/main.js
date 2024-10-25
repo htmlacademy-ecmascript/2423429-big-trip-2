@@ -1,6 +1,5 @@
 import BoardPresenter from './presenter/board-presenter.js';
 import FilterPresenter from './presenter/filter-presenter.js';
-import { render } from './framework/render.js';
 import PointModel from './model/point-model.js';
 import OffersModel from './model/offer-model.js';
 import CitiesModel from './model/cities-model.js';

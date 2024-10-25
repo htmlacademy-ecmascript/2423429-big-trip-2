@@ -46,7 +46,6 @@ export default class BoardPresenter {
     this.#filterModel = filterModel;
     this.#header = header;
 
-
     this.#pointModel.addObserver(this.#handleModelEvent);
     this.#filterModel.addObserver(this.#handleModelEvent);
   }
@@ -145,7 +144,6 @@ export default class BoardPresenter {
         remove(this.#messageComponent);
         this.#isLoading = false;
         this.#renderMessage('Something went wrong! Please try again.');
-
     }
   };
 
@@ -201,7 +199,6 @@ export default class BoardPresenter {
     remove(this.#sortComponent);
     remove(this.#messageComponent);
 
-
     if (resetSortType) {
       this.#currentSortType = SortType.DEFAULT;
     }
@@ -224,7 +221,6 @@ export default class BoardPresenter {
     }
 
     const points = this.points;
-
     this.#renderSort();
 
     if (points.length === 0) {
@@ -236,9 +232,7 @@ export default class BoardPresenter {
       remove(this.#listEmpty);
     }
 
-
     this.#renderPoints(points);
-
   }
 
   #handleNewPointClick = () => {

@@ -1,4 +1,3 @@
-
 const SortType = {
   DEFAULT: 'day',
   EVENT: 'event',
@@ -21,7 +20,6 @@ const UpdateType = {
   INIT_ERROR: 'INIT_ERROR',
 };
 
-
 const FilterType = {
   EVERYTHING: 'everything',
   FUTURE: 'future',
@@ -30,9 +28,4 @@ const FilterType = {
 
 };
 
-const Message = {
-  LOADING: 'Loading...',
-  ERROR: 'error'
-};
-
-export {SortType, FilterType, UserAction, UpdateType, Message};
+export {SortType, FilterType, UserAction, UpdateType};
