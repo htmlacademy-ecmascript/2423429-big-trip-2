@@ -223,13 +223,13 @@ export default class BoardPresenter {
     const points = this.points;
     this.#renderSort();
 
+    if(this.#listEmpty) {
+      remove(this.#listEmpty);
+    }
+
     if (points.length === 0) {
       this.#renderNoPoints();
       return;
-    }
-
-    if(this.#listEmpty) {
-      remove(this.#listEmpty);
     }
 
     this.#renderPoints(points);
