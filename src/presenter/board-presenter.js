@@ -85,6 +85,7 @@ export default class BoardPresenter {
 
   createPoint() {
     this.#currentSortType = SortType.DEFAULT;
+    this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.EVERYTHING);
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
     this.#newPointPresenter.init();
 
