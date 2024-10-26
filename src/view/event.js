@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {findOffersByType, humanizeEventDate} from '../utils.js';
+import {findOffersByType, humanizeEventDate, createDatesDuration} from '../utils.js';
 
 function filterOffers(offers, point) {
   return offers.filter((offer) => point.offers.includes(offer.id));
@@ -18,6 +18,9 @@ function createEvent(point, offers, cities){
   const dateStartHours = humanizeEventDate(point.date_from, 'HH:mm');
   const dateStartDate = humanizeEventDate(point.date_from, 'MMM DD');
   const dateEndHours = humanizeEventDate(point.date_to, 'HH:mm');
+  const startDate = point.date_from;
+  const endDate = point.date_to;
+  const datesDuration = createDatesDuration(startDate, endDate);
   const offersByType = findOffersByType(offers, point.type);
   const destinationName = cities.find((city) => city.id === point.destination)?.name;
   const checkedOffers = filterOffers(offersByType.offers, point);
@@ -40,7 +43,7 @@ function createEvent(point, offers, cities){
             <time class="event__end-time"
             datetime="${dateEndHours}">${dateEndHours}</time>
           </p>
-          <p class="event__duration">40М</p>
+          <p class="event__duration">${datesDuration}</p>
         </div>
         <p class="event__price">
         € <span class="event__price-value">${point.base_price}</span>
