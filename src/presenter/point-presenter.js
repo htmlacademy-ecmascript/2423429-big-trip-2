@@ -1,6 +1,6 @@
 import {render, replace, remove} from '../framework/render.js';
-import EventView from '../view/event.js';
-import EventEditView from '../view/event-edit-form.js';
+import EventView from '../view/event-view.js';
+import EventEditView from '../view/event-edit-view.js';
 import { UserAction, UpdateType } from '../const.js';
 import {isDatesEqual} from '../utils.js';
 
