@@ -1,5 +1,5 @@
 import { remove, render, RenderPosition } from '../framework/render.js';
-import EventEditView from '../view/event-edit-form.js';
+import EventEditView from '../view/event-edit-view.js';
 import { UpdateType, UserAction } from '../const.js';
 
 export default class NewPointPresenter {

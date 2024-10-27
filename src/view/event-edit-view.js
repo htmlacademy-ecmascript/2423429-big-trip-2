@@ -7,7 +7,7 @@ const BLANK_POINT = {
   'base_price': '',
   'date_from': '',
   'date_to': '',
-  destination: [],
+  destination: '',
   'is_favorite': false,
   offers: [],
   type: 'taxi',

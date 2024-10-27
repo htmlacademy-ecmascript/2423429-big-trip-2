@@ -3,21 +3,6 @@ import { FilterType } from './const.js';
 
 const humanizeEventDate = (date, format) => date ? dayjs(date).format(format) : '';
 
-function getRandomArrayElement(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function getRandomInteger (a, b) {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
-function getRandomBoolean(){
-  return Math.random() < 0.5;
-}
-
 function findOffersByType (offers, type){
   return offers.find((offer) => offer.type === type);
 }
@@ -70,9 +55,10 @@ function getEventDuration (event) {
   return dayjs(event.date_to).diff(dayjs(event.date_from));
 }
 
-function replaceFirstSymbol (string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function replaceFirstSymbol (offerType) {
+  return offerType.charAt(0).toUpperCase() + offerType.slice(1);
 }
+
 function createDatesDuration (startDate, endDate) {
   const start = new Date(startDate).getTime();
   const end = new Date(endDate).getTime();
@@ -106,4 +92,4 @@ const filter = {
   [FilterType.PAST]: (points) => points.filter((point) => isDateExpired(point.date_to)),
 };
 
-export {getRandomArrayElement, getRandomInteger, humanizeEventDate, getRandomBoolean, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration, filter};
+export {humanizeEventDate, findOffersByType, sortByDay, sortByPrice, sortByTime, replaceFirstSymbol, isDatesEqual, createDatesDuration, filter};

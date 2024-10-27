@@ -1,5 +1,5 @@
-import SortView from '../view/sort.js';
-import ListView from '../view/trip-events-list.js';
+import SortView from '../view/sort-view.js';
+import ListView from '../view/list-view.js';
 import {remove, render, RenderPosition} from '../framework/render.js';
 import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
 import NewPointButtonView from '../view/new-point-button-view.js';
@@ -67,13 +67,16 @@ export default class BoardPresenter {
   }
 
   start() {
+    this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
+    render(this.#newPointButtonComponent, this.#header);
+    this.#newPointButtonComponent.setDisabled();
+
     this.#renderBoard();
+
   }
 
   init() {
-    this.#newPointButtonComponent = new NewPointButtonView({onClick: this.#handleNewPointClick});
-    render(this.#newPointButtonComponent, this.#header);
-
+    this.#newPointButtonComponent.setEnabled();
     this.#newPointPresenter = new NewPointPresenter({
       pointListContainer: this.#tripListComponent.element,
       onDataChange: this.#handleViewAction,
@@ -144,7 +147,7 @@ export default class BoardPresenter {
       case UpdateType.INIT_ERROR:
         remove(this.#messageComponent);
         this.#isLoading = false;
-        this.#renderMessage('Something went wrong! Please try again.');
+        this.#renderMessage('Failed to load latest route information.');
     }
   };
 
