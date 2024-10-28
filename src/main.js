@@ -9,7 +9,7 @@ import OffersApiService from './api/offers-api-service.js';
 import DestinationsApiService from './api/destinations-api-service.js';
 
 
-const AUTHORIZATION = 'Basic iJ5mgI78cvo4ui5i';
+const AUTHORIZATION = 'Basic iJ5mgI78cvo4oi5i';
 
 const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 

@@ -27,6 +27,7 @@ export default class BoardPresenter {
   #newPointPresenter = null;
   #header = null;
   #isLoading = true;
+  #errorMessage = false;
   #uiBlocker = new UiBlocker({
     lowerLimit: TimeLimit.LOWER_LIMIT,
     upperLimit: TimeLimit.UPPER_LIMIT
@@ -76,7 +77,9 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#newPointButtonComponent.setEnabled();
+    if(!this.#errorMessage) {
+      this.#newPointButtonComponent.setEnabled();
+    }
     this.#newPointPresenter = new NewPointPresenter({
       pointListContainer: this.#tripListComponent.element,
       onDataChange: this.#handleViewAction,
@@ -140,6 +143,7 @@ export default class BoardPresenter {
         this.#renderBoard();
         break;
       case UpdateType.INIT:
+        this.#errorMessage = false;
         this.#isLoading = false;
         this.#renderBoard();
         remove(this.#messageComponent);
@@ -147,6 +151,7 @@ export default class BoardPresenter {
       case UpdateType.INIT_ERROR:
         remove(this.#messageComponent);
         this.#isLoading = false;
+        this.#errorMessage = true;
         this.#renderMessage('Failed to load latest route information.');
     }
   };
@@ -191,6 +196,9 @@ export default class BoardPresenter {
   }
 
   #renderMessage(message) {
+    // if (message === 'Failed to load latest route information.') {
+    //   this.#newPointButtonComponent.setDisabled();
+    // }
     render(this.#messageComponent = new MessageView({message})
       , this.#tripListComponent.element);
   }
